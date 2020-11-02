@@ -1,10 +1,13 @@
 {
   "env": {
-    "node": true
+    "node": true,
+    "mongo": true
   },
-  "extends": ["eslint:recommended"],
+  "extends": [
+    "eslint:recommended"
+  ],
   "parserOptions": {
-    "ecmaVersion": 2017,
+    "ecmaVersion": 2018,
     "sourceType": "module",
     "ecmaFeatures": {
       "impliedStrict": true,
@@ -16,8 +19,20 @@
       "error",
       "consistent"
     ],
-    "no-multi-spaces": ["error"],
-    "quotes": ["error", "single"],
+    "no-multi-spaces": [
+      "error"
+    ],
+    "quotes": [
+      "error",
+      "single",
+      {
+        "avoidEscape": true
+      }
+    ],
+    "quote-props": [
+      "warn",
+      "as-needed"
+    ],
     "semi": "error"
   }
 }
