@@ -1,0 +1,32 @@
+{
+  "title": "Remap ⌘^w to ⇧⌥⌘4 for Flameshot",
+  "rules": [
+    {
+      "description": "Remap ⌘^w to ⇧⌥⌘4 for Flameshot",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "w",
+            "modifiers": {
+              "mandatory": [
+                "command",
+                "control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "4",
+              "modifiers": [
+                "shift",
+                "option",
+                "command"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
