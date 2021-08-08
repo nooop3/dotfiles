@@ -1,0 +1,9 @@
+[
+  { "keys": ["TAB", "l", "CTRL_WCTRL_W"], "type": "function", "command": "focus_next" },
+  { "keys": ["SHIFT_TAB", "h"], "type": "function", "command": "focus_previous" },
+  { "keys": ["UP", "k"], "type": "function", "command": "move_up" },
+  { "keys": ["UP", "j"], "type": "function", "command": "move_down" },
+  { "keys": ["PAGE_UP", "u"], "type": "function", "command": "page_up" },
+  { "keys": ["PAGE_DOWN", "d"], "type": "function", "command": "page_down" },
+  { "keys": ["tc", "ESCAPE"], "type": "function", "command": "toggle_console" }
+]
