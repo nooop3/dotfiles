@@ -1,7 +1,28 @@
 # Dotfiles
 
-## Joplin
+## Runcom
 
-### Edit Keymap Config File
+### Tmux.conf
+
+```bash
+ln -s ~/github/dotfiles/runcom/tmux.conf ~/.tmux.conf
+```
+
+## Softwares
+
+### Joplin
+
+#### Edit Keymap Config File
 
 Add file `~/.config/joplin/keymap.json` with the content of './sofwares/joplin/keymap.json'
+
+### Karabiner
+
+#### Link `change-screenshot-keys.json` to Karabiner config folder
+
+```bash
+ln -s ~/github/dotfiles/sofwares/karabiner/change-screenshot-keys.json
+~/.config/karabiner/assets/complex_modifications
+```
+
+#### Enable in the `Complex modifications` tab
