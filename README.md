@@ -8,6 +8,12 @@
 ln -s ~/github/dotfiles/runcom/tmux.conf ~/.tmux.conf
 ```
 
+### pip.conf
+
+```bash
+ln -s ~/github/dotfiles/runcom/pip.conf ~/.config/pip/pip.conf
+```
+
 ## Softwares
 
 ### Joplin
