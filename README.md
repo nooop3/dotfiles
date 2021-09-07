@@ -14,6 +14,12 @@ ln -s ~/github/dotfiles/runcom/tmux.conf ~/.tmux.conf
 ln -s ~/github/dotfiles/runcom/pip.conf ~/.config/pip/pip.conf
 ```
 
+### terraformrc
+
+```bash
+ln -s ~/github/dotfiles/runcom/terraformrc ~/.terraformrc
+```
+
 ## Softwares
 
 ### Joplin
