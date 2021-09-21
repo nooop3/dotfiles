@@ -14,6 +14,14 @@ ln -s ~/github/dotfiles/runcom/tmux.conf ~/.tmux.conf
 ln -s ~/github/dotfiles/runcom/pip.conf ~/.config/pip/pip.conf
 ```
 
+### inputrc
+
+Enable Vim bindings for REPL like Python.
+
+```bash
+ln -s ~/github/dotfiles/runcom/inputrc ~/.inputrc
+```
+
 ### terraformrc
 
 ```bash
