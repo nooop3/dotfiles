@@ -41,8 +41,18 @@ Add file `~/.config/joplin/keymap.json` with the content of './sofwares/joplin/k
 #### Link `change-screenshot-keys.json` to Karabiner config folder
 
 ```bash
-ln -s ~/github/dotfiles/sofwares/karabiner/change-screenshot-keys.json
-~/.config/karabiner/assets/complex_modifications
+ln -s ~/github/dotfiles/sofwares/karabiner/change-screenshot-keys.json ~/.config/karabiner/assets/complex_modifications
 ```
 
 #### Enable in the `Complex modifications` tab
+
+## Mirrors
+
+### Maven
+
+#### Link `settings.xml` to m2 config folder
+
+```bash
+mkdir ~/.m2
+ln -s $PWD/mirrors/settings.xml ~/.m2/settings.xml
+```
