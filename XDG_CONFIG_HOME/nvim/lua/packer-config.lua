@@ -2,6 +2,13 @@
 
 local fn = vim.fn
 
+local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+local packer_bootstrap = nil
+if fn.empty(fn.glob(install_path)) > 0 then
+  -- packer_bootstrap = fn.system({"git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path})
+  packer_bootstrap = fn.system({"git", "clone", "--depth", "1", "https://hub.fastgit.xyz/wbthomason/packer.nvim", install_path})
+end
+
 -- Only required if you have packer configured as `opt`
 -- vim.cmd [[packadd packer.nvim]]
 
@@ -75,7 +82,7 @@ return require("packer").startup({function(use)
   use "Yggdroot/indentLine"
   use "tpope/vim-fugitive"                         -- git integration
   use "junegunn/gv.vim"                            -- commit history
-  use "windwp/nvim-autopairs"  
+  use "windwp/nvim-autopairs"
 
   use 'terrortylor/nvim-comment'
 
