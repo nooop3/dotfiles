@@ -65,61 +65,58 @@ local servers = {
   -- "rust_analyzer",
   -- npm install -g typescript typescript-language-server
   "tsserver",
+  "gopls",
   -- brew install lua-language-server
   "sumneko_lua",
 }
 for _, lsp in pairs(servers) do
-  nvim_lsp[lsp].setup {
+  local configs = {
     on_attach = on_attach,
     capabilities = capabilities,
   }
+
+  -- Golang
+  if (lsp == "gopls") then
+    configs.settings = {
+      gopls = {
+        experimentalPostfixCompletions = true,
+        analyses = {
+          unusedparams = true,
+          shadow = true,
+        },
+        staticcheck = true,
+      },
+    }
+    configs.init_options = {
+      usePlaceholders = true,
+    }
+  end
+
+  -- lua
+  if (lsp == "sumneko_lua") then
+    configs.settings = {
+      Lua = {
+        runtime = {
+          -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+          version = 'LuaJIT',
+        },
+        diagnostics = {
+          -- Get the language server to recognize the `vim` global
+          globals = {'vim'},
+        },
+        workspace = {
+          -- Make the server aware of Neovim runtime files
+          library = vim.api.nvim_get_runtime_file("", true),
+        },
+        -- Do not send telemetry data containing a randomized but unique identifier
+        telemetry = {
+          enable = false,
+        },
+      },
+    }
+  end
+  nvim_lsp[lsp].setup(configs)
 end
-
--- GoLang
-nvim_lsp["gopls"].setup{
-  cmd = {"gopls"},
-  on_attach = on_attach,
-  capabilities = capabilities,
-  settings = {
-    gopls = {
-      experimentalPostfixCompletions = true,
-      analyses = {
-        unusedparams = true,
-        shadow = true,
-      },
-      staticcheck = true,
-    },
-  },
-  init_options = {
-    usePlaceholders = true,
-  }
-}
-
--- Lua
-nvim_lsp.sumneko_lua.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-  settings = {
-    Lua = {
-      runtime = {
-        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-        version = 'LuaJIT',
-      },
-      diagnostics = {
-        -- Get the language server to recognize the `vim` global
-        globals = {'vim'},
-      },
-      workspace = {
-        -- Make the server aware of Neovim runtime files
-        library = vim.api.nvim_get_runtime_file("", true),
-      },
-      -- Do not send telemetry data containing a randomized but unique identifier
-      telemetry = {
-        enable = false,
-      },
-    },
-  },
-})
 
 -- npm install -g diagnostic-languageserver
 -- npm i -g eslint_d prettier
