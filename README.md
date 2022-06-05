@@ -28,6 +28,14 @@ ln -s ~/github/dotfiles/runcom/inputrc ~/.inputrc
 ln -s ~/github/dotfiles/runcom/terraformrc ~/.terraformrc
 ```
 
+## XDG_CONFIG_HOME
+
+### neovim
+
+```bash
+ln -s ~/github/dotfiles/XDG_CONFIG_HOME/nvim ~/.config/nvim
+```
+
 ## Softwares
 
 ### Joplin
