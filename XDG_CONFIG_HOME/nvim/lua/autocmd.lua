@@ -3,7 +3,7 @@
 local o = vim.o
 local fn = vim.fn
 local cmd = vim.cmd
-local opt = vim.opt
+local opt_local = vim.opt_local
 local map = vim.keymap.set
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
@@ -47,18 +47,18 @@ autocmd({"FileType"}, {
   group = file_type_tab_stop,
   pattern = { "markdown" },
   callback = function()
-    opt.tabstop = 4
-    opt.softtabstop = 4
-    opt.shiftwidth = 4
+    opt_local.tabstop = 4
+    opt_local.softtabstop = 4
+    opt_local.shiftwidth = 4
   end
 })
 -- autocmd({"BufNewFile", "BufRead"}, {
 --   group = file_type_tab_stop,
 --   pattern = { "*.js", "*.json", "*.ts", "*.html", "*.css", "*.yml", "*.proto", "*.sh" },
 --   callback = function()
---     opt.tabstop = 2
---     opt.softtabstop = 2
---     opt.shiftwidth = 2
+--     opt_local.tabstop = 2
+--     opt_local.softtabstop = 2
+--     opt_local.shiftwidth = 2
 --   end
 -- })
 
@@ -68,7 +68,7 @@ autocmd({"BufNewFile", "BufRead"}, {
   group = custom_file_type_changes,
   pattern = { "crontab*" },
   callback = function()
-    opt.filetype = "crontab"
+    opt_local.filetype = "crontab"
   end
 })
 
