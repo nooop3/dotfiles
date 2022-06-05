@@ -65,6 +65,7 @@ lspsaga.setup({
 map("n", "<leader>gh", provider.lsp_finder, { silent = true })
 
 -- code action
+---@diagnostic disable-next-line: unused-local, unused-function
 local function visual_code_action()
   -- vim.cmd(":<C-u>")
   return code_action.range_code_action()

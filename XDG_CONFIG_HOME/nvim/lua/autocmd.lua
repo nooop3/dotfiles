@@ -18,8 +18,8 @@ autocmd({"BufReadPost"}, {
   group = vim_startup,
   pattern = { "*" },
   callback = function()
-    quote_mark_line = fn.line("'" .. "\"")
-    last_line = fn.line("$")
+    local quote_mark_line = fn.line("'" .. "\"")
+    local last_line = fn.line("$")
     if quote_mark_line >= 1 and quote_mark_line <= last_line and o.ft ~= "commit" then
       cmd("normal! g`\"")
     end
