@@ -71,6 +71,13 @@ autocmd({"BufNewFile", "BufRead"}, {
     opt_local.filetype = "crontab"
   end
 })
+autocmd({"BufNewFile", "BufRead"}, {
+  group = custom_file_type_changes,
+  pattern = { "*.nomad" },
+  callback = function()
+    opt_local.filetype = "hcl"
+  end
+})
 
 -- Delete trailing white space on save, useful for Python and CoffeeScript ;)
 local delete_trailing_white_space = augroup("DeleteTrailingWhiteSpace", { clear = true })
