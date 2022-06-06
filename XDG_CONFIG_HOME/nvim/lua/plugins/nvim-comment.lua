@@ -1,5 +1,9 @@
 --[[ plugins/nvim-comment.lua ]]
 
+local opt_local = vim.opt_local
+local augroup = vim.api.nvim_create_augroup
+local autocmd = vim.api.nvim_create_autocmd
+
 local comment = require('nvim_comment')
 
 comment.setup({
@@ -19,4 +23,13 @@ comment.setup({
   comment_chunk_text_object = "ic",
   -- Hook function to call before commenting takes place
   hook = nil
+})
+
+local nvim_comment_group = augroup("NvimComment", { clear = true })
+autocmd({"FileType"}, {
+  group = nvim_comment_group,
+  pattern = { "terraform", "hcl" },
+  callback = function()
+    opt_local.commentstring = "# %s"
+  end
 })
