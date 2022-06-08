@@ -61,6 +61,8 @@ local servers = {
   -- "pylsp",
   -- npm install -g pyright
   "pyright",
+  -- npm i -g bash-language-server
+  "bashls",
   -- brew install rust-analyzer
   -- "rust_analyzer",
   -- npm install -g typescript typescript-language-server
