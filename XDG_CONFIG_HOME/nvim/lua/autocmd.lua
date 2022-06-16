@@ -93,6 +93,16 @@ autocmd({"BufWrite"}, {
   end
 })
 
+-- autocmd BufWritePre *.tf lua vim.lsp.buf.formatting_sync()
+-- local terraform_format = augroup("TerraformFormat", { clear = true })
+-- autocmd({"BufWritePre"}, {
+--   group = terraform_format,
+--   pattern = { "*.tf" },
+--   callback = function()
+--     return vim.lsp.buf.formatting_sync()
+--   end
+-- })
+
 -- "##### auto fcitx  ###########
 -- let g:input_toggle = 1
 -- function! Fcitx2en()
