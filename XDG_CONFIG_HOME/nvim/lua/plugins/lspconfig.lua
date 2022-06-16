@@ -72,6 +72,8 @@ local servers = {
   "sumneko_lua",
   -- brew install tflint
   "tflint",
+  -- brew install hashicorp/tap/terraform-ls
+  "terraformls",
 }
 for _, lsp in pairs(servers) do
   local configs = {
@@ -121,7 +123,7 @@ for _, lsp in pairs(servers) do
   end
 
   -- tflint
-  if (lsp == "tflint") then
+  if (lsp == "tflint") or (lsp == "terraformls") then
     -- root_pattern(".terraform", ".git", ".tflint.hcl")
     configs.root_dir = util.root_pattern(".git", ".tflint.hcl")
   end
