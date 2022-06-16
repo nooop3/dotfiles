@@ -53,7 +53,7 @@ configs.setup({
     },
   },
   indent = {
-    enable = false,
+    enable = true,
     disable = {},
   },
 })
