@@ -70,6 +70,8 @@ local servers = {
   "gopls",
   -- brew install lua-language-server
   "sumneko_lua",
+  -- brew install tflint
+  "tflint",
 }
 for _, lsp in pairs(servers) do
   local configs = {
@@ -116,6 +118,12 @@ for _, lsp in pairs(servers) do
         },
       },
     }
+  end
+
+  -- tflint
+  if (lsp == "tflint") then
+    -- root_pattern(".terraform", ".git", ".tflint.hcl")
+    configs.root_dir = util.root_pattern(".git", ".tflint.hcl")
   end
   nvim_lsp[lsp].setup(configs)
 end
