@@ -68,8 +68,10 @@ local servers = {
   -- npm install -g typescript typescript-language-server
   "tsserver",
   "gopls",
+  -- sudo pacman -S lua-language-server
   -- brew install lua-language-server
   "sumneko_lua",
+  -- curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
   -- brew install tflint
   "tflint",
   -- brew install hashicorp/tap/terraform-ls
