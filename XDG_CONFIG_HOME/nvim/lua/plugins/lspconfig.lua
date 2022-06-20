@@ -75,7 +75,7 @@ local servers = {
   -- brew install tflint
   "tflint",
   -- brew install hashicorp/tap/terraform-ls
-  "terraformls",
+  -- "terraformls",
 }
 for _, lsp in pairs(servers) do
   local configs = {
