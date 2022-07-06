@@ -79,6 +79,11 @@ opt.foldmethod = "expr"
 opt.foldexpr = "nvim_treesitter#foldexpr()"
 opt.whichwrap = "b,<,>,[,],h,l"
 opt.guioptions = nil
+if has('mac') then
+  opt.guifont = "SauceCodePro Nerd Font"
+elseif has('linux') then
+  opt.guifont = "Source Code Pro"
+end
 -- opt.clipboard = opt.clipboard + "unnamedplus"
 
 -- opt.completeopt = opt.completeopt - "preview"
