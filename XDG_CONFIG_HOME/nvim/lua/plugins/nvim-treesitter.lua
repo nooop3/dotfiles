@@ -17,6 +17,7 @@ configs.setup({
     "hcl",
     "json",
     "markdown",
+    "markdown_inline",
     "python",
     "bash",
     "go",
@@ -24,6 +25,7 @@ configs.setup({
     "java",
     "tsx",
 
+    "vim",
     "lua",
     "rust",
 
