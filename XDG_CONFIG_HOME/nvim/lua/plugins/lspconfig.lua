@@ -45,11 +45,39 @@ local on_attach = function(_, bufnr)
 end
 
 -- Setup rust_analyzer via rust-tools.nvim
+-- brew install rust-analyzer
+-- pacman -S rust-analyzer
+-- rustup update
+-- rustup component add clippy
 require("rust-tools").setup({
   server = {
     on_attach = on_attach,
     capabilities = capabilities,
-    root_dir = util.root_pattern(".git")
+    -- root_dir = util.root_pattern(".git"),
+    settings = {
+      ["rust-analyzer"] = {
+        cargo = {
+          -- features = { "all" },
+        },
+        checkOnSave = {
+          allTargets = false,
+          -- default: `cargo check`
+          command = "clippy",
+        },
+        imports = {
+          granularity = {
+            enforce = true,
+          },
+          prefix = "crate"
+        },
+        inlayHints = {
+          lifetimeElisionHints = {
+            enable = true,
+            useParameterNames = true,
+          }
+        }
+      }
+    }
   }
 })
 
@@ -64,8 +92,6 @@ local servers = {
   "pyright",
   -- npm i -g bash-language-server
   "bashls",
-  -- brew install rust-analyzer
-  -- "rust_analyzer",
   -- npm install -g typescript typescript-language-server
   "tsserver",
   "gopls",
