@@ -16,6 +16,7 @@ configs.setup({
     "yaml",
     "hcl",
     "json",
+    "sql",
     "markdown",
     "markdown_inline",
     "python",
