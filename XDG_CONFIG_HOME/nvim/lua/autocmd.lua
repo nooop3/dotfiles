@@ -82,7 +82,7 @@ autocmd({"BufNewFile", "BufRead"}, {
   group = custom_file_type_changes,
   pattern = { "*" },
   callback = function()
-    if vim.fn.search("{{.+}}", "nw") then
+    if vim.fn.search("{{.\\+}}", "nw") ~= 0 then
       opt_local.filetype = "gotmpl"
     end
   end
