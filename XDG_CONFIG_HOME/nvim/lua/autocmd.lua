@@ -78,6 +78,15 @@ autocmd({"BufNewFile", "BufRead"}, {
     opt_local.filetype = "hcl"
   end
 })
+autocmd({"BufNewFile", "BufRead"}, {
+  group = custom_file_type_changes,
+  pattern = { "*" },
+  callback = function()
+    if vim.fn.search("{{.+}}", "nw") then
+      opt_local.filetype = "gotmpl"
+    end
+  end
+})
 
 -- Delete trailing white space on save, useful for Python and CoffeeScript ;)
 local delete_trailing_white_space = augroup("DeleteTrailingWhiteSpace", { clear = true })
