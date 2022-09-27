@@ -1,0 +1,21 @@
+" ======================================
+"    FileName: .tridactylrc
+"    Author:   Edward Guan
+"    Version:  0.0.1
+"    Email:    nooop3.lau@gmail.com
+"    Blog: http://uare.github.io
+"    Date: 2021-09-21
+" =======================================
+
+" colors dark
+
+" set smoothscroll true
+
+" bind d scrollpage 0.5
+
+" guiset_quiet gui none
+" guiset_quiet tabstoolbar show
+" guiset_quiet tabs autohide
+" guiset_quiet navbar autohide
+" guiset_quiet hoverlink left
+" guiset_quiet statuspanel left
