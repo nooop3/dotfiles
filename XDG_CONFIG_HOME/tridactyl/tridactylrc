@@ -9,20 +9,20 @@
 
 " set up GUI
 " equals to `hoverlink = none, menubar = grey, navbar = auothide, padwhenmaximised = some, tabs = none
-" guiset_quiet gui none
+guiset_quiet gui none
 
-guiset_quiet hoverlink left
-guiset_quiet menubar default
-guiset_quiet navbar autohide
-" guiset_quiet navbar always
-guiset_quiet padwhenmaximised none
-" guiset_quiet tabs autohide
-guiset_quiet tabs always
-guiset_quiet tabcount on
-guiset_quiet tabcounts show
-" guiset_quiet tabstoolbar show
-guiset_quiet statuspanel left
-" guiset_quiet titlebar hide
+" guiset_quiet hoverlink left
+" guiset_quiet menubar default
+" guiset_quiet navbar autohide
+" " guiset_quiet navbar always
+" guiset_quiet padwhenmaximised none
+" " guiset_quiet tabs autohide
+" guiset_quiet tabs always
+" guiset_quiet tabcount on
+" guiset_quiet tabcounts show
+" " guiset_quiet tabstoolbar show
+" guiset_quiet statuspanel left
+" " guiset_quiet titlebar hide
 
 
 colors dark
