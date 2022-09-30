@@ -1,21 +1,36 @@
 " ======================================
 "    FileName: .tridactylrc
 "    Author:   Edward Guan
-"    Version:  0.0.1
+"    Version:  0.0.2
 "    Email:    nooop3.lau@gmail.com
-"    Blog: http://uare.github.io
-"    Date: 2021-09-21
+"    Blog: https://uare.github.io
+"    Date: 2022-09-30
 " =======================================
 
-" colors dark
-
-" set smoothscroll true
-
-" bind d scrollpage 0.5
-
+" set up GUI
+" equals to `hoverlink = none, menubar = grey, navbar = auothide, padwhenmaximised = some, tabs = none
 " guiset_quiet gui none
-" guiset_quiet tabstoolbar show
+
+guiset_quiet hoverlink left
+guiset_quiet menubar default
+guiset_quiet navbar autohide
+" guiset_quiet navbar always
+guiset_quiet padwhenmaximised none
 " guiset_quiet tabs autohide
-" guiset_quiet navbar autohide
-" guiset_quiet hoverlink left
-" guiset_quiet statuspanel left
+guiset_quiet tabs always
+guiset_quiet tabcount on
+guiset_quiet tabcounts show
+" guiset_quiet tabstoolbar show
+guiset_quiet statuspanel left
+" guiset_quiet titlebar hide
+
+
+colors dark
+
+set update.checkintervalsecs 86400
+set allowautofocus false
+set smoothscroll true
+
+" bind keys
+" bind d scrollpage 0.5
+bind ZZ !s killall firefox
