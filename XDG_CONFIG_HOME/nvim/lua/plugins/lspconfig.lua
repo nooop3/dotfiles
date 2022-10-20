@@ -5,6 +5,7 @@ local util = require("lspconfig").util
 
 -- Add additional capabilities supported by nvim-cmp
 local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
 local opts = { noremap=true, silent=true }
@@ -103,6 +104,8 @@ local servers = {
   "tflint",
   -- brew install hashicorp/tap/terraform-ls
   -- "terraformls",
+  -- npm i -g vscode-langservers-extracted
+  "jsonls",
 }
 for _, lsp in pairs(servers) do
   local configs = {
@@ -163,7 +166,7 @@ end
 -- npm i -g eslint_d prettier
 nvim_lsp.diagnosticls.setup({
   on_attach = on_attach,
-  filetypes = { "javascript", "json", "typescript", "markdown" },
+  filetypes = { "javascript", "typescript", "markdown" },
   root_dir = function(fname)
     return util.root_pattern("tsconfig.json")(fname) or
     util.root_pattern(".eslintrc.js")(fname);
