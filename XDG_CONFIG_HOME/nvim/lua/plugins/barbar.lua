@@ -3,7 +3,7 @@
 local map = vim.keymap.set
 
 local nvim_tree_events = require("nvim-tree.events")
-local bufferline_state = require("bufferline.state")
+local bufferline_api = require("bufferline.api")
 
 -- Set barbar"s options
 vim.g.bufferline = {
@@ -114,10 +114,14 @@ map("n", "<leader>aw", ":BufferOrderByWindowNumber<CR>", { silent = true })
 -- :BarbarEnable - enables barbar (enabled by default)
 -- :BarbarDisable - very bad command, should never be used
 
-nvim_tree_events.on_tree_open(function ()
-  bufferline_state.set_offset(31, "File Tree")
+local function get_tree_size()
+  return require'nvim-tree.view'.View.width
+end
+
+nvim_tree_events.subscribe('TreeOpen', function()
+  bufferline_api.set_offset(get_tree_size())
 end)
 
-nvim_tree_events.on_tree_close(function ()
-  bufferline_state.set_offset(0)
+nvim_tree_events.subscribe('Resize', function()
+  bufferline_api.set_offset(get_tree_size())
 end)
