@@ -17,4 +17,4 @@ require("plugins/telescope")
 require("plugins/nvim-autopairs")
 require("plugins/nvim-comment")
 
-require("plugins/copilot")
+-- require("plugins/copilot")
