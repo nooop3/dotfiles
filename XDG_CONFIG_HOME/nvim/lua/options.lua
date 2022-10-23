@@ -45,11 +45,12 @@ opt.splitbelow = true
 
 -- [[ Context ]]
 -- opt.colorcolumn = "80"
+opt.relativenumber = true
 opt.number = true
--- opt.relativenumber = true
 opt.scrolloff = 4
 opt.laststatus = 2
 opt.signcolumn = "number"
+opt.backspace = "indent,eol,start"
 opt.listchars = {eol = "↲", tab = "▸ ", trail = "·"}
 
 opt.textwidth= 79
@@ -79,6 +80,7 @@ opt.foldmethod = "expr"
 opt.foldexpr = "nvim_treesitter#foldexpr()"
 opt.whichwrap = "b,<,>,[,],h,l"
 opt.guioptions = nil
+-- opt.iskeyword = opt.iskeyword + "-"
 -- opt.clipboard = opt.clipboard + "unnamedplus"
 
 -- opt.completeopt = opt.completeopt - "preview"
