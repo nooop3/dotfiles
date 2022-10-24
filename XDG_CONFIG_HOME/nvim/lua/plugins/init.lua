@@ -15,6 +15,6 @@ require("plugins/nvim-treesitter")
 --[[ Dev ]]
 require("plugins/telescope")
 require("plugins/nvim-autopairs")
-require("plugins/nvim-comment")
+require("plugins/comment")
 
 -- require("plugins/copilot")

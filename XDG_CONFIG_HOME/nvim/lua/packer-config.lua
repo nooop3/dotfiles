@@ -43,6 +43,7 @@ return packer.startup({function(use)
 
   -- essential plugins
 	use("tpope/vim-surround") -- add, delete, change surroundings (it's awesome)
+  use 'numToStr/Comment.nvim'
 
   -- A file explorer tree for neovim written in lua
   use {
@@ -99,8 +100,6 @@ return packer.startup({function(use)
   use "junegunn/gv.vim"                            -- commit history
   use "windwp/nvim-autopairs"
 
-  use 'terrortylor/nvim-comment'
-
   -- Rust
   use "simrat39/rust-tools.nvim"
 
@@ -109,7 +108,6 @@ return packer.startup({function(use)
   -- use "tpope/vim-commentary"
   -- use "mbbill/undotree"
   -- use "vimwiki/vimwiki"
-  -- use "pope/vim-surround"
 
   -- use "github/copilot.vim"
   -- Automatically set up your configuration after cloning packer.nvim
