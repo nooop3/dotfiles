@@ -1,10 +1,15 @@
 --[[ autpcmd.lua ]]
 
 local o = vim.o
+local g = vim.g
 local fn = vim.fn
 local cmd = vim.cmd
+local opt = vim.opt
 local opt_local = vim.opt_local
 local map = vim.keymap.set
+local has = vim.fn.has
+local system = vim.fn.system
+local trim = vim.fn.trim
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 
@@ -112,29 +117,33 @@ autocmd({"BufWrite"}, {
 --   end
 -- })
 
--- "##### auto fcitx  ###########
--- let g:input_toggle = 1
--- function! Fcitx2en()
---    let s:input_status = system("fcitx5-remote")
---    if s:input_status == 2
---       let g:input_toggle = 1
---       let l:a = system("fcitx5-remote -c")
---    endif
--- endfunction
+g.input_toggle = 0
+local fcitx2en = function()
+  local input_status = trim(system("fcitx5-remote"))
+  if input_status == "2" then
+    g.input_toggle = 1
+    system("fcitx5-remote -c")
+  end
+end
+local fcitx2zh = function()
+  local input_status = trim(system("fcitx5-remote"))
+  if (input_status ~= "2" and g.input_toggle == 1) then
+    system("fcitx5-remote -o")
+    g.input_toggle = 0
+  end
+end
 
--- function! Fcitx2zh()
---    let s:input_status = system("fcitx5-remote")
---    if s:input_status != 2 && g:input_toggle == 1
---       let l:a = system("fcitx-remote -o")
---       let g:input_toggle = 0
---    endif
--- endfunction
-
--- if !has('Mac')
---     set ttimeoutlen=150
---     "Exit insert mode
---     autocmd InsertLeave * call Fcitx2en()
---     "Enter insert mode
---     autocmd InsertEnter * call Fcitx2zh()
--- endif
--- "##### auto fcitx end ######
+if has("Mac") == 0 then
+  opt.timeoutlen = 150
+  local auto_fcitx = augroup("AutoFcitx", { clear = true })
+  autocmd({"InsertLeave"}, {
+    group = auto_fcitx,
+    pattern = { "*" },
+    callback = fcitx2en,
+  })
+  autocmd({"InsertEnter"}, {
+    group = auto_fcitx,
+    pattern = { "*" },
+    callback = fcitx2zh,
+  })
+end
