@@ -18,7 +18,7 @@ local packer_bootstrap = ensure_packer()
 -- import packer safely
 local status, packer = pcall(require, "packer")
 if not status then
-	return
+  return
 end
 
 -- Only required if you have packer configured as `opt`
@@ -42,7 +42,7 @@ return packer.startup({function(use)
   }
 
   -- essential plugins
-	use("tpope/vim-surround") -- add, delete, change surroundings (it's awesome)
+  use("tpope/vim-surround") -- add, delete, change surroundings (it's awesome)
   use 'numToStr/Comment.nvim'
 
   -- A file explorer tree for neovim written in lua
