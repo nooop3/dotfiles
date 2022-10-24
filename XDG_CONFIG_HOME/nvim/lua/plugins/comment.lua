@@ -1,4 +1,4 @@
---[[ plugins/nvim-comment.lua ]]
+--[[ plugins/comment.lua ]]
 -- import comment plugin safely
 local setup, comment = pcall(require, "Comment")
 if not setup then
