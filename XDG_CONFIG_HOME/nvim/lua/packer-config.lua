@@ -2,12 +2,18 @@
 
 local fn = vim.fn
 
-local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-local packer_bootstrap = nil
-if fn.empty(fn.glob(install_path)) > 0 then
-  -- packer_bootstrap = fn.system({"git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path})
-  packer_bootstrap = fn.system({"git", "clone", "--depth", "1", "https://hub.fastgit.xyz/wbthomason/packer.nvim", install_path})
+local ensure_packer = function()
+  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+  if fn.empty(fn.glob(install_path)) > 0 then
+    -- fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    fn.system({"git", "clone", "--depth", "1", "https://hub.fastgit.xyz/wbthomason/packer.nvim", install_path})
+    vim.cmd [[packadd packer.nvim]]
+    return true
+  end
+  return false
 end
+
+local packer_bootstrap = ensure_packer()
 
 -- import packer safely
 local status, packer = pcall(require, "packer")
@@ -34,6 +40,9 @@ return packer.startup({function(use)
     "nvim-lualine/lualine.nvim",
     requires = { "kyazdani42/nvim-web-devicons", opt = false }
   }
+
+  -- essential plugins
+	use("tpope/vim-surround") -- add, delete, change surroundings (it's awesome)
 
   -- A file explorer tree for neovim written in lua
   use {
@@ -112,8 +121,8 @@ end,
 config = {
   compile_path = fn.stdpath("data") .. "/site/plugin/packer_compiled.lua",
   git = {
-    -- default_url_format = "https://github.com/%s" -- Lua format string used for "aaa/bbb" style plugins
-    default_url_format = "https://hub.fastgit.xyz/%s"
+    default_url_format = "https://github.com/%s" -- Lua format string used for "aaa/bbb" style plugins
+    -- default_url_format = "https://hub.fastgit.xyz/%s"
   }
   -- display = {
     -- open_fn = require("packer.util").float,
