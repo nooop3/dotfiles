@@ -1,9 +1,7 @@
 --[[ options.lua ]]
 
-local api = vim.api
 local opt = vim.opt
 local has = vim.fn.has
-local cmd = vim.api.nvim_command
 
 -- [[ Theme ]]
 opt.syntax = "ON"
@@ -13,8 +11,10 @@ if has("termguicolors") == 1 then
 end
 -- cmd:  Set the colorscheme
 -- cmd("colorscheme dracula")
-if #api.nvim_get_runtime_file("colors/gruvbox-material.vim", true) ~= 0 then
-  cmd("colorscheme gruvbox-material")
+local status, _ = pcall(vim.cmd, "colorscheme gruvbox-material")
+if not status then
+	print("Colorscheme not found!") -- print error if colorscheme not installed
+	return
 end
 
 -- [[ Filetypes ]]
