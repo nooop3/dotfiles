@@ -25,7 +25,7 @@ opt.fileformats = "unix"
 opt.fixendofline = false
 
 -- [[ Search ]]
--- opt.ignorecase = true
+opt.ignorecase = true
 opt.smartcase = true
 opt.incsearch = true
 opt.hlsearch = true

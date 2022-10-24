@@ -77,5 +77,7 @@ map("n", "<leader>fo", builtin.current_buffer_tags, { silent = true })
 map("n", "<leader>fO", builtin.tags, { silent = true })
 
 -- Git Pickers
-map("n", "<leader>gl", builtin.git_commits, { silent = true })
-map("n", "<leader>ga", builtin.git_bcommits, { silent = true })
+map("n", "<leader>gc", builtin.git_commits, { silent = true })
+map("n", "<leader>gfc", builtin.git_bcommits, { silent = true })
+map("n", "<leader>gb", builtin.git_branches, { silent = true })
+map("n", "<leader>gs", builtin.git_status, { silent = true })
