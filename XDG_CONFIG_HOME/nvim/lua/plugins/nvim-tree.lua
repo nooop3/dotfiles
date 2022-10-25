@@ -11,9 +11,10 @@ nvimtree.setup({
   open_on_setup = true,
   open_on_tab = true,
   sync_root_with_cwd = true,
+  respect_buf_cwd = true,
   update_focused_file = {
     enable = true,
-    ignore_list = {},
+    update_root = true,
   },
 })
 
