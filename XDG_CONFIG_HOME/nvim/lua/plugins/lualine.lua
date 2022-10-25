@@ -1,6 +1,10 @@
 --[[ plugins/lualine.lua ]]
+local status, lualine = pcall(require, "lualine")
+if not status then
+	return
+end
 
-require("lualine").setup {
+lualine.setup({
   options = {
     icons_enabled = true,
     -- theme = "auto",
@@ -8,9 +12,18 @@ require("lualine").setup {
     -- theme = "dracula-nvim",
     component_separators = { left = "", right = ""},
     section_separators = { left = "", right = ""},
-    disabled_filetypes = {},
+    disabled_filetypes = {
+      statusline = { "packer", "NvimTree" },
+      winbar = {},
+    },
+    ignore_focus = {},
     always_divide_middle = true,
     globalstatus = false,
+    refresh = {
+      statusline = 1000,
+      tabline = 1000,
+      winbar = 1000,
+    },
   },
   sections = {
     lualine_a = {"mode"},
@@ -41,5 +54,7 @@ require("lualine").setup {
     lualine_z = {}
   },
   tabline = {},
-  extensions = {}
-}
+  winbar = {},
+  inactive_winbar = {},
+  extensions = {},
+})
