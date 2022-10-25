@@ -3,10 +3,10 @@
 local fn = vim.fn
 
 local ensure_packer = function()
-  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+  local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
   if fn.empty(fn.glob(install_path)) > 0 then
     -- fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-    fn.system({"git", "clone", "--depth", "1", "https://hub.fastgit.xyz/wbthomason/packer.nvim", install_path})
+    fn.system({ "git", "clone", "--depth", "1", "https://hub.fastgit.xyz/wbthomason/packer.nvim", install_path })
     vim.cmd [[packadd packer.nvim]]
     return true
   end
@@ -24,7 +24,7 @@ end
 -- Only required if you have packer configured as `opt`
 -- vim.cmd [[packadd packer.nvim]]
 
-return packer.startup({function(use)
+return packer.startup({ function(use)
   -- Packer can manage itself
   use "wbthomason/packer.nvim"
 
@@ -54,6 +54,7 @@ return packer.startup({function(use)
     tag = "nightly" -- optional, updated every week. (see issue #1193)
   }
   use "ahmedkhalf/project.nvim"
+  use "LukasPietzschmann/telescope-tabs"
 
   -- Collection of configurations for the built-in LSP client
   use "neovim/nvim-lspconfig"
@@ -86,18 +87,19 @@ return packer.startup({function(use)
   use {
     -- fuzzy finder
     "nvim-telescope/telescope.nvim",
-    requires = { {"nvim-lua/plenary.nvim"} }
+    branch = '0.1.x',
+    requires = { { "nvim-lua/plenary.nvim" } }
   }
-  use {"nvim-telescope/telescope-fzf-native.nvim", run = "make" }
+  use { "nvim-telescope/telescope-fzf-native.nvim", run = "make" }
   use {
     'romgrk/barbar.nvim',
-    requires = {'kyazdani42/nvim-web-devicons'}
+    requires = { 'kyazdani42/nvim-web-devicons' }
   }
-  use "majutsushi/tagbar"                          -- see indentation
+  use "majutsushi/tagbar" -- see indentation
   -- code structure
   use "Yggdroot/indentLine"
-  use "tpope/vim-fugitive"                         -- git integration
-  use "junegunn/gv.vim"                            -- commit history
+  use "tpope/vim-fugitive" -- git integration
+  use "junegunn/gv.vim" -- commit history
   use "windwp/nvim-autopairs"
 
   -- Rust
@@ -116,13 +118,13 @@ return packer.startup({function(use)
     require("packer").sync()
   end
 end,
-config = {
-  compile_path = fn.stdpath("data") .. "/site/plugin/packer_compiled.lua",
-  git = {
-    default_url_format = "https://github.com/%s" -- Lua format string used for "aaa/bbb" style plugins
-    -- default_url_format = "https://hub.fastgit.xyz/%s"
-  }
-  -- display = {
+  config = {
+    compile_path = fn.stdpath("data") .. "/site/plugin/packer_compiled.lua",
+    git = {
+      default_url_format = "https://github.com/%s" -- Lua format string used for "aaa/bbb" style plugins
+      -- default_url_format = "https://hub.fastgit.xyz/%s"
+    }
+    -- display = {
     -- open_fn = require("packer.util").float,
-  -- }
-}})
+    -- }
+  } })
