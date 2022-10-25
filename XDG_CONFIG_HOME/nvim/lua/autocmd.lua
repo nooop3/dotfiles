@@ -4,7 +4,7 @@ local o = vim.o
 local g = vim.g
 local fn = vim.fn
 local cmd = vim.cmd
-local opt = vim.opt
+-- local opt = vim.opt
 local opt_local = vim.opt_local
 local map = vim.keymap.set
 local has = vim.fn.has
@@ -134,7 +134,7 @@ local fcitx2zh = function()
 end
 
 if has("Mac") == 0 then
-  opt.timeoutlen = 150
+  -- opt.timeoutlen = 150
   local auto_fcitx = augroup("AutoFcitx", { clear = true })
   autocmd({"InsertLeave"}, {
     group = auto_fcitx,

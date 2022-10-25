@@ -10,13 +10,12 @@ local map = vim.keymap.set
 nvimtree.setup({
   open_on_setup = true,
   open_on_tab = true,
-  update_cwd = true,
+  sync_root_with_cwd = true,
   update_focused_file = {
     enable = true,
-    update_cwd = true,
     ignore_list = {},
   },
 })
 
 -- Toggle nvim-tree
-map("n", "<C-n>", [[:NvimTreeToggle<CR>]], { silent = true })
+map("n", "<C-n>", [[:NvimTreeToggle<CR>]], { noremap = true, silent = true })
