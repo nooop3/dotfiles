@@ -1,104 +1,82 @@
 --[[ plugins/lspsaga.lua ]]
+-- import lspsaga safely
+local saga_status, sage = pcall(require, "lspsaga")
+if not saga_status then
+  return
+end
+local keymap = vim.keymap.set
 
-local map = vim.keymap.set
-
-local lspsaga = require("lspsaga")
-local provider = require("lspsaga.provider")
-local code_action = require("lspsaga.codeaction")
-local action = require("lspsaga.action")
-local hover = require("lspsaga.hover")
-local signature_help = require("lspsaga.signaturehelp")
-local rename = require("lspsaga.rename")
-local diagnostic = require("lspsaga.diagnostic")
-local floaterm = require("lspsaga.floaterm")
-
-lspsaga.setup({
-  debug = false,
-  use_saga_diagnostic_sign = true,
-  -- diagnostic sign
-  error_sign = "",
-  warn_sign = "",
-  hint_sign = "",
-  infor_sign = "",
-  diagnostic_header_icon = "   ",
-  -- code action title icon
-  code_action_icon = " ",
-  code_action_prompt = {
-    enable = true,
-    sign = true,
-    sign_priority = 40,
-    virtual_text = true,
-  },
-  finder_definition_icon = "  ",
-  finder_reference_icon = "  ",
-  max_preview_lines = 10,
+sage.init_lsp_saga({
+  -- when cursor in saga window you config these to move
+  move_in_saga = { prev = '<C-k>', next = '<C-j>' },
   finder_action_keys = {
-    open = "o",
-    vsplit = "v",
-    split = "s",
-    quit = "q",
-    scroll_down = "<C-f>",
-    scroll_up = "<C-u>",
+    open = { 'o', '<CR>' },
+    vsplit = 'v',
+    split = 's',
+    tabe = 't',
+    quit = { 'q', '<ESC>' },
   },
   code_action_keys = {
-    quit = "q",
-    exec = "<CR>",
+    quit = 'q',
+    exec = '<CR>',
   },
-  rename_action_keys = {
-    quit = "<C-c>",
-    exec = "<CR>",
+  definition_action_keys = {
+    -- edit = '<C-c>o',
+    edit = '<CR>',
+    vsplit = '<C-c>v',
+    split = '<C-c>i',
+    tabe = '<C-c>t',
+    quit = 'q',
   },
-  definition_preview_icon = "  ",
-  border_style = "round",
-  rename_prompt_prefix = "➤",
-  rename_output_qflist = {
-    enable = false,
-    auto_open_qflist = false,
-  },
-  server_filetype_map = {},
-  diagnostic_prefix_format = "%d. ",
-  diagnostic_message_format = "%m %c",
-  highlight_prefix = false,
+  rename_action_quit = '<C-c>',
 })
 
--- lsp provider to find the cursor word definition and reference
-map("n", "<leader>gh", provider.lsp_finder, { silent = true })
+-- Lsp finder find the symbol definition implement reference
+-- if there is no implement it will hide
+-- when you use action in finder like open vsplit then you can
+-- use <C-t> to jump back
+keymap("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", { silent = true })
 
--- code action
----@diagnostic disable-next-line: unused-local, unused-function
-local function visual_code_action()
-  -- vim.cmd(":<C-u>")
-  return code_action.range_code_action()
-end
-map("n", "<leader>ca", code_action.code_action, { silent = true })
--- map("v", "<leader>ca", visual_code_action, { silent = true })
-map("v", "<leader>ca", ":<C-u>lua require('lspsaga.codeaction').range_code_action()<CR>", { silent = true })
+-- Code action
+keymap({"n","v"}, "<leader>ca", "<cmd>Lspsaga code_action<CR>", { silent = true })
 
--- show hover doc
-map("n", "K", hover.render_hover_doc, { silent = true })
--- scroll down hover doc or scroll in definition preview
-map("n", "<C-f>", function() return action.smart_scroll_with_saga(1, "<C-f>") end, { silent = true })
--- scroll up hover doc
-map("n", "<C-u>", function() return action.smart_scroll_with_saga(-1, "<C-u>") end, { silent = true })
+-- Rename
+keymap("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", { silent = true })
 
--- show signature help
-map("n", "<C-k>", signature_help.signature_help, { silent = true })
+-- Peek Definition
+-- you can edit the definition file in this flaotwindow
+-- also support open/vsplit/etc operation check definition_action_keys
+-- support tagstack C-t jump back
+keymap("n", "gd", "<cmd>Lspsaga peek_definition<CR>", { silent = true })
 
--- rename
-map("n", "<leader>rn", rename.rename, { silent = true })
+-- Show line diagnostics
+keymap("n", "<leader>cd", "<cmd>Lspsaga show_line_diagnostics<CR>", { silent = true })
 
--- preview definition
--- FIXME: smart_scroll_with_saga not work
-map("n", "gd", provider.preview_definition, { silent = true })
+-- Show cursor diagnostic
+keymap("n", "<leader>cd", "<cmd>Lspsaga show_cursor_diagnostics<CR>", { silent = true })
 
--- Show Diagnostic and Jump Diagnostics
-map("n", "<leader>cd", diagnostic.show_line_diagnostics, { silent = true })
--- only show diagnostic if cursor is over the area
-map("n", "<leader>cc", diagnostic.show_cursor_diagnostics, { silent = true })
--- jump diagnostic
-map("n", "[d", diagnostic.navigate("prev"), { silent = true })
-map("n", "]d", diagnostic.navigate("next"), { silent = true })
+-- Diagnsotic jump can use `<c-o>` to jump back
+keymap("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", { silent = true })
+keymap("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", { silent = true })
 
--- float terminal also you can pass the cli command in open_float_terminal function
-map("n", "<leader>tt", floaterm.open_float_terminal, { silent = true })
-map("t", "<leader>tt", floaterm.close_float_terminal, { silent = true })
+-- Only jump to error
+keymap("n", "[e", function()
+  require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR })
+end, { silent = true })
+keymap("n", "]e", function()
+  require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR })
+end, { silent = true })
+
+-- Outline
+keymap("n","<leader>o", "<cmd>LSoutlineToggle<CR>",{ silent = true })
+
+-- Hover Doc
+keymap("n", "<C-K>", "<cmd>Lspsaga hover_doc<CR>", { silent = true })
+
+-- Float terminal
+keymap("n", "<leader>tt", "<cmd>Lspsaga open_floaterm<CR>", { silent = true })
+-- if you want pass somc cli command into terminal you can do like this
+-- open lazygit in lspsaga float terminal
+-- keymap("n", "<leader>tt", "<cmd>Lspsaga open_floaterm lazygit<CR>", { silent = true })
+-- close floaterm
+keymap("t", "<leader>tt", [[<C-\><C-n><cmd>Lspsaga close_floaterm<CR>]], { silent = true })
