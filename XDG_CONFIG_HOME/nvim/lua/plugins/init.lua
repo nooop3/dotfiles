@@ -4,7 +4,6 @@ require('plugins/barbar')
 require("plugins/lualine")
 require("plugins/nvim-tree")
 require("plugins/project")
-require("plugins/telescope-tabs")
 
 require("plugins/lspconfig")
 require("plugins/cmp")
