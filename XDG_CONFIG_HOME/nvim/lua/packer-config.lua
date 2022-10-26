@@ -31,7 +31,7 @@ return packer.startup({
 
 		-- [[ Theme ]]
 		use("sainnhe/gruvbox-material")
-		use("Mofiqul/dracula.nvim")
+		-- use("Mofiqul/dracula.nvim")
 		-- start screen
 		-- use "mhinz/vim-startify"
 		-- cursor jump
@@ -45,6 +45,9 @@ return packer.startup({
 		-- essential plugins
 		use("tpope/vim-surround") -- add, delete, change surroundings (it's awesome)
 		use("numToStr/Comment.nvim")
+		-- use("tpope/vim-fugitive") -- git integration
+		-- use("junegunn/gv.vim") -- commit history
+		use("lewis6991/gitsigns.nvim")
 
 		-- A file explorer tree for neovim written in lua
 		use({
@@ -59,9 +62,9 @@ return packer.startup({
 
 		-- Collection of configurations for the built-in LSP client
 		use("neovim/nvim-lspconfig")
-
 		-- Improve LSP UI
 		use({ "glepnir/lspsaga.nvim", branch = "main" })
+		use("jose-elias-alvarez/null-ls.nvim")
 
 		use({
 			"nvim-treesitter/nvim-treesitter",
@@ -96,10 +99,7 @@ return packer.startup({
 		use("majutsushi/tagbar") -- see indentation
 		-- code structure
 		use("Yggdroot/indentLine")
-		use("tpope/vim-fugitive") -- git integration
-		use("junegunn/gv.vim") -- commit history
 		use("windwp/nvim-autopairs")
-		use("jose-elias-alvarez/null-ls.nvim")
 
 		-- Rust
 		use("simrat39/rust-tools.nvim")
