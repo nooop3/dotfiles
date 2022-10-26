@@ -7,7 +7,7 @@ local has = vim.fn.has
 opt.syntax = "ON"
 opt.background = "dark"
 if has("termguicolors") == 1 then
-  opt.termguicolors = true
+	opt.termguicolors = true
 end
 -- cmd:  Set the colorscheme
 -- cmd("colorscheme dracula")
@@ -51,9 +51,9 @@ opt.scrolloff = 4
 opt.laststatus = 2
 opt.signcolumn = "number"
 opt.backspace = "indent,eol,start"
-opt.listchars = {eol = "↲", tab = "▸ ", trail = "·"}
+opt.listchars = { eol = "↲", tab = "▸ ", trail = "·" }
 
-opt.textwidth= 79
+opt.textwidth = 79
 opt.cmdheight = 2
 opt.updatetime = 300
 
@@ -84,6 +84,6 @@ opt.guioptions = nil
 -- opt.clipboard = opt.clipboard + "unnamedplus"
 
 -- opt.completeopt = opt.completeopt - "preview"
-if (vim.fn.executable("rg") == 1) then
-  opt.grepprg = "rg --vimgrep"
+if vim.fn.executable("rg") == 1 then
+	opt.grepprg = "rg --vimgrep"
 end
