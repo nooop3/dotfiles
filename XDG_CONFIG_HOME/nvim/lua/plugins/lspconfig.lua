@@ -100,6 +100,7 @@ local servers = {
 	"bashls",
 	-- npm install -g typescript typescript-language-server
 	"tsserver",
+	-- sudo pacman -S gopls
 	"gopls",
 	-- sudo pacman -S lua-language-server
 	-- brew install lua-language-server
