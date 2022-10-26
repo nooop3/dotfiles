@@ -60,8 +60,7 @@ return packer.startup({ function(use)
   use "neovim/nvim-lspconfig"
 
   -- Improve LSP UI
-  -- use "glepnir/lspsaga.nvim"
-  use "tami5/lspsaga.nvim"
+  use { "glepnir/lspsaga.nvim", branch = "main" }
 
   use {
     "nvim-treesitter/nvim-treesitter",
