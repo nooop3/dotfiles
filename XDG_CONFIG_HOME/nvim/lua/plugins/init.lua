@@ -16,5 +16,6 @@ require("plugins/nvim-treesitter")
 require("plugins/telescope")
 require("plugins/nvim-autopairs")
 require("plugins/comment")
+require("plugins/null-ls")
 
 -- require("plugins/copilot")
