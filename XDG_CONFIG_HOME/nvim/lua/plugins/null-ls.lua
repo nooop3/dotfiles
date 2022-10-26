@@ -45,7 +45,7 @@ null_ls.setup({
 
 		-- setup code formatters
 		-- filetypes: "javascript", "javascriptreact"
-		formatting.prettier,
+		-- formatting.prettier,
 		-- filetypes: "proto"
 		-- install: yay -S protolint
 		formatting.protolint,
