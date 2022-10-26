@@ -19,6 +19,7 @@ null_ls.setup({
 		code_actions.eslint_d,
 		-- filetypes: "sh"
 		code_actions.shellcheck,
+		code_actions.gitsigns,
 
 		-- setup code diagnostics
 		-- filetypes: "javascript", "javascriptreact", "typescript", "typescriptreact", "vue"

@@ -9,7 +9,7 @@ map("n", "<Leader><CR>", [[ (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n" <B
 	desc = "Disable highlight when <leader><CR> is pressed",
 })
 map("n", "<space>", "za", { desc = "Enable folding with the spacebar" })
-map("n", "x", '"_x')
+-- map("n", "x", '"_x')
 
 map("n", "]b", ":tabnext<CR>", { silent = true, desc = "Next tab" })
 map("n", "[b", ":tabprevious<CR>", { silent = true, desc = "Previous tab" })
