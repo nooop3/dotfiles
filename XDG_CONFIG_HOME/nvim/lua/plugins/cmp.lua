@@ -1,15 +1,29 @@
---[[ plugins/lspconfig.lua ]]
+--[[ plugins/cmp.lua ]]
+-- import nvim-cmp plugin safely
+local cmp_status, cmp = pcall(require, "cmp")
+if not cmp_status then
+  return
+end
 
-local cmp = require("cmp")
-local luasnip = require("luasnip")
+-- import luasnip plugin safely
+local luasnip_status, luasnip = pcall(require, "luasnip")
+if not luasnip_status then
+  return
+end
 
 -- Set completeopt to have a better completion experience
 -- vim.opt.completeopt = {"menuone", "noselect"}
-vim.opt.completeopt = {"menu", "menuone", "noselect"}
+vim.opt.completeopt = { "menu", "menuone", "noselect" }
+
+-- helper function for super tab functionality (not in youtube nvim video)
+local has_words_before = function()
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
 
 cmp.setup {
   view = {
-    entries = {name = "custom", selection_order = "near_cursor" }
+    entries = { name = "custom", selection_order = "near_cursor" }
   },
   snippet = {
     expand = function(args)
@@ -33,7 +47,9 @@ cmp.setup {
         cmp.select_next_item()
       elseif luasnip.expand_or_jumpable() then
         luasnip.expand_or_jump()
-      -- elseif copilot_keys ~= "" and type(copilot_keys) == "string" then
+      elseif has_words_before() then
+        cmp.complete()
+        -- elseif copilot_keys ~= "" and type(copilot_keys) == "string" then
         -- vim.api.nvim_feedkeys(copilot_keys, "i", true)
       else
         fallback()
@@ -60,8 +76,8 @@ cmp.setup {
   })
 }
 
--- Use buffer source for `/` (if you enabled `native_menu`, this won"t work anymore).
-cmp.setup.cmdline("/", {
+-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline({ "/", "?" }, {
   mapping = cmp.mapping.preset.cmdline(),
   sources = {
     { name = "buffer", keyword_length = 3 }
