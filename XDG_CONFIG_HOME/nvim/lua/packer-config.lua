@@ -81,8 +81,6 @@ return packer.startup({
 		-- Snippets source for nvim-cmp
 		use("saadparwaiz1/cmp_luasnip")
 
-		use("mfussenegger/nvim-lint")
-
 		-- [[ Dev ]]
 		use({
 			-- fuzzy finder
