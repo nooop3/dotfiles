@@ -1,6 +1,10 @@
 --[[ plugins/project.lua ]]
 
-local project = require("project_nvim")
+-- import project_nvim plugin safely
+local status, project = pcall(require, "project_nvim")
+if not status then
+  return
+end
 
 project.setup({
   -- Show hidden files in telescope
