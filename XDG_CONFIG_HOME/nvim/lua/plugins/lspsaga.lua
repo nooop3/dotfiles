@@ -1,34 +1,33 @@
---[[ plugins/lspsaga.lua ]]
 -- import lspsaga safely
 local saga_status, sage = pcall(require, "lspsaga")
 if not saga_status then
-  return
+	return
 end
 local keymap = vim.keymap.set
 
 sage.init_lsp_saga({
-  -- when cursor in saga window you config these to move
-  move_in_saga = { prev = '<C-k>', next = '<C-j>' },
-  finder_action_keys = {
-    open = { 'o', '<CR>' },
-    vsplit = 'v',
-    split = 's',
-    tabe = 't',
-    quit = { 'q', '<ESC>' },
-  },
-  code_action_keys = {
-    quit = 'q',
-    exec = '<CR>',
-  },
-  definition_action_keys = {
-    -- edit = '<C-c>o',
-    edit = '<CR>',
-    vsplit = '<C-c>v',
-    split = '<C-c>i',
-    tabe = '<C-c>t',
-    quit = 'q',
-  },
-  rename_action_quit = '<C-c>',
+	-- when cursor in saga window you config these to move
+	move_in_saga = { prev = "<C-k>", next = "<C-j>" },
+	finder_action_keys = {
+		open = { "o", "<CR>" },
+		vsplit = "v",
+		split = "s",
+		tabe = "t",
+		quit = { "q", "<ESC>" },
+	},
+	code_action_keys = {
+		quit = "q",
+		exec = "<CR>",
+	},
+	definition_action_keys = {
+		-- edit = '<C-c>o',
+		edit = "<CR>",
+		vsplit = "<C-c>v",
+		split = "<C-c>i",
+		tabe = "<C-c>t",
+		quit = "q",
+	},
+	rename_action_quit = "<C-c>",
 })
 
 -- Lsp finder find the symbol definition implement reference
@@ -38,7 +37,7 @@ sage.init_lsp_saga({
 keymap("n", "gh", "<cmd>Lspsaga lsp_finder<CR>", { silent = true })
 
 -- Code action
-keymap({"n","v"}, "<leader>ca", "<cmd>Lspsaga code_action<CR>", { silent = true })
+keymap({ "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<CR>", { silent = true })
 
 -- Rename
 keymap("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", { silent = true })
@@ -61,14 +60,14 @@ keymap("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", { silent = true })
 
 -- Only jump to error
 keymap("n", "[e", function()
-  require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR })
+	require("lspsaga.diagnostic").goto_prev({ severity = vim.diagnostic.severity.ERROR })
 end, { silent = true })
 keymap("n", "]e", function()
-  require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR })
+	require("lspsaga.diagnostic").goto_next({ severity = vim.diagnostic.severity.ERROR })
 end, { silent = true })
 
 -- Outline
-keymap("n","<leader>o", "<cmd>LSoutlineToggle<CR>",{ silent = true })
+keymap("n", "<leader>o", "<cmd>LSoutlineToggle<CR>", { silent = true })
 
 -- Hover Doc
 keymap("n", "<C-K>", "<cmd>Lspsaga hover_doc<CR>", { silent = true })

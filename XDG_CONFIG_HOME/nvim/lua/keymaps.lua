@@ -4,7 +4,9 @@ local map = vim.keymap.set
 
 map("n", "<Leader>w", ":write!<CR>", { desc = "Fast saving." })
 map("n", "<Leader><CR>", [[ (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n" <BAR> redraw<CR>]], {
-  expr = true, silent = true, desc = "Disable highlight when <leader><CR> is pressed"
+	expr = true,
+	silent = true,
+	desc = "Disable highlight when <leader><CR> is pressed",
 })
 map("n", "<space>", "za", { desc = "Enable folding with the spacebar" })
 map("n", "x", '"_x')
