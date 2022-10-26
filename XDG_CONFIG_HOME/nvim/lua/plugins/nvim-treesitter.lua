@@ -9,7 +9,8 @@ local configs = require("nvim-treesitter.configs")
 
 local parser_configs = parsers.get_parser_configs()
 
-local github_mirror = "https://hub.fastgit.xyz/"
+-- local github_mirror = "https://hub.fastgit.xyz/"
+local github_mirror = "https://github.com/"
 
 parser_configs.gotmpl = {
 	install_info = {
@@ -38,6 +39,7 @@ configs.setup({
 		"gomod",
 		"java",
 		"tsx",
+		"kotlin",
 
 		"vim",
 		"lua",
@@ -52,7 +54,7 @@ configs.setup({
 	sync_install = false,
 
 	-- List of parsers to ignore installing (for "all")
-	ignore_install = { "javascript" },
+	ignore_install = {},
 
 	highlight = {
 		enable = true,
@@ -72,6 +74,7 @@ configs.setup({
 		enable = true,
 		disable = {},
 	},
+	additional_vim_regex_highlighting = false,
 })
 parsers.filetype_to_parsername.javascript = "tsx"
 parsers.filetype_to_parsername["typescript.tsx"] = "tsx"
