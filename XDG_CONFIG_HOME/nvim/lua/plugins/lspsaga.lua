@@ -4,6 +4,10 @@ if not saga_status then
 	return
 end
 local keymap = vim.keymap.set
+local augroup = vim.api.nvim_create_augroup
+local autocmd = vim.api.nvim_create_autocmd
+
+local term = require("lspsaga.floaterm")
 
 sage.init_lsp_saga({
 	-- when cursor in saga window you config these to move
@@ -82,3 +86,22 @@ keymap("n", "<leader>tt", "<cmd>Lspsaga open_floaterm<CR>", { silent = true })
 -- keymap("n", "<leader>tt", "<cmd>Lspsaga open_floaterm lazygit<CR>", { silent = true })
 -- close floaterm
 keymap("t", "<leader>tt", [[<C-\><C-n><cmd>Lspsaga close_floaterm<CR>]], { silent = true })
+
+-- Auto close terminal
+local auto_close_terminal = augroup("AutoCloseTerminal", { clear = true })
+autocmd({ "TermClose" }, {
+	group = auto_close_terminal,
+	pattern = { "*" },
+	callback = function()
+		if term.term_bufnr then
+			term.first_open = nil
+			vim.api.nvim_buf_delete(term.term_bufnr, { force = true })
+			term.term_bufnr, term.term_winid = nil, nil
+			vim.api.nvim_buf_delete(term.shadow_bufnr, { force = true })
+			term.shadow_bufnr, term.shadow_winid = nil, nil
+			return
+		else
+			return vim.fn.execute("bdelete! " .. vim.fn.expand("<abuf>"))
+		end
+	end,
+})
