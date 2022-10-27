@@ -40,7 +40,7 @@ telescope.setup({
 		-- Default configuration for builtin pickers goes here:
 		find_files = {
 			-- picker_config_key = value,
-			find_command = { "fd", "--type", "f", "--strip-cwd-prefix" },
+			find_command = { "fd", "--type", "f", "--strip-cwd-prefix", "--hidden" },
 		},
 		-- Now the picker_config_key will be applied every time you call this
 		-- builtin picker

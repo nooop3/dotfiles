@@ -119,6 +119,16 @@ for _, lsp in pairs(servers) do
 		capabilities = capabilities,
 	}
 
+	-- tsserver
+	if lsp == "tsserver" then
+		configs.init_options = {
+			hostInfo = "neovim",
+			preferences = {
+				disableSuggestions = true,
+			},
+		}
+	end
+
 	-- Golang
 	if lsp == "gopls" then
 		configs.settings = {
