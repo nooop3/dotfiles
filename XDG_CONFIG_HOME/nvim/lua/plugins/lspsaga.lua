@@ -93,15 +93,15 @@ autocmd({ "TermClose" }, {
 	group = auto_close_terminal,
 	pattern = { "*" },
 	callback = function()
-		if term.term_bufnr then
+		local current_bufnr = vim.fn.expand("<abuf>")
+		if term.term_bufnr == tonumber(current_bufnr) then
 			term.first_open = nil
 			vim.api.nvim_buf_delete(term.term_bufnr, { force = true })
 			term.term_bufnr, term.term_winid = nil, nil
 			vim.api.nvim_buf_delete(term.shadow_bufnr, { force = true })
 			term.shadow_bufnr, term.shadow_winid = nil, nil
-			return
 		else
-			return vim.fn.execute("bdelete! " .. vim.fn.expand("<abuf>"))
+			return vim.fn.execute("bdelete! " .. current_bufnr)
 		end
 	end,
 })
