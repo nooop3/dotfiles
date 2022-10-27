@@ -45,7 +45,7 @@ opt.splitbelow = true
 
 -- [[ Context ]]
 -- opt.colorcolumn = "80"
-opt.relativenumber = true
+opt.relativenumber = false
 opt.number = true
 opt.scrolloff = 4
 opt.laststatus = 2

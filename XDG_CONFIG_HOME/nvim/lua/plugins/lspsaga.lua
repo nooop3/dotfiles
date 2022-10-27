@@ -28,6 +28,9 @@ sage.init_lsp_saga({
 		quit = "q",
 	},
 	rename_action_quit = "<C-c>",
+	symbol_in_winbar = {
+		enable = true,
+	},
 })
 
 -- Lsp finder find the symbol definition implement reference
