@@ -90,6 +90,7 @@ require("rust-tools").setup({
 -- Use a loop to conveniently call "setup" on multiple servers and
 -- map buffer local keybindings when the language server attaches
 local servers = {
+	-- sudo pacman -S clang
 	-- brew install llvm
 	"clangd",
 	-- pip3 install "python-lsp-server[all]"
@@ -118,6 +119,12 @@ for _, lsp in pairs(servers) do
 		on_attach = on_attach,
 		capabilities = capabilities,
 	}
+
+	-- clangd
+	if lsp == "clangd" then
+		-- configs.filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" }
+		configs.filetypes = { "c", "cpp", "objc", "objcpp", "cuda" }
+	end
 
 	-- tsserver
 	if lsp == "tsserver" then
