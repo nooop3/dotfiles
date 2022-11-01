@@ -130,6 +130,9 @@ for _, lsp in pairs(servers) do
 	if lsp == "tsserver" then
 		configs.init_options = {
 			hostInfo = "neovim",
+			preferences = {
+				quotePreference = "single",
+			},
 			--[[ preferences = {
 				disableSuggestions = true,
 			}, ]]
