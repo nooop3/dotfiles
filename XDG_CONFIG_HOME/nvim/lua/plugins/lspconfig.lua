@@ -128,6 +128,13 @@ for _, lsp in pairs(servers) do
 
 	-- tsserver
 	if lsp == "tsserver" then
+		configs.settings = {
+			javascript = {
+				format = {
+					semicolons = "remove",
+				},
+			},
+		}
 		configs.init_options = {
 			hostInfo = "neovim",
 			preferences = {
