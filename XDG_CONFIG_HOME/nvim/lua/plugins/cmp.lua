@@ -10,6 +10,12 @@ if not luasnip_status then
 	return
 end
 
+-- import lspkind plugin safely
+local lspkind_status, lspkind = pcall(require, "lspkind")
+if not lspkind_status then
+	return
+end
+
 -- Set completeopt to have a better completion experience
 -- vim.opt.completeopt = {"menuone", "noselect"}
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
@@ -73,6 +79,13 @@ cmp.setup({
 	}, {
 		{ name = "buffer", keyword_length = 3 },
 	}),
+	formatting = {
+		format = lspkind.cmp_format({
+			mode = "symbol_text",
+			maxwidth = 50,
+			ellipsis_char = "...",
+		}),
+	},
 })
 
 -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).

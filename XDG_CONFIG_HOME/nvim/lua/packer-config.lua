@@ -83,6 +83,8 @@ return packer.startup({
 		use("L3MON4D3/LuaSnip")
 		-- Snippets source for nvim-cmp
 		use("saadparwaiz1/cmp_luasnip")
+		-- Vs Code Like Icons for autocompletion
+		use("onsails/lspkind.nvim")
 
 		-- [[ Dev ]]
 		use({
