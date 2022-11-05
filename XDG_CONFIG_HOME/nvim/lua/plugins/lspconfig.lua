@@ -28,7 +28,7 @@ vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, opts)
 local on_attach = function(client, bufnr)
 	local config = client.config
 	for _, dir in pairs({ config.root_dir, config.cmd_cwd }) do
-		if dir then
+		if dir and vim.fn.isdirectory(dir .. "/.git") == 1 then
 			vim.api.nvim_set_current_dir(dir)
 			vim.api.nvim_tabpage_set_var(0, "root_dir", dir)
 			-- vim.cmd("tcd " .. dir)
@@ -145,15 +145,22 @@ for _, lsp in pairs(servers) do
 					semicolons = "remove",
 				},
 			},
+			diagnostics = {
+				ignoredCodes = {
+					-- See https://github.com/microsoft/TypeScript/blob/master/src/compiler/diagnosticMessages.json for a full list of valid codes.
+					-- Could not find a declaration file for module '{0}'. '{1}' implicitly has an 'any' type.
+					7016,
+					-- File is a CommonJS module; it may be converted to an ES module.
+					80001,
+				},
+			},
 		}
 		configs.init_options = {
 			hostInfo = "neovim",
+			disableAutomaticTypingAcquisition = false,
 			preferences = {
 				quotePreference = "single",
 			},
-			--[[ preferences = {
-				disableSuggestions = true,
-			}, ]]
 		}
 	end
 

@@ -42,7 +42,6 @@ telescope.setup({
 	pickers = {
 		-- Default configuration for builtin pickers goes here:
 		find_files = {
-			-- picker_config_key = value,
 			find_command = { "fd", "--type", "f", "--strip-cwd-prefix", "--hidden", "--exclude=.git" },
 		},
 		-- Now the picker_config_key will be applied every time you call this
@@ -60,13 +59,13 @@ telescope.setup({
 		project = {
 			hidden_files = true,
 			order_by = "recent",
-			sync_with_nvim_tree = true,
+			-- sync_with_nvim_tree = true,
 		},
 		["telescope-tabs"] = {
 			-- entry_formatter = function(tab_id, buffer_ids, file_names, file_paths)
 			entry_formatter = function(tab_id, _, _, _)
 				-- local cwd = fn.getcwd(-1, tab_id)
-				local cwd = vim.t[tab_id]["root_dir"] or fn.getcwd(-1, tab_id)
+				local cwd = vim.t[tab_id].root_dir or fn.getcwd(-1, tab_id)
 				-- local root_dir = fn.substitute(cwd, '^.*/', '', '')
 				local root_dir = fn.fnamemodify(cwd, ":t")
 				return string.format("%d: %s, %s", tab_id, root_dir, cwd:gsub(vim.env.HOME, "~"))
