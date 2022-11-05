@@ -58,7 +58,7 @@ configs.setup({
 
 	highlight = {
 		enable = true,
-		disable = {},
+		disable = { "sql" },
 		additional_vim_regex_highlighting = false,
 	},
 	incremental_selection = {
