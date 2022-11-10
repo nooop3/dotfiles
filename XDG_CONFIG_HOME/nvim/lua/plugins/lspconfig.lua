@@ -25,8 +25,8 @@ vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, opts)
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
-	local config = client.config
+local on_attach = function(_, bufnr)
+	--[[ local config = client.config
 	for _, dir in pairs({ config.root_dir, config.cmd_cwd }) do
 		if dir and vim.fn.isdirectory(dir .. "/.git") == 1 then
 			vim.api.nvim_set_current_dir(dir)
@@ -35,7 +35,7 @@ local on_attach = function(client, bufnr)
 			-- vim.cmd("lcd " .. dir)
 			break
 		end
-	end
+	end ]]
 
 	-- Enable completion triggered by <c-x><c-o>
 	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")

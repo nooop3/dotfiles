@@ -56,20 +56,20 @@ telescope.setup({
 			override_file_sorter = true, -- override the file sorter
 			case_mode = "smart_case", -- or "ignore_case" or "respect_case", the default case_mode is "smart_case"
 		},
-		project = {
+		--[[ project = {
 			hidden_files = true,
 			order_by = "recent",
 			-- sync_with_nvim_tree = true,
-		},
+		}, ]]
 		["telescope-tabs"] = {
 			-- entry_formatter = function(tab_id, buffer_ids, file_names, file_paths)
-			entry_formatter = function(tab_id, _, _, _)
+			--[[ entry_formatter = function(tab_id, _, _, _)
 				-- local cwd = fn.getcwd(-1, tab_id)
 				local cwd = vim.t[tab_id].root_dir or fn.getcwd(-1, tab_id)
 				-- local root_dir = fn.substitute(cwd, '^.*/', '', '')
 				local root_dir = fn.fnamemodify(cwd, ":t")
 				return string.format("%d: %s, %s", tab_id, root_dir, cwd:gsub(vim.env.HOME, "~"))
-			end,
+			end, ]]
 			-- entry_ordinal = function(tab_id, buffer_ids, file_names, file_paths)
 			entry_ordinal = function(tab_id, _, file_names, _)
 				local entry = table.concat(file_names, " ")
@@ -85,7 +85,8 @@ telescope.setup({
 -- To get fzf loaded and working with telescope, you need to call
 -- load_extension, somewhere after setup function:
 telescope.load_extension("fzf")
-telescope.load_extension("project")
+-- telescope.load_extension("project")
+telescope.load_extension("projects")
 telescope.load_extension("telescope-tabs")
 
 local opts = { noremap = true, silent = true }
@@ -95,8 +96,11 @@ map("n", "<C-p>", builtin.find_files, opts)
 map("n", "<leader>ff", builtin.find_files, opts)
 map("n", "<leader>fs", builtin.grep_string, opts)
 map("n", "<leader>fg", builtin.live_grep, opts)
-map("n", "<leader>fp", function()
+--[[ map("n", "<leader>fp", function()
 	extensions.project.project({ display_type = "full" })
+end, opts) ]]
+map("n", "<leader>fp", function()
+  extensions.projects.projects{}
 end, opts)
 map("n", "<leader>fa", extensions["telescope-tabs"].list_tabs, opts)
 
