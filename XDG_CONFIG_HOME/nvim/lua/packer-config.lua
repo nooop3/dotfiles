@@ -57,8 +57,10 @@ return packer.startup({
 			},
 			tag = "nightly", -- optional, updated every week. (see issue #1193)
 		})
-		use("nvim-telescope/telescope-project.nvim")
+		-- use("nvim-telescope/telescope-project.nvim")
 		use("LukasPietzschmann/telescope-tabs")
+
+		use("ahmedkhalf/project.nvim")
 
 		-- Collection of configurations for the built-in LSP client
 		use("neovim/nvim-lspconfig")

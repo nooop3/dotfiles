@@ -7,6 +7,7 @@ require("plugins/nvim-tree")
 require("plugins/lspconfig")
 require("plugins/cmp")
 require("plugins/lspsaga")
+require("plugins/project")
 
 require("plugins/nvim-treesitter")
 
