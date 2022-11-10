@@ -219,7 +219,7 @@ lspconfig.diagnosticls.setup({
 	on_attach = on_attach,
 	filetypes = { "javascript", "typescript", "markdown" },
 	root_dir = function(fname)
-		return util.root_pattern("tsconfig.json")(fname) or util.root_pattern(".eslintrc.js")(fname)
+		return util.root_pattern("tsconfig.json")(fname) or util.root_pattern(".eslintrc.json")(fname)
 	end,
 	init_options = {
 		linters = {

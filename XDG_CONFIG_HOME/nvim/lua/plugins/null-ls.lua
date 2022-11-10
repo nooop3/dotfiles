@@ -21,14 +21,6 @@ null_ls.setup({
 		code_actions.shellcheck,
 		code_actions.gitsigns,
 
-		-- setup code diagnostics
-		-- filetypes: "javascript", "javascriptreact", "typescript", "typescriptreact", "vue"
-		diagnostics.eslint_d.with({
-			-- only enable eslint if root has .eslintrc.js (not in youtube nvim video)
-			condition = function(utils)
-				return utils.root_has_file(".eslintrc.js")
-			end,
-		}),
 		-- filetypes: "proto"
 		-- install: yay -S protolint
 		diagnostics.protolint,
@@ -37,6 +29,7 @@ null_ls.setup({
 		-- filetypes: "sql"
 		-- install: sudo pacman -S sqlfluff
 		diagnostics.sqlfluff.with({
+			args = { "lint", "--disable_progress_bar", "-f", "github-annotation", "-n", "$FILENAME" },
 			extra_args = { "--dialect", "postgres" }, -- change to your dialect
 		}),
 		-- filetypes: "markdown", "tex", "asciidoc"
@@ -57,7 +50,14 @@ null_ls.setup({
 		-- formatting.packer,
 		-- filetypes: "sql", "pgsql"
 		-- install: sudo pacman -S pgformatter
-		formatting.pg_format,
+		formatting.pg_format.with({
+			extra_args = {
+				"--keep-newline=1",
+				"--no-extra-line=1",
+				"--redshift",
+				-- "--extra-function=/home/edward/.pg_format/functions.lst",
+			},
+		}),
 		-- filetypes: "terraform", "tf"
 		formatting.terraform_fmt,
 	},
