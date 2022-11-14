@@ -4,7 +4,6 @@ if not status then
 	return
 end
 
-local fn = vim.fn
 local map = vim.keymap.set
 
 local actions = require("telescope.actions")
@@ -100,7 +99,7 @@ map("n", "<leader>fg", builtin.live_grep, opts)
 	extensions.project.project({ display_type = "full" })
 end, opts) ]]
 map("n", "<leader>fp", function()
-  extensions.projects.projects{}
+	extensions.projects.projects({})
 end, opts)
 map("n", "<leader>fa", extensions["telescope-tabs"].list_tabs, opts)
 
@@ -110,6 +109,7 @@ map("n", "<leader>fl", builtin.current_buffer_fuzzy_find, opts)
 map("n", "<leader>fw", builtin.oldfiles, opts)
 map("n", "<leader>fh", builtin.help_tags, opts)
 map("n", "<leader>ft", builtin.filetypes, opts)
+map("n", "<leader>fT", "<cmd>TodoTelescope<cr>", opts)
 
 map("n", "<leader>fo", builtin.current_buffer_tags, opts)
 map("n", "<leader>fO", builtin.tags, opts)
