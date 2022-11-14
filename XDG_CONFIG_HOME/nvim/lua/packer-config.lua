@@ -104,6 +104,7 @@ return packer.startup({
 		-- code structure
 		use("Yggdroot/indentLine")
 		use("windwp/nvim-autopairs")
+		use("folke/todo-comments.nvim")
 
 		-- Rust
 		use("simrat39/rust-tools.nvim")

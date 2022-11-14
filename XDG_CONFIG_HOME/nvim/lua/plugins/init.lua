@@ -17,5 +17,6 @@ require("plugins/nvim-autopairs")
 require("plugins/comment")
 require("plugins/null-ls")
 require("plugins/gitsigns")
+require("plugins/todo")
 
 -- require("plugins/copilot")
