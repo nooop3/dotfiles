@@ -51,7 +51,7 @@ opt.scrolloff = 4
 opt.laststatus = 2
 opt.signcolumn = "number"
 opt.backspace = "indent,eol,start"
-opt.listchars = { eol = "↲", tab = "▸ ", trail = "·" }
+opt.listchars = { eol = "↲", space = "⋅", tab = "▸ ", trail = "·" }
 
 opt.textwidth = 79
 opt.cmdheight = 2

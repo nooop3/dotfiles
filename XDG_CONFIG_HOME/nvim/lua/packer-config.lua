@@ -100,9 +100,10 @@ return packer.startup({
 			"romgrk/barbar.nvim",
 			requires = { "kyazdani42/nvim-web-devicons" },
 		})
-		use("majutsushi/tagbar") -- see indentation
+		-- sudo pacman -S ctags
+		use("majutsushi/tagbar")
 		-- code structure
-		use("Yggdroot/indentLine")
+		use("lukas-reineke/indent-blankline.nvim")
 		use("windwp/nvim-autopairs")
 		use("folke/todo-comments.nvim")
 
