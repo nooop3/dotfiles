@@ -29,7 +29,7 @@ null_ls.setup({
 		-- filetypes: "sql"
 		-- install: sudo pacman -S sqlfluff
 		diagnostics.sqlfluff.with({
-			args = { "lint", "--disable_progress_bar", "-f", "github-annotation", "-n", "$FILENAME" },
+			args = { "lint", "--disable-progress-bar", "-f", "github-annotation", "-n", "$FILENAME" },
 			extra_args = { "--dialect", "postgres" }, -- change to your dialect
 		}),
 		-- filetypes: "markdown", "tex", "asciidoc"
