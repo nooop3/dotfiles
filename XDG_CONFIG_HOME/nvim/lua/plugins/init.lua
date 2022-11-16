@@ -18,5 +18,6 @@ require("plugins/comment")
 require("plugins/null-ls")
 require("plugins/gitsigns")
 require("plugins/todo")
+require("plugins/indent-blankline")
 
 -- require("plugins/copilot")
