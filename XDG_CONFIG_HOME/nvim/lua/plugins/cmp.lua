@@ -9,6 +9,11 @@ local luasnip_status, luasnip = pcall(require, "luasnip")
 if not luasnip_status then
 	return
 end
+local luasnip_loaders_from_vscode_status, luasnip_loaders_from_vscode = pcall(require, "luasnip.loaders.from_vscode")
+if not luasnip_loaders_from_vscode_status then
+	return
+end
+luasnip_loaders_from_vscode.lazy_load()
 
 -- import lspkind plugin safely
 local lspkind_status, lspkind = pcall(require, "lspkind")
@@ -20,7 +25,7 @@ end
 -- vim.opt.completeopt = {"menuone", "noselect"}
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
--- helper function for super tab functionality (not in youtube nvim video)
+-- helper function for super tab functionality
 local has_words_before = function()
 	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
 	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
@@ -74,7 +79,7 @@ cmp.setup({
 		{ name = "nvim_lsp" },
 		{ name = "nvim_lsp_signature_help" },
 		{ name = "nvim_lua" },
-		{ name = "luasnip" },
+		{ name = "luasnip", option = { show_autosnippets = true } },
 		{ name = "path" },
 	}, {
 		{ name = "buffer", keyword_length = 3 },
@@ -106,7 +111,7 @@ cmp.setup.cmdline(":", {
 	}),
 })
 
-vim.keymap.set({ "i", "s" }, "<C-k>", function()
+--[[ vim.keymap.set({ "i", "s" }, "<C-k>", function()
 	if luasnip.expand_or_jumpable() then
 		luasnip.expand_or_jump()
 	end
@@ -122,4 +127,4 @@ vim.keymap.set("i", "<C-l>", function()
 	if luasnip.choice_active() then
 		luasnip.change_choice(1)
 	end
-end)
+end) ]]
