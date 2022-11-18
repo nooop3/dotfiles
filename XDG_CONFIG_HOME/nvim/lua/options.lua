@@ -35,9 +35,6 @@ opt.autoindent = true
 opt.smartindent = true
 opt.smarttab = true
 opt.expandtab = true
-opt.tabstop = 2
-opt.softtabstop = 2
-opt.shiftwidth = 2
 
 -- [[ Splits ]]
 opt.splitright = true

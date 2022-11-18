@@ -66,6 +66,20 @@ autocmd({ "FileType" }, {
 		opt_local.shiftwidth = 4
 	end,
 })
+autocmd({ "FileType" }, {
+	group = file_type_tab_stop,
+	pattern = {
+		"javascript",
+		"json",
+		"css",
+		"lua",
+	},
+	callback = function()
+		opt_local.tabstop = 2
+		opt_local.softtabstop = 2
+		opt_local.shiftwidth = 2
+	end,
+})
 -- autocmd({"BufNewFile", "BufRead"}, {
 --   group = file_type_tab_stop,
 --   pattern = { "*.js", "*.json", "*.ts", "*.html", "*.css", "*.yml", "*.proto", "*.sh" },

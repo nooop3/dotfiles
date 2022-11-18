@@ -83,6 +83,7 @@ return packer.startup({
 		use("hrsh7th/nvim-cmp")
 		-- Snippets plugin
 		use("L3MON4D3/LuaSnip")
+		use("rafamadriz/friendly-snippets")
 		-- Snippets source for nvim-cmp
 		use("saadparwaiz1/cmp_luasnip")
 		-- Vs Code Like Icons for autocompletion
