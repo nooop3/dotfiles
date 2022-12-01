@@ -211,6 +211,17 @@ for _, lsp in pairs(servers) do
 		-- root_pattern(".terraform", ".git", ".tflint.hcl")
 		configs.root_dir = util.root_pattern(".git", ".tflint.hcl")
 	end
+
+	-- jsonls
+	if lsp == "jsonls" then
+		configs.settings = {
+			json = {
+				schemas = require("schemastore").json.schemas(),
+				validate = { enable = true },
+			},
+		}
+	end
+
 	lspconfig[lsp].setup(configs)
 end
 

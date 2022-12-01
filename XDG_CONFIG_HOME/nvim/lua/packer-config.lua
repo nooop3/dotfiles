@@ -67,6 +67,7 @@ return packer.startup({
 		-- Improve LSP UI
 		use({ "glepnir/lspsaga.nvim", branch = "main" })
 		use("jose-elias-alvarez/null-ls.nvim")
+		use("b0o/schemastore.nvim")
 
 		use({
 			"nvim-treesitter/nvim-treesitter",
