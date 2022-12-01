@@ -41,7 +41,11 @@ null_ls.setup({
 		-- filetypes: "javascript", "javascriptreact"
 		-- formatting.prettier,
 		-- filetypes: "proto"
-		-- install: yay -S protolint
+		-- install:
+		-- Arch:
+		-- yay -S protolint
+		-- brew tap yoheimuta/protolint
+		-- brew install protolint
 		formatting.protolint,
 		-- filetypes: "lua", "luau"
 		-- install: sudo pacman -S stylua

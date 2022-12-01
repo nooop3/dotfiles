@@ -70,9 +70,14 @@ autocmd({ "FileType" }, {
 	group = file_type_tab_stop,
 	pattern = {
 		"javascript",
+		"typescript",
 		"json",
+		"yaml",
+		"html",
 		"css",
 		"lua",
+		"proto",
+		"sh",
 	},
 	callback = function()
 		opt_local.tabstop = 2
@@ -80,15 +85,6 @@ autocmd({ "FileType" }, {
 		opt_local.shiftwidth = 2
 	end,
 })
--- autocmd({"BufNewFile", "BufRead"}, {
---   group = file_type_tab_stop,
---   pattern = { "*.js", "*.json", "*.ts", "*.html", "*.css", "*.yml", "*.proto", "*.sh" },
---   callback = function()
---     opt_local.tabstop = 2
---     opt_local.softtabstop = 2
---     opt_local.shiftwidth = 2
---   end
--- })
 
 -- Custom file type changes
 local custom_file_type_changes = augroup("CustomFileTypeChanges", { clear = true })
@@ -106,6 +102,13 @@ autocmd({ "BufNewFile", "BufRead" }, {
 		opt_local.filetype = "hcl"
 	end,
 })
+autocmd({ "FileType" }, {
+	group = custom_file_type_changes,
+	pattern = { "json" },
+	callback = function()
+		opt_local.filetype = "jsonc"
+	end,
+})
 autocmd({ "BufNewFile", "BufRead" }, {
 	group = custom_file_type_changes,
 	pattern = { "*" },
@@ -118,9 +121,18 @@ autocmd({ "BufNewFile", "BufRead" }, {
 
 -- Delete trailing white space on save, useful for Python and CoffeeScript ;)
 local delete_trailing_white_space = augroup("DeleteTrailingWhiteSpace", { clear = true })
-autocmd({ "BufWrite" }, {
+autocmd({ "FileType" }, {
 	group = delete_trailing_white_space,
-	pattern = { "*.py", "*.pyw", "*.c", "*h", "*.coffee", "*.md" },
+	-- pattern = { "*.py", "*.pyw", "*.c", "*h", "*.coffee", "*.md" },
+	pattern = {
+		"python",
+		"c",
+		"cpp",
+		-- "coffee",
+		"markdown",
+		"typescript",
+		"javascript",
+	},
 	callback = function()
 		if not o.binary and o.filetype ~= "diff" then
 			local current_view = fn.winsaveview()
