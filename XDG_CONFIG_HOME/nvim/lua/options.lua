@@ -34,7 +34,7 @@ opt.hlsearch = true
 opt.autoindent = true
 opt.smartindent = true
 opt.smarttab = true
-opt.expandtab = true
+-- opt.expandtab = true
 
 -- [[ Splits ]]
 opt.splitright = true
