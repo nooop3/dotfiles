@@ -59,8 +59,12 @@ autocmd({ "FileType" }, {
 local file_type_tab_stop = augroup("FileTypeTabStop", { clear = true })
 autocmd({ "FileType" }, {
 	group = file_type_tab_stop,
-	pattern = { "markdown" },
+	pattern = {
+		"markdown",
+		"sql",
+	},
 	callback = function()
+		opt_local.expandtab = true
 		opt_local.tabstop = 4
 		opt_local.softtabstop = 4
 		opt_local.shiftwidth = 4
@@ -80,6 +84,7 @@ autocmd({ "FileType" }, {
 		"sh",
 	},
 	callback = function()
+		opt_local.expandtab = true
 		opt_local.tabstop = 2
 		opt_local.softtabstop = 2
 		opt_local.shiftwidth = 2
@@ -132,6 +137,7 @@ autocmd({ "FileType" }, {
 		"markdown",
 		"typescript",
 		"javascript",
+		"sql",
 	},
 	callback = function()
 		if not o.binary and o.filetype ~= "diff" then

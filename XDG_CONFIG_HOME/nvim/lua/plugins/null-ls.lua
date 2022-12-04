@@ -29,7 +29,6 @@ null_ls.setup({
 		-- filetypes: "sql"
 		-- install: sudo pacman -S sqlfluff
 		diagnostics.sqlfluff.with({
-			args = { "lint", "--disable-progress-bar", "-f", "github-annotation", "-n", "$FILENAME" },
 			extra_args = { "--dialect", "postgres" }, -- change to your dialect
 		}),
 		-- filetypes: "markdown", "tex", "asciidoc"
@@ -52,16 +51,21 @@ null_ls.setup({
 		formatting.stylua,
 		-- filetypes: "hcl"
 		-- formatting.packer,
-		-- filetypes: "sql", "pgsql"
+		--[[ formatting.sqlfluff.with({
+			extra_args = { "--dialect", "postgres" }, -- change to your dialect
+		}), ]]
+		--[[ -- filetypes: "sql", "pgsql"
 		-- install: sudo pacman -S pgformatter
 		formatting.pg_format.with({
 			extra_args = {
-				"--keep-newline=1",
-				"--no-extra-line=1",
+				"--keep-newline",
+				"--no-extra-line",
 				"--redshift",
-				-- "--extra-function=/home/edward/.pg_format/functions.lst",
+				"--keyword-case=0",
+				-- "--extra-function=" .. vim.env.HOME .. "/.config/pg_format/functions.lst",
+				"--extra-function=" .. vim.fn.expand("$HOME/.config/pg_format/functions.lst"),
 			},
-		}),
+		}), ]]
 		-- filetypes: "terraform", "tf"
 		formatting.terraform_fmt,
 	},
