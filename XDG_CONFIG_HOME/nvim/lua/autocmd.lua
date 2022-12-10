@@ -138,6 +138,7 @@ autocmd({ "FileType" }, {
 		"typescript",
 		"javascript",
 		"sql",
+		"proto",
 	},
 	callback = function()
 		if not o.binary and o.filetype ~= "diff" then
