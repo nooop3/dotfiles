@@ -9,7 +9,7 @@ local autocmd = vim.api.nvim_create_autocmd
 
 local term = require("lspsaga.floaterm")
 
-sage.init_lsp_saga({
+sage.setup({
 	-- when cursor in saga window you config these to move
 	move_in_saga = { prev = "<C-k>", next = "<C-j>" },
 	finder_action_keys = {

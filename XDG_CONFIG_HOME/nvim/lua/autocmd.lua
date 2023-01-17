@@ -82,6 +82,7 @@ autocmd({ "FileType" }, {
 		"lua",
 		"proto",
 		"sh",
+		"xml",
 	},
 	callback = function()
 		opt_local.expandtab = true
