@@ -12,6 +12,7 @@ local system = vim.fn.system
 local trim = vim.fn.trim
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
+local nvim_buf_get_option = vim.api.nvim_buf_get_option
 
 -- https://github.com/vim/vim/blob/master/runtime/defaults.vim#L101
 -- When editing a file, always jump to the last known cursor position.
@@ -137,12 +138,12 @@ autocmd({ "FileType" }, {
 		-- "coffee",
 		"markdown",
 		"typescript",
-		"javascript",
+		-- "javascript",
 		"sql",
 		"proto",
 	},
 	callback = function()
-		if not o.binary and o.filetype ~= "diff" then
+		if not o.binary and o.filetype ~= "diff" and nvim_buf_get_option(0, "modifiable") then
 			local current_view = fn.winsaveview()
 			cmd([[keeppatterns %s/\s\+$//e]])
 			fn.winrestview(current_view)
