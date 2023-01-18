@@ -19,7 +19,7 @@ null_ls.setup({
 		code_actions.eslint_d,
 		-- filetypes: "sh"
 		code_actions.shellcheck,
-		code_actions.gitsigns,
+		-- code_actions.gitsigns,
 
 		-- filetypes: "proto"
 		-- install: yay -S protolint
