@@ -15,6 +15,13 @@ nvimtree.setup({
 		enable = true,
 		update_root = true,
 	},
+	view = {
+		mappings = {
+			list = {
+				{ key = "s", action = "" },
+			},
+		},
+	},
 })
 
 -- Toggle nvim-tree
