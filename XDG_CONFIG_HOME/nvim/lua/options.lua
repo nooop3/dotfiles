@@ -69,7 +69,7 @@ opt.linebreak = true
 opt.errorbells = false
 opt.visualbell = true
 
-opt.shortmess = "atIc"
+opt.shortmess = "aoOTIcF"
 opt.foldlevel = 99
 opt.foldminlines = 3
 -- opt.foldmethod = "indent"

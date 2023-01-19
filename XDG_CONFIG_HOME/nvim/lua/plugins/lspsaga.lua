@@ -19,19 +19,17 @@ sage.setup({
 
 	finder = {
 		edit = { "o", "<CR>" },
-		vsplit = "s",
-		split = "i",
-		-- vsplit = "v",
-		-- split = "s",
-		tabe = "t",
+		vsplit = "<C-v>",
+		split = "<C-x>",
+		tab = "t",
 		quit = { "q", "<ESC>" },
 	},
 
 	definition = {
 		edit = "<C-c>o",
 		vsplit = "<C-c>v",
-		split = "<C-c>i",
-		tabe = "<C-c>t",
+		split = "<C-c>x",
+		tab = "<C-c>t",
 		quit = "q",
 	},
 
@@ -92,9 +90,9 @@ sage.setup({
 		show_detail = false,
 		keys = {
 			edit = "e",
-			vsplit = "s",
-			split = "i",
-			tabe = "t",
+			vsplit = "<C-v>",
+			split = "<C-x>",
+			tab = "t",
 			jump = "o",
 			quit = "q",
 			expand_collapse = "u",
@@ -165,7 +163,7 @@ keymap("n", "gr", "<cmd>Lspsaga rename<CR>")
 keymap("n", "gd", "<cmd>Lspsaga peek_definition<CR>")
 
 -- Go to Definition
-keymap("n", "<leader>gd", "<cmd>Lspsaga goto_definition<CR>")
+keymap("n", "gD", "<cmd>Lspsaga goto_definition<CR>")
 
 -- Show line diagnostics you can pass argument ++unfocus to make
 -- show_line_diagnostics float window unfocus
