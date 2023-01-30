@@ -5,6 +5,7 @@ if not status then
 end
 
 local map = vim.keymap.set
+local fn = vim.fn
 
 local actions = require("telescope.actions")
 local builtin = require("telescope.builtin")
@@ -62,18 +63,18 @@ telescope.setup({
 		}, ]]
 		["telescope-tabs"] = {
 			-- entry_formatter = function(tab_id, buffer_ids, file_names, file_paths)
-			--[[ entry_formatter = function(tab_id, _, _, _)
+			entry_formatter = function(tab_id, _, _, _)
 				-- local cwd = fn.getcwd(-1, tab_id)
 				local cwd = vim.t[tab_id].root_dir or fn.getcwd(-1, tab_id)
 				-- local root_dir = fn.substitute(cwd, '^.*/', '', '')
 				local root_dir = fn.fnamemodify(cwd, ":t")
 				return string.format("%d: %s, %s", tab_id, root_dir, cwd:gsub(vim.env.HOME, "~"))
-			end, ]]
-			-- entry_ordinal = function(tab_id, buffer_ids, file_names, file_paths)
-			entry_ordinal = function(tab_id, _, file_names, _)
-				local entry = table.concat(file_names, " ")
-				return string.format("%d: %s", tab_id, entry)
 			end,
+			-- entry_ordinal = function(tab_id, buffer_ids, file_names, file_paths)
+			-- entry_ordinal = function(tab_id, _, file_names, _)
+			-- 	local entry = table.concat(file_names, " ")
+			-- 	return string.format("%d: %s", tab_id, entry)
+			-- end,
 			show_preview = true,
 			close_tab_shortcut_i = "<C-d>", -- if you're in insert mode
 			close_tab_shortcut_n = "D", -- if you're in normal mode
