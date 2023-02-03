@@ -63,12 +63,17 @@ telescope.setup({
 		}, ]]
 		["telescope-tabs"] = {
 			-- entry_formatter = function(tab_id, buffer_ids, file_names, file_paths)
-			entry_formatter = function(tab_id, _, _, _)
-				-- local cwd = fn.getcwd(-1, tab_id)
-				local cwd = vim.t[tab_id].root_dir or fn.getcwd(-1, tab_id)
-				-- local root_dir = fn.substitute(cwd, '^.*/', '', '')
-				local root_dir = fn.fnamemodify(cwd, ":t")
-				return string.format("%d: %s, %s", tab_id, root_dir, cwd:gsub(vim.env.HOME, "~"))
+			entry_formatter = function(tab_id, _, file_names, _)
+				if vim.api.nvim_tabpage_is_valid(tab_id) then
+					-- local cwd = fn.getcwd(-1, tab_id)
+					local cwd = vim.t[tab_id].root_dir or fn.getcwd(-1, tab_id)
+					-- local root_dir = fn.substitute(cwd, '^.*/', '', '')
+					local root_dir = fn.fnamemodify(cwd, ":t")
+					return string.format("%d: %s, %s", tab_id, root_dir, cwd:gsub(vim.env.HOME, "~"))
+				else
+					local entry_string = table.concat(file_names, ", ")
+					return string.format("%d: %s", tab_id, entry_string)
+				end
 			end,
 			-- entry_ordinal = function(tab_id, buffer_ids, file_names, file_paths)
 			-- entry_ordinal = function(tab_id, _, file_names, _)
