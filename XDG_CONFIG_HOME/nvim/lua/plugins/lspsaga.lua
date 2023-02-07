@@ -18,11 +18,13 @@ sage.setup({
 	request_timeout = 2000,
 
 	finder = {
-		edit = { "o", "<CR>" },
-		vsplit = "<C-v>",
-		split = "<C-x>",
-		tab = "t",
-		quit = { "q", "<ESC>" },
+		keys = {
+			edit = { "o", "<CR>" },
+			vsplit = "<C-v>",
+			split = "<C-x>",
+			tab = "t",
+			quit = { "q", "<ESC>" },
+		},
 	},
 
 	definition = {
