@@ -117,7 +117,7 @@ local servers = {
 	"gopls",
 	-- sudo pacman -S lua-language-server
 	-- brew install lua-language-server
-	"sumneko_lua",
+	"lua_ls",
 	-- curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
 	-- brew install tflint
 	"tflint",
@@ -183,7 +183,7 @@ for _, lsp in pairs(servers) do
 	end
 
 	-- lua
-	if lsp == "sumneko_lua" then
+	if lsp == "lua_ls" then
 		configs.settings = {
 			Lua = {
 				runtime = {
