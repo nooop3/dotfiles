@@ -64,7 +64,8 @@ telescope.setup({
 		["telescope-tabs"] = {
 			-- entry_formatter = function(tab_id, buffer_ids, file_names, file_paths)
 			entry_formatter = function(tab_id, _, file_names, _)
-				if vim.api.nvim_tabpage_is_valid(tab_id) then
+				-- if vim.api.nvim_tabpage_is_valid(tab_id) then
+				if next(vim.fn.gettabinfo(tab_id)) ~= nil then
 					-- local cwd = fn.getcwd(-1, tab_id)
 					local cwd = vim.t[tab_id].root_dir or fn.getcwd(-1, tab_id)
 					-- local root_dir = fn.substitute(cwd, '^.*/', '', '')
