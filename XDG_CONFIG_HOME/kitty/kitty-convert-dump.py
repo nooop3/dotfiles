@@ -21,7 +21,11 @@ def cmdline_to_str(cmdline):
     """Convert a cmdline list to a space separated string."""
     s = ""
     for e in cmdline:
-        s += f"{e} "
+        # FIXME: fix cmdline for MacOS
+        if e == "-zsh":
+            s += f"zsh "
+        else:
+            s += f"{e} "
 
     return s.strip()
 
