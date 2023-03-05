@@ -47,7 +47,7 @@ return packer.startup({
 		use("numToStr/Comment.nvim")
 		-- use("tpope/vim-fugitive") -- git integration
 		-- use("junegunn/gv.vim") -- commit history
-		-- use("lewis6991/gitsigns.nvim")
+		use("lewis6991/gitsigns.nvim")
 
 		-- A file explorer tree for neovim written in lua
 		use({
