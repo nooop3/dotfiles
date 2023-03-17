@@ -40,6 +40,8 @@ configs.setup({
 		"java",
 		"tsx",
 		"kotlin",
+		"scala",
+		"hocon",
 
 		"vim",
 		"lua",
