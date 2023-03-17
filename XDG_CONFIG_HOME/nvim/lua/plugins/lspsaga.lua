@@ -38,7 +38,7 @@ sage.setup({
 	code_action = {
 		num_shortcut = true,
 		show_server_name = true,
-		extend_gitsigns = true,
+		extend_gitsigns = false,
 		keys = {
 			-- string |table type
 			quit = "q",
