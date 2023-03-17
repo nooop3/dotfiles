@@ -84,6 +84,7 @@ autocmd({ "FileType" }, {
 		"proto",
 		"sh",
 		"xml",
+		"sbt",
 	},
 	callback = function()
 		opt_local.expandtab = true
@@ -92,6 +93,12 @@ autocmd({ "FileType" }, {
 		opt_local.shiftwidth = 2
 	end,
 })
+
+local hocon_group = vim.api.nvim_create_augroup("hocon", { clear = true })
+vim.api.nvim_create_autocmd(
+	{ "BufNewFile", "BufRead" },
+	{ group = hocon_group, pattern = "*/resources/*.conf", command = "set ft=hocon" }
+)
 
 -- Custom file type changes
 local custom_file_type_changes = augroup("CustomFileTypeChanges", { clear = true })
