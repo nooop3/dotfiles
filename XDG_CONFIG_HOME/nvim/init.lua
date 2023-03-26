@@ -2,6 +2,7 @@
 
 local fn = vim.fn
 
+-- lazy settings
 local install_path = fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(install_path) then
 	fn.system({
@@ -24,9 +25,9 @@ vim.g.mapleader = ";"
 vim.g.localleader = "\\"
 
 require("lazy").setup("plugins", {
-  change_detection = {
-    enabled = false
-  }
+	change_detection = {
+		enabled = false,
+	},
 })
 
 -- nvim-tree
