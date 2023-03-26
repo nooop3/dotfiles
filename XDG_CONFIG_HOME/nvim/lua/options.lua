@@ -4,18 +4,11 @@ local opt = vim.opt
 local has = vim.fn.has
 
 -- [[ Theme ]]
-opt.syntax = "ON"
-opt.background = "dark"
-if has("termguicolors") == 1 then
-	opt.termguicolors = true
-end
--- cmd:  Set the colorscheme
--- cmd("colorscheme dracula")
-local status, _ = pcall(vim.cmd, "colorscheme gruvbox-material")
-if not status then
-	print("Colorscheme not found!") -- print error if colorscheme not installed
-	return
-end
+-- opt.syntax = "ON"
+-- opt.background = "dark"
+-- if has("termguicolors") == 1 then
+-- 	opt.termguicolors = true
+-- end
 
 -- [[ Filetypes ]]
 opt.encoding = "utf8"
