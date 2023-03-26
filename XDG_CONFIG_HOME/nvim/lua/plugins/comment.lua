@@ -6,6 +6,7 @@ end
 local ft = require("Comment.ft")
 
 ft.set("sbt", { "//%s", "/*%s*/" })
+ft.set("hocon", { "#%s" })
 
 -- enable comment
 comment.setup({
