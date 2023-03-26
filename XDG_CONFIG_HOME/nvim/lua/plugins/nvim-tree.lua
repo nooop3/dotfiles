@@ -1,28 +1,26 @@
--- import nvim-tree plugin safely
-local status, nvimtree = pcall(require, "nvim-tree")
-if not status then
-	return
-end
-
-local map = vim.keymap.set
-
-nvimtree.setup({
-	open_on_setup = true,
-	open_on_tab = false,
-	sync_root_with_cwd = true,
-	respect_buf_cwd = true,
-	update_focused_file = {
-		enable = true,
-		update_root = true,
+return {
+	-- A file explorer tree for neovim written in lua
+	"nvim-tree/nvim-tree.lua",
+	version = "nightly", -- optional, updated every week. (see issue #1193)
+	lazy = true,
+	keys = {
+		-- Toggle nvim-tree
+		{"<C-n>", [[:NvimTreeToggle<CR>]], noremap = true, silent = true, desc = "nvim-tree toggle"}
 	},
-	view = {
-		mappings = {
-			list = {
-				{ key = "s", action = "" },
+	opts = {
+		open_on_tab = false,
+		sync_root_with_cwd = true,
+		respect_buf_cwd = true,
+		update_focused_file = {
+			enable = true,
+			update_root = true,
+		},
+		view = {
+			mappings = {
+				list = {
+					{ key = "s", action = "" },
+				},
 			},
 		},
-	},
-})
-
--- Toggle nvim-tree
-map("n", "<C-n>", [[:NvimTreeToggle<CR>]], { noremap = true, silent = true })
+	}
+}
