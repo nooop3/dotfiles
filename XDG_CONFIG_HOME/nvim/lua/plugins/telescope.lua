@@ -17,9 +17,9 @@ return {
 			-- map("n", "<leader>fa", extensions["telescope-tabs"].list_tabs, opts)
 
 			-- personalize
-			{ "<c-p>", Util.telescope("files"), desc = "Find Files (root dir) - personal" },
-			{ "<leader>fg", Util.telescope("live_grep"), desc = "Grep (root dir) - personal" },
-			{ "<leader>fs", Util.telescope("grep_string"), desc = "Word (root dir) - personal" },
+			{ "<c-p>", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd) - personal" },
+			{ "<leader>fg", Util.telescope("live_grep", { cwd = false }), desc = "Grep (cwd) - personal" },
+			{ "<leader>fs", Util.telescope("grep_string", { cwd = false }), desc = "Word (cwd) - personal" },
 			{ "<leader>ft", Util.telescope("filetypes"), desc = "Filetypes" },
 
 			{ "<leader>fo", Util.telescope("current_buffer_tags"), desc = "Filetypes" },
@@ -59,7 +59,11 @@ return {
 			{ "<leader>sR", "<cmd>Telescope resume<cr>", desc = "Resume" },
 			{ "<leader>sw", Util.telescope("grep_string"), desc = "Word (root dir)" },
 			{ "<leader>sW", Util.telescope("grep_string", { cwd = false }), desc = "Word (cwd)" },
-			{ "<leader>uC", Util.telescope("colorscheme", { enable_preview = true }), desc = "Colorscheme with preview" },
+			{
+				"<leader>uC",
+				Util.telescope("colorscheme", { enable_preview = true }),
+				desc = "Colorscheme with preview",
+			},
 			{
 				"<leader>ss",
 				Util.telescope("lsp_document_symbols", {
@@ -97,20 +101,19 @@ return {
 				desc = "Goto Symbol (Workspace)",
 			},
 		},
-		dependencies = { 
+		dependencies = {
 			{ "nvim-lua/plenary.nvim" },
 			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 			-- "nvim-telescope/telescope-project.nvim",
 			"LukasPietzschmann/telescope-tabs",
 			"ahmedkhalf/project.nvim",
 		},
-		opts = function (plugin, opts)
-
+		opts = function(plugin, opts)
 			local fn = vim.fn
 
 			local actions = require("telescope.actions")
 			local telescope = require("telescope")
-			local extensions = telescope.extensions
+			-- local extensions = telescope.extensions
 
 			-- To get fzf loaded and working with telescope, you need to call
 			-- load_extension, somewhere after setup function:
@@ -194,6 +197,6 @@ return {
 					},
 				},
 			}
-		end
+		end,
 	},
 }
