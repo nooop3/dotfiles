@@ -10,7 +10,7 @@ return {
 				ignore_lsp = {},
 				exclude_dirs = { "~/.cargo/*" },
 				show_hidden = true,
-				silent_chdir = false,
+				silent_chdir = true,
 				scope_chdir = "tab",
 			})
 		end,
