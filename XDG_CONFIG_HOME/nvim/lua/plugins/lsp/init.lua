@@ -1,11 +1,18 @@
+local lua_ls_library = vim.api.nvim_get_runtime_file("", true)
+table.insert(
+	lua_ls_library,
+	-- fix undefined field warning
+	vim.fn.stdpath("config") .. "/lua"
+)
+
 return {
 	-- lspconfig
 	{
 		"neovim/nvim-lspconfig",
 		event = { "BufReadPre", "BufNewFile" },
 		dependencies = {
-			-- { "folke/neoconf.nvim", cmd = "Neoconf", config = true },
-			-- { "folke/neodev.nvim", opts = { experimental = { pathStrict = true } } },
+			{ "folke/neoconf.nvim", cmd = "Neoconf", config = true },
+			{ "folke/neodev.nvim", opts = { experimental = { pathStrict = true } } },
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
 			{
@@ -15,6 +22,9 @@ return {
 				end,
 			},
 		},
+		init = function()
+			require("plugins.lsp.keymaps").get()
+		end,
 		---@class PluginLspOpts
 		opts = {
 			-- options for vim.diagnostic.config()
@@ -61,7 +71,7 @@ return {
 							},
 							workspace = {
 								-- Make the server aware of Neovim runtime files
-								library = vim.api.nvim_get_runtime_file("", true),
+								library = lua_ls_library,
 								checkThirdParty = false,
 							},
 							-- Do not send telemetry data containing a randomized but unique identifier
@@ -144,8 +154,6 @@ return {
 			end
 
 			if have_mason then
-				local Package = require("mason-core.package")
-				local server_name, version = Package.Parse("lua_ls")
 				mlsp.setup({ ensure_installed = ensure_installed })
 				mlsp.setup_handlers({ setup })
 			end
