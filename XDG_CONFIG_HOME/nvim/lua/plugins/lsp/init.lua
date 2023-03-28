@@ -81,6 +81,58 @@ return {
 						},
 					},
 				},
+				clangd = {
+					filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
+				},
+				bashls = {},
+				tsserver = {
+					settings = {
+						javascript = {
+							format = {
+								semicolons = "remove",
+							},
+						},
+						diagnostics = {
+							ignoredCodes = {
+								-- See https://github.com/microsoft/TypeScript/blob/master/src/compiler/diagnosticMessages.json for a full list of valid codes.
+								-- Could not find a declaration file for module '{0}'. '{1}' implicitly has an 'any' type.
+								7016,
+								-- File is a CommonJS module; it may be converted to an ES module.
+								80001,
+							},
+						},
+					},
+					init_options = {
+						hostInfo = "neovim",
+						disableAutomaticTypingAcquisition = false,
+						preferences = {
+							quotePreference = "single",
+						},
+					},
+				},
+				gopls = {
+					settings = {
+						gopls = {
+							experimentalPostfixCompletions = true,
+							analyses = {
+								unusedparams = true,
+								shadow = true,
+							},
+							staticcheck = true,
+						},
+					},
+					init_options = {
+						usePlaceholders = true,
+					},
+				},
+				-- tflint = {
+				-- 	-- root_pattern(".terraform", ".git", ".tflint.hcl")
+				-- 	root_dir = require("lspconfig").util.root_pattern(".git", ".tflint.hcl"),
+				-- },
+				-- terraformls = {
+				-- 	-- root_pattern(".terraform", ".git", ".tflint.hcl")
+				-- 	root_dir = require("lspconfig").util.root_pattern(".git", ".tflint.hcl"),
+				-- },
 			},
 			-- you can do any additional lsp server setup here
 			-- return true if you don't want this server to be setup with lspconfig
@@ -172,6 +224,7 @@ return {
 				"stylua",
 				"shfmt",
 				-- "flake8",
+				"pyright",
 			},
 		},
 		---@param opts MasonSettings | {ensure_installed: string[]}
