@@ -1,3 +1,5 @@
+local Util = require("lazy.core.util")
+
 local M = {}
 
 M.root_patterns = { ".git", "lua" }
@@ -61,7 +63,7 @@ function M.get_root()
 				or {}
 			for _, p in ipairs(paths) do
 				local r = vim.loop.fs_realpath(p)
-				if path:find(r, 1, true) then
+				if r and path:find(r, 1, true) then
 					roots[#roots + 1] = r
 				end
 			end
