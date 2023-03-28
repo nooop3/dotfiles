@@ -10,6 +10,23 @@ function M.get()
   ---@class PluginLspKeys
     -- stylua: ignore
     M._keys =  {
+      -- personalize
+      -- Hover Doc
+      -- if there has no hover will have a notify no information available
+      -- to disable it just Lspsaga hover_doc ++quiet
+      { "K", "<cmd>Lspsaga hover_doc<CR>", desc = "Hover" },
+
+			-- Diagnostic jump can use `<c-o>` to jump back
+      { "]e", "<cmd>Lspsaga diagnostic_jump_next<CR>", desc = "Next Diagnostic" },
+      { "[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>", desc = "Prev Diagnostic" },
+			-- Diagnostic jump with filter like Only jump to error
+      -- { "]E", M.lspsaga_diagnostic_goto(true, "ERROR"), desc = "Next Error" },
+      -- { "[E", M.lspsaga_diagnostic_goto(false, "ERROR"), desc = "Next Error" },
+
+			-- Code action
+      { "<leader>ca", "<cmd>Lspsaga code_action<CR>", desc = "Code Action", mode = { "n", "v" }, has = "codeAction" },
+
+      -- LazyVim
       { "<leader>cd", vim.diagnostic.open_float, desc = "Line Diagnostics" },
       { "<leader>cl", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
       { "gd", "<cmd>Telescope lsp_definitions<cr>", desc = "Goto Definition", has = "definition" },
@@ -17,18 +34,18 @@ function M.get()
       { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
       { "gI", "<cmd>Telescope lsp_implementations<cr>", desc = "Goto Implementation" },
       { "gt", "<cmd>Telescope lsp_type_definitions<cr>", desc = "Goto Type Definition" },
-      { "K", vim.lsp.buf.hover, desc = "Hover" },
+      -- { "K", vim.lsp.buf.hover, desc = "Hover" },
       { "gK", vim.lsp.buf.signature_help, desc = "Signature Help", has = "signatureHelp" },
       { "<c-k>", vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help", has = "signatureHelp" },
-      { "]d", M.diagnostic_goto(true), desc = "Next Diagnostic" },
-      { "[d", M.diagnostic_goto(false), desc = "Prev Diagnostic" },
-      { "]e", M.diagnostic_goto(true, "ERROR"), desc = "Next Error" },
-      { "[e", M.diagnostic_goto(false, "ERROR"), desc = "Prev Error" },
+      -- { "]d", M.diagnostic_goto(true), desc = "Next Diagnostic" },
+      -- { "[d", M.diagnostic_goto(false), desc = "Prev Diagnostic" },
+      -- { "]e", M.diagnostic_goto(true, "ERROR"), desc = "Next Error" },
+      -- { "[e", M.diagnostic_goto(false, "ERROR"), desc = "Prev Error" },
       { "]w", M.diagnostic_goto(true, "WARN"), desc = "Next Warning" },
       { "[w", M.diagnostic_goto(false, "WARN"), desc = "Prev Warning" },
       { "<leader>cf", format, desc = "Format Document", has = "documentFormatting" },
       { "<leader>cf", format, desc = "Format Range", mode = "v", has = "documentRangeFormatting" },
-      { "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "v" }, has = "codeAction" },
+      -- { "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "v" }, has = "codeAction" },
       {
         "<leader>cA",
         function()
@@ -90,6 +107,15 @@ end
 
 function M.diagnostic_goto(next, severity)
 	local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+	severity = severity and vim.diagnostic.severity[severity] or nil
+	return function()
+		go({ severity = severity })
+	end
+end
+
+function M.lspsaga_diagnostic_goto(next, severity)
+	local diagnostic = require("lspsaga.diagnostic")
+	local go = next and diagnostic.goto_next or vim.diagnostic.goto_prev
 	severity = severity and vim.diagnostic.severity[severity] or nil
 	return function()
 		go({ severity = severity })
