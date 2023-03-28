@@ -16,6 +16,7 @@ return {
 			"go",
 			"gomod",
 			"java",
+			"typescript",
 			"tsx",
 			"kotlin",
 			"scala",
