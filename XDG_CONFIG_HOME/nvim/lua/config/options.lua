@@ -86,7 +86,8 @@ opt.hlsearch = true
 -- [[ Context ]]
 -- opt.colorcolumn = "80"
 opt.backspace = "indent,eol,start"
-opt.listchars = { eol = "↲", space = "⋅", tab = "▸ ", trail = "·" }
+-- opt.listchars = { eol = "↲", space = "⋅", tab = "▸ ", trail = "·" }
+opt.listchars = { tab = "▸ ", trail = "·" }
 
 opt.textwidth = 79
 opt.cmdheight = 2
