@@ -10,16 +10,20 @@ local map = vim.keymap.set
 local has = vim.fn.has
 local system = vim.fn.system
 local trim = vim.fn.trim
-local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 local nvim_buf_get_option = vim.api.nvim_buf_get_option
+
+-- local augroup = vim.api.nvim_create_augroup
+local function augroup(name)
+  return vim.api.nvim_create_augroup("personal_" .. name, { clear = true })
+end
 
 -- https://github.com/vim/vim/blob/master/runtime/defaults.vim#L101
 -- When editing a file, always jump to the last known cursor position.
 -- Don't do it when the position is invalid, when inside an event handler
 -- (happens when dropping a file on gvim) and for a commit message (it's
 -- likely a different one than last time).
-local vim_startup = augroup("vimStartup", { clear = true })
+local vim_startup = augroup("vim_startup")
 autocmd({ "BufReadPost" }, {
   group = vim_startup,
   pattern = { "*" },
@@ -33,7 +37,7 @@ autocmd({ "BufReadPost" }, {
 })
 
 -- Markdown add the checkbox
-local markdown_checkbox = augroup("MarkdownCheckbox", { clear = true })
+local markdown_checkbox = augroup("markdown_checkbox")
 autocmd({ "FileType" }, {
   group = markdown_checkbox,
   pattern = { "markdown" },
@@ -57,7 +61,7 @@ autocmd({ "FileType" }, {
 })
 
 -- Auto change the tabstop
-local file_type_tab_stop = augroup("FileTypeTabStop", { clear = true })
+local file_type_tab_stop = augroup("file_type_tab_stop")
 autocmd({ "FileType" }, {
   group = file_type_tab_stop,
   pattern = {
@@ -94,14 +98,14 @@ autocmd({ "FileType" }, {
   end,
 })
 
-local hocon_group = vim.api.nvim_create_augroup("hocon", { clear = true })
+local hocon_group = augroup("hocon_group")
 vim.api.nvim_create_autocmd(
   { "BufNewFile", "BufRead" },
   { group = hocon_group, pattern = "*/resources/*.conf", command = "set ft=hocon" }
 )
 
 -- Custom file type changes
-local custom_file_type_changes = augroup("CustomFileTypeChanges", { clear = true })
+local custom_file_type_changes = augroup("custom_file_type_changes")
 autocmd({ "BufNewFile", "BufRead" }, {
   group = custom_file_type_changes,
   pattern = { "crontab*" },
@@ -134,7 +138,7 @@ autocmd({ "BufNewFile", "BufRead" }, {
 })
 
 -- Delete trailing white space on save, useful for Python and CoffeeScript ;)
-local delete_trailing_white_space = augroup("DeleteTrailingWhiteSpace", { clear = true })
+local delete_trailing_white_space = augroup("delete_trailing_white_space")
 autocmd({ "FileType" }, {
   group = delete_trailing_white_space,
   -- pattern = { "*.py", "*.pyw", "*.c", "*h", "*.coffee", "*.md" },
@@ -159,7 +163,7 @@ autocmd({ "FileType" }, {
 })
 
 -- autocmd BufWritePre *.tf lua vim.lsp.buf.formatting_sync()
--- local terraform_format = augroup("TerraformFormat", { clear = true })
+-- local terraform_format = augroup("terraform_format", { clear = true })
 -- autocmd({"BufWritePre"}, {
 --   group = terraform_format,
 --   pattern = { "*.tf" },
@@ -186,7 +190,7 @@ end
 
 if has("Mac") == 0 then
   -- opt.timeoutlen = 150
-  local auto_fcitx = augroup("AutoFcitx", { clear = true })
+  local auto_fcitx = augroup("auto_fcitx")
   autocmd({ "InsertLeave" }, {
     group = auto_fcitx,
     pattern = { "*" },
@@ -198,3 +202,68 @@ if has("Mac") == 0 then
     callback = fcitx2zh,
   })
 end
+
+-- copy from LazyVim.config.autocmds
+-- Check if we need to reload the file when it changed
+vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
+  group = augroup("checktime"),
+  command = "checktime",
+})
+
+-- Highlight on yank
+vim.api.nvim_create_autocmd("TextYankPost", {
+  group = augroup("highlight_yank"),
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+})
+
+-- resize splits if window got resized
+vim.api.nvim_create_autocmd({ "VimResized" }, {
+  group = augroup("resize_splits"),
+  callback = function()
+    vim.cmd("tabdo wincmd =")
+  end,
+})
+
+-- go to last loc when opening a buffer
+vim.api.nvim_create_autocmd("BufReadPost", {
+  group = augroup("last_loc"),
+  callback = function()
+    local mark = vim.api.nvim_buf_get_mark(0, '"')
+    local lcount = vim.api.nvim_buf_line_count(0)
+    if mark[1] > 0 and mark[1] <= lcount then
+      pcall(vim.api.nvim_win_set_cursor, 0, mark)
+    end
+  end,
+})
+
+-- close some filetypes with <q>
+vim.api.nvim_create_autocmd("FileType", {
+  group = augroup("close_with_q"),
+  pattern = {
+    "PlenaryTestPopup",
+    "help",
+    "lspinfo",
+    "man",
+    "notify",
+    "qf",
+    "spectre_panel",
+    "startuptime",
+    "tsplayground",
+  },
+  callback = function(event)
+    vim.bo[event.buf].buflisted = false
+    vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
+  end,
+})
+
+-- wrap and check for spell in text filetypes
+vim.api.nvim_create_autocmd("FileType", {
+  group = augroup("wrap_spell"),
+  pattern = { "gitcommit", "markdown" },
+  callback = function()
+    vim.opt_local.wrap = true
+    vim.opt_local.spell = true
+  end,
+})
