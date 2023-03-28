@@ -21,141 +21,141 @@ local nvim_buf_get_option = vim.api.nvim_buf_get_option
 -- likely a different one than last time).
 local vim_startup = augroup("vimStartup", { clear = true })
 autocmd({ "BufReadPost" }, {
-	group = vim_startup,
-	pattern = { "*" },
-	callback = function()
-		local quote_mark_line = fn.line("'" .. '"')
-		local last_line = fn.line("$")
-		if quote_mark_line >= 1 and quote_mark_line <= last_line and o.ft ~= "commit" then
-			cmd('normal! g`"')
-		end
-	end,
+  group = vim_startup,
+  pattern = { "*" },
+  callback = function()
+    local quote_mark_line = fn.line("'" .. '"')
+    local last_line = fn.line("$")
+    if quote_mark_line >= 1 and quote_mark_line <= last_line and o.ft ~= "commit" then
+      cmd('normal! g`"')
+    end
+  end,
 })
 
 -- Markdown add the checkbox
 local markdown_checkbox = augroup("MarkdownCheckbox", { clear = true })
 autocmd({ "FileType" }, {
-	group = markdown_checkbox,
-	pattern = { "markdown" },
-	callback = function()
-		map(
-			{ "n", "v" },
-			"<Leader>x<space>",
-			":s/^\\s*\\(- \\\\|\\* \\)\\?\\zs\\(\\[[^\\]]*\\] \\)\\?\\ze./[ ] /<CR>0t]<CR>",
-			{
-				buffer = true,
-				silent = true,
-				desc = "Add checkbox",
-			}
-		)
-		map({ "n", "v" }, "<Leader>xx", ":s/^\\s*\\(- \\\\|\\* \\)\\?\\zs\\(\\[[^\\]]*\\] \\)\\?\\ze./[x] /<CR>0t]<CR>", {
-			buffer = true,
-			silent = true,
-			desc = "Add checkbox",
-		})
-	end,
+  group = markdown_checkbox,
+  pattern = { "markdown" },
+  callback = function()
+    map(
+      { "n", "v" },
+      "<Leader>x<space>",
+      ":s/^\\s*\\(- \\\\|\\* \\)\\?\\zs\\(\\[[^\\]]*\\] \\)\\?\\ze./[ ] /<CR>0t]<CR>",
+      {
+        buffer = true,
+        silent = true,
+        desc = "Add checkbox",
+      }
+    )
+    map({ "n", "v" }, "<Leader>xx", ":s/^\\s*\\(- \\\\|\\* \\)\\?\\zs\\(\\[[^\\]]*\\] \\)\\?\\ze./[x] /<CR>0t]<CR>", {
+      buffer = true,
+      silent = true,
+      desc = "Add checkbox",
+    })
+  end,
 })
 
 -- Auto change the tabstop
 local file_type_tab_stop = augroup("FileTypeTabStop", { clear = true })
 autocmd({ "FileType" }, {
-	group = file_type_tab_stop,
-	pattern = {
-		"markdown",
-		"sql",
-	},
-	callback = function()
-		opt_local.expandtab = true
-		opt_local.tabstop = 4
-		opt_local.softtabstop = 4
-		opt_local.shiftwidth = 4
-	end,
+  group = file_type_tab_stop,
+  pattern = {
+    "markdown",
+    "sql",
+  },
+  callback = function()
+    opt_local.expandtab = true
+    opt_local.tabstop = 4
+    opt_local.softtabstop = 4
+    opt_local.shiftwidth = 4
+  end,
 })
 autocmd({ "FileType" }, {
-	group = file_type_tab_stop,
-	pattern = {
-		"javascript",
-		"typescript",
-		"json",
-		"yaml",
-		"html",
-		"css",
-		"lua",
-		"proto",
-		"sh",
-		"xml",
-		"sbt",
-	},
-	callback = function()
-		opt_local.expandtab = true
-		opt_local.tabstop = 2
-		opt_local.softtabstop = 2
-		opt_local.shiftwidth = 2
-	end,
+  group = file_type_tab_stop,
+  pattern = {
+    "javascript",
+    "typescript",
+    "json",
+    "yaml",
+    "html",
+    "css",
+    "lua",
+    "proto",
+    "sh",
+    "xml",
+    "sbt",
+  },
+  callback = function()
+    opt_local.expandtab = true
+    opt_local.tabstop = 2
+    opt_local.softtabstop = 2
+    opt_local.shiftwidth = 2
+  end,
 })
 
 local hocon_group = vim.api.nvim_create_augroup("hocon", { clear = true })
 vim.api.nvim_create_autocmd(
-	{ "BufNewFile", "BufRead" },
-	{ group = hocon_group, pattern = "*/resources/*.conf", command = "set ft=hocon" }
+  { "BufNewFile", "BufRead" },
+  { group = hocon_group, pattern = "*/resources/*.conf", command = "set ft=hocon" }
 )
 
 -- Custom file type changes
 local custom_file_type_changes = augroup("CustomFileTypeChanges", { clear = true })
 autocmd({ "BufNewFile", "BufRead" }, {
-	group = custom_file_type_changes,
-	pattern = { "crontab*" },
-	callback = function()
-		opt_local.filetype = "crontab"
-	end,
+  group = custom_file_type_changes,
+  pattern = { "crontab*" },
+  callback = function()
+    opt_local.filetype = "crontab"
+  end,
 })
 autocmd({ "BufNewFile", "BufRead" }, {
-	group = custom_file_type_changes,
-	pattern = { "*.nomad" },
-	callback = function()
-		opt_local.filetype = "hcl"
-	end,
+  group = custom_file_type_changes,
+  pattern = { "*.nomad" },
+  callback = function()
+    opt_local.filetype = "hcl"
+  end,
 })
 autocmd({ "FileType" }, {
-	group = custom_file_type_changes,
-	pattern = { "json" },
-	callback = function()
-		opt_local.filetype = "jsonc"
-	end,
+  group = custom_file_type_changes,
+  pattern = { "json" },
+  callback = function()
+    opt_local.filetype = "jsonc"
+  end,
 })
 autocmd({ "BufNewFile", "BufRead" }, {
-	group = custom_file_type_changes,
-	pattern = { "*" },
-	callback = function()
-		if vim.fn.expand("%:e"):match("ya?ml") and vim.fn.search("{{.\\+}}", "nw") ~= 0 then
-			opt_local.filetype = "gotmpl"
-		end
-	end,
+  group = custom_file_type_changes,
+  pattern = { "*" },
+  callback = function()
+    if vim.fn.expand("%:e"):match("ya?ml") and vim.fn.search("{{.\\+}}", "nw") ~= 0 then
+      opt_local.filetype = "gotmpl"
+    end
+  end,
 })
 
 -- Delete trailing white space on save, useful for Python and CoffeeScript ;)
 local delete_trailing_white_space = augroup("DeleteTrailingWhiteSpace", { clear = true })
 autocmd({ "FileType" }, {
-	group = delete_trailing_white_space,
-	-- pattern = { "*.py", "*.pyw", "*.c", "*h", "*.coffee", "*.md" },
-	pattern = {
-		"python",
-		"c",
-		"cpp",
-		-- "coffee",
-		"markdown",
-		"typescript",
-		-- "javascript",
-		"sql",
-		"proto",
-	},
-	callback = function()
-		if not o.binary and o.filetype ~= "diff" and nvim_buf_get_option(0, "modifiable") then
-			local current_view = fn.winsaveview()
-			cmd([[keeppatterns %s/\s\+$//e]])
-			fn.winrestview(current_view)
-		end
-	end,
+  group = delete_trailing_white_space,
+  -- pattern = { "*.py", "*.pyw", "*.c", "*h", "*.coffee", "*.md" },
+  pattern = {
+    "python",
+    "c",
+    "cpp",
+    -- "coffee",
+    "markdown",
+    "typescript",
+    -- "javascript",
+    "sql",
+    "proto",
+  },
+  callback = function()
+    if not o.binary and o.filetype ~= "diff" and nvim_buf_get_option(0, "modifiable") then
+      local current_view = fn.winsaveview()
+      cmd([[keeppatterns %s/\s\+$//e]])
+      fn.winrestview(current_view)
+    end
+  end,
 })
 
 -- autocmd BufWritePre *.tf lua vim.lsp.buf.formatting_sync()
@@ -170,31 +170,31 @@ autocmd({ "FileType" }, {
 
 g.input_toggle = 0
 local fcitx2en = function()
-	local input_status = trim(system("fcitx5-remote"))
-	if input_status == "2" then
-		g.input_toggle = 1
-		system("fcitx5-remote -c")
-	end
+  local input_status = trim(system("fcitx5-remote"))
+  if input_status == "2" then
+    g.input_toggle = 1
+    system("fcitx5-remote -c")
+  end
 end
 local fcitx2zh = function()
-	local input_status = trim(system("fcitx5-remote"))
-	if input_status ~= "2" and g.input_toggle == 1 then
-		system("fcitx5-remote -o")
-		g.input_toggle = 0
-	end
+  local input_status = trim(system("fcitx5-remote"))
+  if input_status ~= "2" and g.input_toggle == 1 then
+    system("fcitx5-remote -o")
+    g.input_toggle = 0
+  end
 end
 
 if has("Mac") == 0 then
-	-- opt.timeoutlen = 150
-	local auto_fcitx = augroup("AutoFcitx", { clear = true })
-	autocmd({ "InsertLeave" }, {
-		group = auto_fcitx,
-		pattern = { "*" },
-		callback = fcitx2en,
-	})
-	autocmd({ "InsertEnter" }, {
-		group = auto_fcitx,
-		pattern = { "*" },
-		callback = fcitx2zh,
-	})
+  -- opt.timeoutlen = 150
+  local auto_fcitx = augroup("AutoFcitx", { clear = true })
+  autocmd({ "InsertLeave" }, {
+    group = auto_fcitx,
+    pattern = { "*" },
+    callback = fcitx2en,
+  })
+  autocmd({ "InsertEnter" }, {
+    group = auto_fcitx,
+    pattern = { "*" },
+    callback = fcitx2zh,
+  })
 end

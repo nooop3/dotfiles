@@ -35,7 +35,7 @@ opt.cursorline = true -- Enable highlighting of the current line
 opt.formatoptions = "jcroqlnt" -- tcqj
 opt.grepformat = "%f:%l:%c:%m"
 if vim.fn.executable("rg") == 1 then
-	opt.grepprg = "rg --vimgrep"
+  opt.grepprg = "rg --vimgrep"
 end
 opt.ignorecase = true -- Ignore case
 opt.inccommand = "nosplit" -- preview incremental substitute
@@ -113,8 +113,8 @@ opt.guioptions = nil
 -- opt.iskeyword = opt.iskeyword + "-"
 
 if vim.fn.has("nvim-0.9.0") == 1 then
-	opt.splitkeep = "screen"
-	opt.shortmess:append({ C = true })
+  opt.splitkeep = "screen"
+  opt.shortmess:append({ C = true })
 end
 
 -- Fix markdown indentation settings
