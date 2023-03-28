@@ -21,6 +21,7 @@ return {
 					return require("util").has("nvim-cmp")
 				end,
 			},
+			{ "jose-elias-alvarez/typescript.nvim" },
 		},
 		init = function()
 			require("plugins.lsp.keymaps").get()
@@ -101,6 +102,9 @@ return {
 								80001,
 							},
 						},
+						completions = {
+							completeFunctionCalls = true,
+						},
 					},
 					init_options = {
 						hostInfo = "neovim",
@@ -138,11 +142,18 @@ return {
 			-- return true if you don't want this server to be setup with lspconfig
 			---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
 			setup = {
-				-- example to setup with typescript.nvim
-				-- tsserver = function(_, opts)
-				--   require("typescript").setup({ server = opts })
-				--   return true
-				-- end,
+				tsserver = function(_, opts)
+					require("util").on_attach(function(client, buffer)
+						if client.name == "tsserver" then
+              -- stylua: ignore
+              vim.keymap.set("n", "<leader>co", "<cmd>TypescriptOrganizeImports<CR>", { buffer = buffer, desc = "Organize Imports" })
+              -- stylua: ignore
+              vim.keymap.set("n", "<leader>cR", "<cmd>TypescriptRenameFile<CR>", { desc = "Rename File", buffer = buffer })
+						end
+					end)
+					require("typescript").setup({ server = opts })
+					return true
+				end,
 				-- Specify * to use this function as a fallback for any server
 				-- ["*"] = function(server, opts) end,
 			},
