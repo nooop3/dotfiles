@@ -1,8 +1,6 @@
-
 return {
   "windwp/nvim-autopairs",
-  opts = function ()
-
+  opts = function()
     local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 
     -- import nvim-cmp plugin safely (completions plugin)
@@ -30,5 +28,5 @@ return {
         highlight_grey = "Comment",
       },
     }
-  end
+  end,
 }
