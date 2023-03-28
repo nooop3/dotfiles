@@ -1,4 +1,4 @@
--- This file is automatically loaded by plugins.config
+local opt = vim.opt
 
 -- LEADER
 -- These keybindings need to be defined before the first /
@@ -22,8 +22,6 @@ vim.g.loaded_netrwPlugin = 1
 vim.g.gruvbox_material_background = "hard"
 vim.g.gruvbox_material_better_performance = 1
 vim.g.gruvbox_material_enable_bold = 1
-
-local opt = vim.opt
 
 opt.autowrite = true -- Enable auto write
 -- opt.clipboard = "unnamedplus" -- Sync with system clipboard
@@ -120,3 +118,15 @@ end
 
 -- Fix markdown indentation settings
 vim.g.markdown_recommended_style = 0
+
+--[[ neovide ]]
+if vim.fn.exists("g:neovide") then
+  if vim.fn.has("mac") == 1 then
+    opt.guifont = "SauceCodePro Nerd Font"
+  elseif vim.fn.has("linux") == 1 then
+    opt.guifont = "Source Code Pro:h12"
+  end
+  vim.g.neovide_fullscreen = true
+  vim.g.neovide_remember_window_size = true
+  -- g.neovide_cursor_vfx_mode = "railgun"
+end
