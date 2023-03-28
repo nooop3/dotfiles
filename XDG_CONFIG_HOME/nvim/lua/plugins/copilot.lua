@@ -1,9 +1,8 @@
-
 return {
   {
     "github/copilot.vim",
     enabled = false,
-    opts = function ()
+    opts = function()
       vim.g.copilot_no_tab_map = true
       vim.g.copilot_assume_mapped = true
       vim.g.copilot_tab_fallback = ""
@@ -20,6 +19,6 @@ return {
         -- ["python"] = true,
         -- ["java"] = true,
       }
-    end
-  }
+    end,
+  },
 }
