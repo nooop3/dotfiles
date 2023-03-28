@@ -11,9 +11,13 @@ return {
 			--[[ map("n", "<leader>fp", function()
 			extensions.project.project({ display_type = "full" })
 			end, opts) ]]
-			-- map("n", "<leader>fp", function()
-			-- 	extensions.projects.projects({})
-			-- end, opts)
+			{
+				"<leader>fp",
+				function()
+					require("telescope").extensions.projects.projects({})
+				end,
+				desc = "Projects - personal",
+			},
 			-- map("n", "<leader>fa", extensions["telescope-tabs"].list_tabs, opts)
 
 			-- personalize
