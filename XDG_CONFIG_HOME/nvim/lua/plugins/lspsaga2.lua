@@ -17,8 +17,8 @@ return {
 					lines_below = 10,
 				},
 				scroll_preview = {
-					scroll_down = "<C-f>",
-					scroll_up = "<C-b>",
+					-- scroll_down = "<C-f>",
+					-- scroll_up = "<C-b>",
 				},
 				request_timeout = 2000,
 
