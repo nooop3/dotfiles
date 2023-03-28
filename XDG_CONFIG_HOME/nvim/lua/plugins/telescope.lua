@@ -102,13 +102,12 @@ return {
 			},
 		},
 		dependencies = {
-			{ "nvim-lua/plenary.nvim" },
 			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 			-- "nvim-telescope/telescope-project.nvim",
 			"LukasPietzschmann/telescope-tabs",
 			"ahmedkhalf/project.nvim",
 		},
-		opts = function(plugin, opts)
+		opts = function()
 			local fn = vim.fn
 
 			local actions = require("telescope.actions")
@@ -137,15 +136,19 @@ return {
 					mappings = {
 						n = {
 							["<C-c>"] = actions.close,
+							["q"] = actions.close,
 						},
 						i = {
 							-- map actions.which_key to <C-h> (default: <C-/>)
 							-- actions.which_key shows the mappings for your picker,
 							-- e.g. git_{create, delete, ...}_branch for the git_branches picker
 							-- ["<C-h>"] = "which_key"
-							-- ["<esc>"] = actions.close,
+							-- ["<a-i>"] = Util.telescope("find_files", { no_ignore = true }),
+							-- ["<a-h>"] = Util.telescope("find_files", { hidden = true }),
 							["<C-j>"] = actions.move_selection_next,
 							["<C-k>"] = actions.move_selection_previous,
+							["<C-f>"] = actions.preview_scrolling_down,
+							["<C-b>"] = actions.preview_scrolling_up,
 						},
 					},
 				},

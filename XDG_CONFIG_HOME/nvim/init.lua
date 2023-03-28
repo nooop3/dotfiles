@@ -1,22 +1,5 @@
---[[ init.lua ]]
-
-local fn = vim.fn
-
--- lazy settings
-local install_path = fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(install_path) then
-	fn.system({
-		"git",
-		"clone",
-		"--filter=blob:none",
-		"https://github.com/folke/lazy.nvim.git",
-		-- "https://hub.fastgit.xyz/folke/lazy.nvim.git",
-		"--branch=stable", -- latest stable release
-		install_path,
-	})
-	return true
-end
-vim.opt.rtp:prepend(install_path)
+-- inspired by LazyVim https://www.lazyvim.org/
+-- nvim --headless "+Lazy! sync" +qa
 
 -- LEADER
 -- These keybindings need to be defined before the first /
@@ -24,11 +7,7 @@ vim.opt.rtp:prepend(install_path)
 vim.g.mapleader = ";"
 vim.g.localleader = "\\"
 
-require("lazy").setup("plugins", {
-	change_detection = {
-		enabled = false,
-	},
-})
+require("config.lazy")
 
 -- nvim-tree
 -- disable netrw at the very start of your init.lua (strongly advised)
