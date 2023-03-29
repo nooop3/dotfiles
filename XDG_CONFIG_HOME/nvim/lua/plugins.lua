@@ -4,6 +4,7 @@ return {
   { "folke/lazy.nvim", version = "*" },
   { "nvim-tree/nvim-web-devicons", lazy = true },
   { "nvim-lua/plenary.nvim", lazy = true },
+  { "b0o/schemastore.nvim", lazy = true },
 
   -- start screen
   -- "mhinz/vim-startify",
@@ -15,8 +16,6 @@ return {
   "tpope/vim-surround",
   -- "tpope/vim-fugitive", -- git integration
   -- "junegunn/gv.vim", -- commit history
-
-  "b0o/schemastore.nvim",
   -- [[ Dev ]]
   -- sudo pacman -S ctags
   "majutsushi/tagbar",
@@ -37,13 +36,3 @@ return {
   -- 	require("packer",.sync(,
   -- end
 }
--- {
---     compile_path = fn.stdpath("data", .. "/site/plugin/packer_compiled.lua",
---     git = {
---       default_url_format = "https://github.com/%s", -- Lua format string used for "aaa/bbb" style plugins
---       -- default_url_format = "https://hub.fastgit.xyz/%s"
---     },
---     -- display = {
---     -- open_fn = require("packer.util",.float,
---     -- }
--- }
