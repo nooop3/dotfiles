@@ -7,25 +7,33 @@ return {
     cmd = "Telescope",
     version = false,
     keys = {
-
-      --[[ map("n", "<leader>fp", function()
-			extensions.project.project({ display_type = "full" })
-			end, opts) ]]
+      -- {
+      --   "<leader>fp",
+      --   function()
+      --     require("telescope").extensions.project.project({ display_type = "full" })
+      --   end,
+      --   desc = "Swict Project",
+      -- },
       {
         "<leader>fp",
         function()
           require("telescope").extensions.projects.projects({})
         end,
-        desc = "Projects - personal",
+        desc = "Switch Projects",
       },
-      -- map("n", "<leader>fa", extensions["telescope-tabs"].list_tabs, opts)
+      {
+        "<leader>fa",
+        function()
+          require("telescope").extensions["telescope-tabs"].list_tabs()
+        end,
+        desc = "Select tabs",
+      },
 
       -- personalize
       { "<c-p>", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd) - personal" },
-      { "<leader>fg", Util.telescope("live_grep", { cwd = false }), desc = "Grep (cwd) - personal" },
-      { "<leader>fs", Util.telescope("grep_string", { cwd = false }), desc = "Word (cwd) - personal" },
       { "<leader>ft", Util.telescope("filetypes"), desc = "Filetypes" },
 
+      -- tags
       { "<leader>fo", Util.telescope("current_buffer_tags"), desc = "Filetypes" },
       { "<leader>fO", Util.telescope("tags"), desc = "tags" },
 
@@ -36,7 +44,11 @@ return {
       { "<leader>:", "<cmd>Telescope command_history<cr>", desc = "Command History" },
       { "<leader><space>", Util.telescope("files"), desc = "Find Files (root dir)" },
       -- find
-      { "<leader>fb", "<cmd>Telescope buffers show_all_buffers=true<cr>", desc = "Switch Buffer" },
+      {
+        "<leader>fb",
+        Util.telescope("buffers", { cwd = false, ignore_current_buffer = true }),
+        desc = "Switch Buffer",
+      },
       { "<leader>ff", Util.telescope("files"), desc = "Find Files (root dir)" },
       { "<leader>fF", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
       { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },
@@ -112,19 +124,12 @@ return {
     },
     opts = function()
       local fn = vim.fn
-
       local actions = require("telescope.actions")
-      local telescope = require("telescope")
-      -- local extensions = telescope.extensions
 
-      -- To get fzf loaded and working with telescope, you need to call
-      -- load_extension, somewhere after setup function:
-      telescope.load_extension("fzf")
-      -- telescope.load_extension("project")
-      telescope.load_extension("projects")
-      telescope.load_extension("telescope-tabs")
       return {
         defaults = {
+          prompt_prefix = " ",
+          selection_caret = " ",
           -- Default configuration for telescope goes here:
           vimgrep_arguments = {
             "rg",
@@ -140,14 +145,12 @@ return {
             n = {
               ["<C-c>"] = actions.close,
               ["q"] = actions.close,
+              ["<C-f>"] = actions.preview_scrolling_down,
+              ["<C-b>"] = actions.preview_scrolling_up,
             },
             i = {
-              -- map actions.which_key to <C-h> (default: <C-/>)
-              -- actions.which_key shows the mappings for your picker,
-              -- e.g. git_{create, delete, ...}_branch for the git_branches picker
-              -- ["<C-h>"] = "which_key"
-              -- ["<a-i>"] = Util.telescope("find_files", { no_ignore = true }),
-              -- ["<a-h>"] = Util.telescope("find_files", { hidden = true }),
+              ["<a-i>"] = Util.telescope("find_files", { no_ignore = true }),
+              ["<a-h>"] = Util.telescope("find_files", { hidden = true }),
               ["<C-j>"] = actions.move_selection_next,
               ["<C-k>"] = actions.move_selection_previous,
               ["<C-f>"] = actions.preview_scrolling_down,
@@ -158,7 +161,14 @@ return {
         pickers = {
           -- Default configuration for builtin pickers goes here:
           find_files = {
-            find_command = { "fd", "--type", "f", "--strip-cwd-prefix", "--hidden", "--exclude=.git" },
+            find_command = {
+              "fd",
+              "--type=f",
+              "--strip-cwd-prefix",
+              "--hidden",
+              "--exclude=.git",
+              "--exclude=node_modules",
+            },
           },
           -- Now the picker_config_key will be applied every time you call this
           -- builtin picker
@@ -192,17 +202,23 @@ return {
                 return string.format("%d: %s", tab_id, entry_string)
               end
             end,
-            -- entry_ordinal = function(tab_id, buffer_ids, file_names, file_paths)
-            -- entry_ordinal = function(tab_id, _, file_names, _)
-            -- 	local entry = table.concat(file_names, " ")
-            -- 	return string.format("%d: %s", tab_id, entry)
-            -- end,
             show_preview = true,
             close_tab_shortcut_i = "<C-d>", -- if you're in insert mode
             close_tab_shortcut_n = "D", -- if you're in normal mode
           },
         },
       }
+    end,
+    config = function(_, opts)
+      local telescope = require("telescope")
+      telescope.setup(opts)
+
+      -- To get fzf loaded and working with telescope, you need to call
+      -- load_extension, somewhere after setup function:
+      telescope.load_extension("fzf")
+      -- telescope.load_extension("project")
+      telescope.load_extension("projects")
+      telescope.load_extension("telescope-tabs")
     end,
   },
 }
