@@ -55,9 +55,9 @@ return {
         formatting.stylua,
         -- filetypes: "hcl"
         -- formatting.packer,
-        --[[ formatting.sqlfluff.with({
-        extra_args = { "--dialect", "postgres" }, -- change to your dialect
-        }), ]]
+        formatting.sqlfluff.with({
+          extra_args = { "--dialect", "postgres" }, -- change to your dialect
+        }),
         --[[ -- filetypes: "sql", "pgsql"
         -- install: sudo pacman -S pgformatter
         formatting.pg_format.with({
