@@ -45,12 +45,7 @@ return {
       -- :BarbarEnable - enables barbar (enabled by default)
       -- :BarbarDisable - very bad command, should never be used
     },
-    opts = {
-      closable = false,
-      clickable = false,
-      icons = "both",
-    },
-    config = function()
+    opts = function()
       vim.api.nvim_create_autocmd("FileType", {
         callback = function(tbl)
           local set_offset = require("bufferline.api").set_offset
@@ -80,31 +75,12 @@ return {
         end,
         pattern = "NvimTree",
       })
+
+      return {
+        closable = false,
+        clickable = false,
+        icons = "both",
+      }
     end,
-  },
-  {
-    "akinsho/bufferline.nvim",
-    enabled = false,
-    event = "VeryLazy",
-    keys = {
-      { "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", desc = "Toggle pin" },
-      { "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete non-pinned buffers" },
-    },
-    opts = {
-      options = {
-        mode = "tabs",
-        diagnostics = "nvim_lsp",
-        always_show_bufferline = false,
-        offsets = {
-          {
-            filetype = "NvimTree",
-            text = "File Explore",
-            text_align = "center",
-            separator = true,
-            highlight = "Directory",
-          },
-        },
-      },
-    },
   },
 }
