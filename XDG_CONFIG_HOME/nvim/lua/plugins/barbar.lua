@@ -77,9 +77,45 @@ return {
       })
 
       return {
+        animation = true,
+        auto_hide = false,
+        tabpages = true,
         closable = false,
         clickable = false,
+        diagnostics = {
+          -- you can use a list
+          { enabled = true, icon = "ﬀ" }, -- ERROR
+          { enabled = false }, -- WARN
+          { enabled = false }, -- INFO
+          { enabled = true }, -- HINT
+          -- OR `vim.diagnostic.severity`
+          [vim.diagnostic.severity.ERROR] = { enabled = true, icon = "ﬀ" },
+          [vim.diagnostic.severity.WARN] = { enabled = false },
+          [vim.diagnostic.severity.INFO] = { enabled = false },
+          [vim.diagnostic.severity.HINT] = { enabled = true },
+        },
+        -- exclude_ft = {'javascript'},
+        -- exclude_name = {'package.json'},
+        focus_on_close = "left",
+        hide = { extensions = true, inactive = true },
+        highlight_alternate = false,
+        highlight_inactive_file_icons = false,
+        highlight_visible = true,
         icons = "both",
+        icon_custom_colors = false,
+        icon_separator_active = "▎",
+        icon_separator_inactive = "▎",
+        icon_close_tab = "",
+        icon_close_tab_modified = "●",
+        icon_pinned = "車",
+        insert_at_end = false,
+        insert_at_start = false,
+        maximum_padding = 1,
+        minimum_padding = 1,
+        maximum_length = 30,
+        semantic_letters = true,
+        letters = "asdfjkl;ghnmxcvbziowerutyqpASDFJKLGHNMXCVBZIOWERUTYQP",
+        no_name_title = nil,
       }
     end,
   },
