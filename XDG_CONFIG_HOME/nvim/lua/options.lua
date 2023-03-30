@@ -107,6 +107,7 @@ opt.foldminlines = 3
 -- opt.foldmethod = "indent"
 opt.foldmethod = "expr"
 opt.foldexpr = "nvim_treesitter#foldexpr()"
+opt.foldenable = false
 opt.whichwrap = "b,<,>,[,],h,l"
 opt.guioptions = nil
 -- opt.iskeyword = opt.iskeyword + "-"
