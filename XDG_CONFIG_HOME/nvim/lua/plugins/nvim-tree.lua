@@ -2,7 +2,6 @@ return {
   -- A file explorer tree for neovim written in lua
   "nvim-tree/nvim-tree.lua",
   version = "nightly", -- optional, updated every week. (see issue #1193)
-  lazy = true,
   keys = {
     -- Toggle nvim-tree
     { "<C-n>", [[:NvimTreeToggle<CR>]], noremap = true, silent = true, desc = "nvim-tree toggle" },
