@@ -46,7 +46,7 @@ return {
       -- find
       {
         "<leader>fb",
-        Util.telescope("buffers", { cwd = false, ignore_current_buffer = true }),
+        Util.telescope("buffers", { cwd = false, ignore_current_buffer = true, only_cwd = true }),
         desc = "Switch Buffer",
       },
       { "<leader>ff", Util.telescope("files"), desc = "Find Files (root dir)" },
