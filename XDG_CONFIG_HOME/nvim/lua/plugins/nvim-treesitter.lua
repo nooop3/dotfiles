@@ -62,7 +62,8 @@ return {
 
     local parser_configs = parsers.get_parser_configs()
 
-    -- local github_mirror = "https://hub.fastgit.xyz/"
+    -- local github_mirror = "https://hub.fgit.ml/"
+    -- local github_mirror = "https://hub.fgit.gq/"
     local github_mirror = "https://github.com/"
     parser_configs.gotmpl = {
       install_info = {
@@ -76,8 +77,8 @@ return {
       config.install_info.url = config.install_info.url:gsub("https://github.com/", github_mirror)
     end
 
-    parsers.filetype_to_parsername.javascript = "tsx"
-    parsers.filetype_to_parsername["typescript.tsx"] = "tsx"
+    -- parsers.filetype_to_parsername.javascript = "tsx"
+    -- parsers.filetype_to_parsername["typescript.tsx"] = "tsx"
 
     local configs = require("nvim-treesitter.configs")
     configs.setup(opts)

@@ -8,7 +8,8 @@ if not vim.loop.fs_stat(install_path) then
     "clone",
     "--filter=blob:none",
     "https://github.com/folke/lazy.nvim.git",
-    -- "https://hub.fastgit.xyz/folke/lazy.nvim.git",
+    -- "https://hub.fgit.ml/folke/lazy.nvim.git",
+    -- "https://hub.fgit.gq/folke/lazy.nvim.git",
     "--branch=stable", -- latest stable release
     install_path,
   })
