@@ -48,7 +48,7 @@ return {
     opts = function()
       vim.api.nvim_create_autocmd("FileType", {
         callback = function(tbl)
-          local set_offset = require("bufferline.api").set_offset
+          local set_offset = require("barbar.api").set_offset
 
           local bufwinid
           local last_width
