@@ -11,6 +11,7 @@ function M.get()
     -- stylua: ignore
     M._keys =  {
       -- personalize
+      -- vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, opts)
       -- Hover Doc
       -- if there has no hover will have a notify no information available
       -- to disable it just Lspsaga hover_doc ++quiet
