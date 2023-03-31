@@ -13,12 +13,12 @@ return {
 
   -- essential plugins
   -- add, delete, change surroundings (it's awesome)
-  "tpope/vim-surround",
+  { "tpope/vim-surround" },
   -- "tpope/vim-fugitive", -- git integration
   -- "junegunn/gv.vim", -- commit history
   -- [[ Dev ]]
   -- sudo pacman -S ctags
-  "majutsushi/tagbar",
+  { "majutsushi/tagbar", enabled = false },
 
   -- "voldikss/vim-floaterm",
   -- "lewis6991/impatient.nvim",
