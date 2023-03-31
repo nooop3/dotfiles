@@ -9,7 +9,7 @@ return {
       -- theme = "gruvbox-material",
       -- theme = "dracula-nvim",
       disabled_filetypes = {
-        statusline = { "packer", "NvimTree", "lazy" },
+        statusline = { "packer", "NvimTree" },
         winbar = {},
       },
       ignore_focus = { "packer", "NvimTree", "lazy" },
@@ -42,6 +42,6 @@ return {
     tabline = {},
     winbar = {},
     inactive_winbar = {},
-    extensions = { "nvim-tree", "quickfix" },
+    extensions = { "nvim-tree", "quickfix", "lazy" },
   },
 }
