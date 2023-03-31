@@ -24,6 +24,7 @@ return {
       { "jose-elias-alvarez/typescript.nvim" },
       { "simrat39/rust-tools.nvim" },
     },
+    ---@class PluginLspOpts
     opts = {
       -- options for vim.diagnostic.config()
       diagnostics = {
@@ -111,7 +112,7 @@ return {
             },
           },
         },
-        ["rust-analyzer"] = {
+        rust_analyzer = {
           cargo = {
             -- features = { "all" },
           },
@@ -171,8 +172,10 @@ return {
             end
           end)
           require("typescript").setup({ server = opts })
-          require("rust-tools").setup({ server = opts })
           return true
+        end,
+        rust_analyzer = function(_, opts)
+          require("rust-tools").setup({ server = opts })
         end,
         -- Specify * to use this function as a fallback for any server
         -- ["*"] = function(server, opts) end,
@@ -281,7 +284,6 @@ return {
           diagnostics.yamllint,
 
           -- setup code formatters
-          formatting.stylua,
           formatting.shfmt,
           -- filetypes: "javascript", "javascriptreact"
           -- formatting.prettier,
