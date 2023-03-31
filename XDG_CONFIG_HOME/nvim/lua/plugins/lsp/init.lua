@@ -22,11 +22,8 @@ return {
         end,
       },
       { "jose-elias-alvarez/typescript.nvim" },
+      { "simrat39/rust-tools.nvim" },
     },
-    init = function()
-      require("plugins.lsp.keymaps").get()
-    end,
-    ---@class PluginLspOpts
     opts = {
       -- options for vim.diagnostic.config()
       diagnostics = {
@@ -114,6 +111,28 @@ return {
             },
           },
         },
+        ["rust-analyzer"] = {
+          cargo = {
+            -- features = { "all" },
+          },
+          checkOnSave = {
+            allTargets = false,
+            -- default: `cargo check`
+            command = "clippy",
+          },
+          imports = {
+            granularity = {
+              enforce = true,
+            },
+            prefix = "crate",
+          },
+          inlayHints = {
+            lifetimeElisionHints = {
+              enable = true,
+              useParameterNames = true,
+            },
+          },
+        },
         gopls = {
           settings = {
             gopls = {
@@ -152,6 +171,7 @@ return {
             end
           end)
           require("typescript").setup({ server = opts })
+          require("rust-tools").setup({ server = opts })
           return true
         end,
         -- Specify * to use this function as a fallback for any server
@@ -169,11 +189,7 @@ return {
       end)
 
       -- diagnostics
-      -- for name, icon in pairs(require("lazyvim.config").icons.diagnostics) do
-      -- 	name = "DiagnosticSign" .. name
-      -- 	vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
-      -- end
-      -- vim.diagnostic.config(opts.diagnostics)
+      vim.diagnostic.config(opts.diagnostics)
 
       local servers = opts.servers
       local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
@@ -222,9 +238,108 @@ return {
     end,
   },
 
+  -- null_ls
+  {
+    "jose-elias-alvarez/null-ls.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = { "mason.nvim" },
+    opts = function()
+      local null_ls = require("null-ls")
+
+      -- for conciseness
+      local diagnostics = null_ls.builtins.diagnostics
+      local formatting = null_ls.builtins.formatting
+      local code_actions = null_ls.builtins.code_actions
+
+      -- to setup format on save
+      local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+
+      return {
+        root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
+        sources = {
+          -- setup code actions
+          -- filetypes: "javascript", "javascriptreact", "typescript", "typescriptreact", "vue"
+          -- code_actions.eslint_d,
+          require("typescript.extensions.null-ls.code-actions"),
+          -- filetypes: "sh"
+          code_actions.shellcheck,
+          -- code_actions.gitsigns,
+
+          -- filetypes: "proto"
+          -- install: yay -S protolint
+          diagnostics.protolint,
+          -- filetypes: "sh"
+          diagnostics.shellcheck,
+          -- filetypes: "sql"
+          -- install: sudo pacman -S sqlfluff
+          diagnostics.sqlfluff.with({
+            extra_args = { "--dialect", "postgres" }, -- change to your dialect
+          }),
+          -- filetypes: "markdown", "tex", "asciidoc"
+          diagnostics.vale,
+          -- filetypes: "yaml"
+          diagnostics.yamllint,
+
+          -- setup code formatters
+          formatting.stylua,
+          formatting.shfmt,
+          -- filetypes: "javascript", "javascriptreact"
+          -- formatting.prettier,
+          -- filetypes: "proto"
+          -- install:
+          -- Arch:
+          -- yay -S protolint
+          -- brew tap yoheimuta/protolint
+          -- brew install protolint
+          formatting.protolint,
+          -- filetypes: "lua", "luau"
+          -- install: sudo pacman -S stylua
+          formatting.stylua,
+          -- filetypes: "hcl"
+          -- formatting.packer,
+          formatting.sqlfluff.with({
+            extra_args = { "--dialect", "postgres" }, -- change to your dialect
+          }),
+          --[[ -- filetypes: "sql", "pgsql"
+        -- install: sudo pacman -S pgformatter
+        formatting.pg_format.with({
+        extra_args = {
+        "--keep-newline",
+        "--no-extra-line",
+        "--redshift",
+        "--keyword-case=0",
+        -- "--extra-function=" .. vim.env.HOME .. "/.config/pg_format/functions.lst",
+        "--extra-function=" .. vim.fn.expand("$HOME/.config/pg_format/functions.lst"),
+        },
+        }), ]]
+          -- filetypes: "terraform", "tf"
+          formatting.terraform_fmt,
+        },
+        -- configure format on save
+        on_attach = function(current_client, bufnr)
+          if current_client.supports_method("textDocument/formatting") then
+            vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+            vim.api.nvim_create_autocmd("BufWritePre", {
+              group = augroup,
+              buffer = bufnr,
+              callback = function()
+                vim.lsp.buf.format({
+                  filter = function(client)
+                    --  only use null-ls for formatting instead of lsp server
+                    return client.name == "null-ls"
+                  end,
+                  bufnr = bufnr,
+                })
+              end,
+            })
+          end
+        end,
+      }
+    end,
+  },
+
   -- cmdline tools and lsp servers
   {
-
     "williamboman/mason.nvim",
     cmd = "Mason",
     keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },

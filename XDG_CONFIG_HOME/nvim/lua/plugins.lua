@@ -20,9 +20,6 @@ return {
   -- sudo pacman -S ctags
   "majutsushi/tagbar",
 
-  -- Rust
-  "simrat39/rust-tools.nvim",
-
   -- "voldikss/vim-floaterm",
   -- "lewis6991/impatient.nvim",
   -- "tpope/vim-commentary",

@@ -7,7 +7,11 @@ return {
     { "<C-n>", [[:NvimTreeToggle<CR>]], noremap = true, silent = true, desc = "nvim-tree toggle" },
   },
   opts = {
-    open_on_tab = false,
+    tab = {
+      sync = {
+        open = false,
+      },
+    },
     sync_root_with_cwd = true,
     respect_buf_cwd = true,
     update_focused_file = {
