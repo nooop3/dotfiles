@@ -27,26 +27,6 @@ return {
       { "<tab>", function() require("luasnip").jump(1) end, mode = "s" },
       { "<s-tab>", function() require("luasnip").jump(-1) end, mode = { "i", "s" } },
     },
-    config = function()
-      -- local luasnip = require("luasnip")
-      --[[ vim.keymap.set({ "i", "s" }, "<C-k>", function()
-      if luasnip.expand_or_jumpable() then
-      luasnip.expand_or_jump()
-      end
-      end, { silent = true })
-
-      vim.keymap.set({ "i", "s" }, "<C-j>", function()
-      if luasnip.jumpable(-1) then
-      luasnip.jump(-1)
-      end
-      end, { silent = true })
-
-      vim.keymap.set("i", "<C-l>", function()
-      if luasnip.choice_active() then
-      luasnip.change_choice(1)
-      end
-      end) ]]
-    end,
   },
 
   -- auto completion
@@ -127,7 +107,7 @@ return {
           ["<Tab>"] = cmp.mapping(function(fallback)
             -- local copilot_keys = vim.fn["copilot#Accept"]()
             if cmp.visible() then
-              cmp.select_next_item()
+              cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
             elseif luasnip.expand_or_jumpable() then
               luasnip.expand_or_jump()
             elseif has_words_before() then
@@ -140,7 +120,7 @@ return {
           end, { "i", "s" }),
           ["<S-Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
-              cmp.select_prev_item()
+              cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
             elseif luasnip.jumpable(-1) then
               luasnip.jump(-1)
             else
