@@ -28,11 +28,11 @@ function M.get()
       { "<leader>ca", "<cmd>Lspsaga code_action<CR>", desc = "Code Action", mode = { "n", "v" }, has = "codeAction" },
 
       -- LazyVim
-      { "<leader>cd", vim.diagnostic.open_float, desc = "Line Diagnostics" },
+      -- { "<leader>cd", vim.diagnostic.open_float, desc = "Line Diagnostics" },
       { "<leader>cl", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
-      { "gd", "<cmd>Telescope lsp_definitions<cr>", desc = "Goto Definition", has = "definition" },
       { "gr", "<cmd>Telescope lsp_references<cr>", desc = "References" },
-      { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
+      -- { "gd", "<cmd>Telescope lsp_definitions<cr>", desc = "Goto Definition", has = "definition" },
+      -- { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
       { "gI", "<cmd>Telescope lsp_implementations<cr>", desc = "Goto Implementation" },
       { "gt", "<cmd>Telescope lsp_type_definitions<cr>", desc = "Goto Type Definition" },
       -- { "K", vim.lsp.buf.hover, desc = "Hover" },
@@ -63,20 +63,6 @@ function M.get()
         has = "codeAction",
       }
     }
-    if require("util").has("inc-rename.nvim") then
-      M._keys[#M._keys + 1] = {
-        "<leader>cr",
-        function()
-          require("inc_rename")
-          return ":IncRename " .. vim.fn.expand("<cword>")
-        end,
-        expr = true,
-        desc = "Rename",
-        has = "rename",
-      }
-    else
-      M._keys[#M._keys + 1] = { "<leader>cr", vim.lsp.buf.rename, desc = "Rename", has = "rename" }
-    end
   end
   return M._keys
 end
