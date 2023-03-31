@@ -1,4 +1,4 @@
-local Util = require("util")
+local Util = require("personal.util")
 
 return {
   -- fuzzy finder
