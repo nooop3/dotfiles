@@ -1,3 +1,5 @@
+local Util = require("personal.util")
+
 local lua_ls_library = vim.api.nvim_get_runtime_file("", true)
 table.insert(
   lua_ls_library,
@@ -18,7 +20,7 @@ return {
       {
         "hrsh7th/cmp-nvim-lsp",
         cond = function()
-          return require("util").has("nvim-cmp")
+          return Util.has("nvim-cmp")
         end,
       },
       { "jose-elias-alvarez/typescript.nvim" },
@@ -163,7 +165,7 @@ return {
       ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
       setup = {
         tsserver = function(_, opts)
-          require("util").on_attach(function(client, buffer)
+          Util.on_attach(function(client, buffer)
             if client.name == "tsserver" then
               -- stylua: ignore
               vim.keymap.set("n", "<leader>co", "<cmd>TypescriptOrganizeImports<CR>", { buffer = buffer, desc = "Organize Imports" })
@@ -184,11 +186,11 @@ return {
     ---@param opts PluginLspOpts
     config = function(_, opts)
       -- setup autoformat
-      require("plugins.lsp.format").autoformat = opts.autoformat
+      require("personal.plugins.lsp.format").autoformat = opts.autoformat
       -- setup formatting and keymaps
-      require("util").on_attach(function(client, buffer)
-        require("plugins.lsp.format").on_attach(client, buffer)
-        require("plugins.lsp.keymaps").on_attach(client, buffer)
+      Util.on_attach(function(client, buffer)
+        require("personal.plugins.lsp.format").on_attach(client, buffer)
+        require("personal.plugins.lsp.keymaps").on_attach(client, buffer)
       end)
 
       -- diagnostics
