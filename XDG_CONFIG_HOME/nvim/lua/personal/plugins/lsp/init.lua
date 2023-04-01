@@ -1,12 +1,5 @@
 local Util = require("personal.util")
 
-local lua_ls_library = vim.api.nvim_get_runtime_file("", true)
-table.insert(
-  lua_ls_library,
-  -- fix undefined field warning
-  vim.fn.stdpath("config") .. "/lua"
-)
-
 return {
   -- lspconfig
   {
@@ -45,33 +38,6 @@ return {
       -- LSP Server Settings
       ---@type lspconfig.options
       servers = {
-        lua_ls = {
-          -- mason = false, -- set to false if you don't want this server to be installed with mason
-          settings = {
-            Lua = {
-              completion = {
-                callSnippet = "Replace",
-              },
-              runtime = {
-                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-                version = "LuaJIT",
-              },
-              diagnostics = {
-                -- Get the language server to recognize the `vim` global
-                globals = { "vim" },
-              },
-              workspace = {
-                -- Make the server aware of Neovim runtime files
-                library = lua_ls_library,
-                checkThirdParty = false,
-              },
-              -- Do not send telemetry data containing a randomized but unique identifier
-              telemetry = {
-                enable = false,
-              },
-            },
-          },
-        },
         clangd = {
           filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
         },
@@ -217,9 +183,6 @@ return {
           -- brew tap yoheimuta/protolint
           -- brew install protolint
           formatting.protolint,
-          -- filetypes: "lua", "luau"
-          -- install: sudo pacman -S stylua
-          formatting.stylua,
           -- filetypes: "hcl"
           -- formatting.packer,
           formatting.sqlfluff.with({
@@ -270,8 +233,7 @@ return {
     keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
     opts = {
       ensure_installed = {
-        "json-lsp",
-        "stylua",
+        -- Formatter
         "shfmt",
         -- "flake8",
         "pyright",

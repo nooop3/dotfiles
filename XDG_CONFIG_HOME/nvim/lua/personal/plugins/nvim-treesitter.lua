@@ -20,7 +20,6 @@ return {
       "hocon",
 
       "vim",
-      "lua",
 
       "php",
       "toml",
