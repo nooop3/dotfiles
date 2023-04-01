@@ -63,7 +63,13 @@ return {
     "jose-elias-alvarez/null-ls.nvim",
     opts = function(_, opts)
       local nls = require("null-ls")
-      table.insert(opts.sources, nls.builtins.formatting.stylua)
+      vim.list_extend(opts.sources, {
+        nls.builtins.formatting.stylua.with({
+          condition = function(utils)
+            return utils.root_has_file({ "stylua.toml", ".stylua.toml" })
+          end,
+        }),
+      })
     end,
   },
 }
