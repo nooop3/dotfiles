@@ -7,6 +7,25 @@ return {
       end
     end,
   },
+
+  -- correctly setup lspconfig
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      -- make sure mason installs the server
+      servers = {
+        ---@type lspconfig.options.pyright
+        tflint = {
+          -- root_pattern(".terraform", ".git", ".tflint.hcl")
+          root_dir = require("lspconfig").util.root_pattern(".git", ".tflint.hcl"),
+        },
+        -- terraformls = {
+        --   -- root_pattern(".terraform", ".git", ".tflint.hcl")
+        --   root_dir = require("lspconfig").util.root_pattern(".git", ".tflint.hcl"),
+        -- },
+      },
+    },
+  },
   {
     "jose-elias-alvarez/null-ls.nvim",
     opts = function(_, opts)
