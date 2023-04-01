@@ -35,6 +35,7 @@ require("lazy").setup({
     { import = "personal.plugins.lang.sql" },
     { import = "personal.plugins.lang.proto" },
     { import = "personal.plugins.lang.yaml" },
+    { import = "personal.plugins.lang.makrdown" },
     { import = "personal.plugins.lang.python" },
     { import = "personal.plugins.lang.rust" },
     { import = "personal.plugins.lang.golang" },

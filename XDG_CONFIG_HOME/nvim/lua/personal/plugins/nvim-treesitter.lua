@@ -5,11 +5,7 @@ return {
   event = { "BufReadPost", "BufNewFile" },
   opts = {
     ensure_installed = {
-      "markdown",
-      "markdown_inline",
-
       "vim",
-
       "php",
       "toml",
       "html",

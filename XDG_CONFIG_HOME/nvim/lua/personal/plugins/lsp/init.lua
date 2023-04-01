@@ -134,9 +134,6 @@ return {
         root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
         sources = {
           -- code_actions.gitsigns,
-
-          -- filetypes: "markdown", "tex", "asciidoc"
-          diagnostics.vale,
         },
         -- configure format on save
         on_attach = function(current_client, bufnr)
