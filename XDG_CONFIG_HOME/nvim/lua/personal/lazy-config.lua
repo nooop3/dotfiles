@@ -30,6 +30,7 @@ require("lazy").setup({
     { import = "personal.plugins.lsp.lspsaga" },
     { import = "personal.plugins.lang.lua" },
     { import = "personal.plugins.lang.typescript" },
+    { import = "personal.plugins.lang.shell" },
     { import = "personal.plugins.lang.json" },
     { import = "personal.plugins.lang.rust" },
     -- { import = "personal.plugins.formatting.prettier" },
