@@ -23,7 +23,6 @@ return {
           return Util.has("nvim-cmp")
         end,
       },
-      { "jose-elias-alvarez/typescript.nvim" },
       { "simrat39/rust-tools.nvim" },
     },
     ---@class PluginLspOpts
@@ -78,34 +77,6 @@ return {
           filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
         },
         bashls = {},
-        tsserver = {
-          settings = {
-            javascript = {
-              format = {
-                semicolons = "remove",
-              },
-            },
-            diagnostics = {
-              ignoredCodes = {
-                -- See https://github.com/microsoft/TypeScript/blob/master/src/compiler/diagnosticMessages.json for a full list of valid codes.
-                -- Could not find a declaration file for module '{0}'. '{1}' implicitly has an 'any' type.
-                7016,
-                -- File is a CommonJS module; it may be converted to an ES module.
-                80001,
-              },
-            },
-            completions = {
-              completeFunctionCalls = true,
-            },
-          },
-          init_options = {
-            hostInfo = "neovim",
-            disableAutomaticTypingAcquisition = false,
-            preferences = {
-              quotePreference = "single",
-            },
-          },
-        },
         rust_analyzer = {
           cargo = {
             -- features = { "all" },
@@ -156,18 +127,6 @@ return {
       -- return true if you don't want this server to be setup with lspconfig
       ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
       setup = {
-        tsserver = function(_, opts)
-          Util.on_attach(function(client, buffer)
-            if client.name == "tsserver" then
-              -- stylua: ignore
-              vim.keymap.set("n", "<leader>co", "<cmd>TypescriptOrganizeImports<CR>", { buffer = buffer, desc = "Organize Imports" })
-              -- stylua: ignore
-              vim.keymap.set("n", "<leader>cR", "<cmd>TypescriptRenameFile<CR>", { desc = "Rename File", buffer = buffer })
-            end
-          end)
-          require("typescript").setup({ server = opts })
-          return true
-        end,
         rust_analyzer = function(_, opts)
           require("rust-tools").setup({ server = opts })
         end,
@@ -257,7 +216,6 @@ return {
           -- setup code actions
           -- filetypes: "javascript", "javascriptreact", "typescript", "typescriptreact", "vue"
           -- code_actions.eslint_d,
-          require("typescript.extensions.null-ls.code-actions"),
           -- filetypes: "sh"
           code_actions.shellcheck,
           -- code_actions.gitsigns,
