@@ -38,24 +38,6 @@ return {
       -- LSP Server Settings
       ---@type lspconfig.options
       servers = {
-        clangd = {
-          filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
-        },
-        gopls = {
-          settings = {
-            gopls = {
-              experimentalPostfixCompletions = true,
-              analyses = {
-                unusedparams = true,
-                shadow = true,
-              },
-              staticcheck = true,
-            },
-          },
-          init_options = {
-            usePlaceholders = true,
-          },
-        },
         -- tflint = {
         -- 	-- root_pattern(".terraform", ".git", ".tflint.hcl")
         -- 	root_dir = require("lspconfig").util.root_pattern(".git", ".tflint.hcl"),
@@ -156,11 +138,6 @@ return {
           -- filetypes: "proto"
           -- install: yay -S protolint
           diagnostics.protolint,
-          -- filetypes: "sql"
-          -- install: sudo pacman -S sqlfluff
-          diagnostics.sqlfluff.with({
-            extra_args = { "--dialect", "postgres" }, -- change to your dialect
-          }),
           -- filetypes: "markdown", "tex", "asciidoc"
           diagnostics.vale,
           -- filetypes: "yaml"
@@ -175,21 +152,6 @@ return {
           formatting.protolint,
           -- filetypes: "hcl"
           -- formatting.packer,
-          formatting.sqlfluff.with({
-            extra_args = { "--dialect", "postgres" }, -- change to your dialect
-          }),
-          --[[ -- filetypes: "sql", "pgsql"
-        -- install: sudo pacman -S pgformatter
-        formatting.pg_format.with({
-        extra_args = {
-        "--keep-newline",
-        "--no-extra-line",
-        "--redshift",
-        "--keyword-case=0",
-        -- "--extra-function=" .. vim.env.HOME .. "/.config/pg_format/functions.lst",
-        "--extra-function=" .. vim.fn.expand("$HOME/.config/pg_format/functions.lst"),
-        },
-        }), ]]
           -- filetypes: "terraform", "tf"
           formatting.terraform_fmt,
         },
