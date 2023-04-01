@@ -23,7 +23,6 @@ return {
           return Util.has("nvim-cmp")
         end,
       },
-      { "simrat39/rust-tools.nvim" },
     },
     ---@class PluginLspOpts
     opts = {
@@ -77,28 +76,6 @@ return {
           filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
         },
         bashls = {},
-        rust_analyzer = {
-          cargo = {
-            -- features = { "all" },
-          },
-          checkOnSave = {
-            allTargets = false,
-            -- default: `cargo check`
-            command = "clippy",
-          },
-          imports = {
-            granularity = {
-              enforce = true,
-            },
-            prefix = "crate",
-          },
-          inlayHints = {
-            lifetimeElisionHints = {
-              enable = true,
-              useParameterNames = true,
-            },
-          },
-        },
         gopls = {
           settings = {
             gopls = {
@@ -127,9 +104,6 @@ return {
       -- return true if you don't want this server to be setup with lspconfig
       ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
       setup = {
-        rust_analyzer = function(_, opts)
-          require("rust-tools").setup({ server = opts })
-        end,
         -- Specify * to use this function as a fallback for any server
         -- ["*"] = function(server, opts) end,
       },
