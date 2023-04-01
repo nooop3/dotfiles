@@ -32,6 +32,7 @@ require("lazy").setup({
     { import = "personal.plugins.lang.typescript" },
     { import = "personal.plugins.lang.shell" },
     { import = "personal.plugins.lang.json" },
+    { import = "personal.plugins.lang.python" },
     { import = "personal.plugins.lang.rust" },
     -- { import = "personal.plugins.formatting.prettier" },
     { import = "personal.plugins.linting.eslint" },
