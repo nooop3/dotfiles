@@ -19,6 +19,16 @@ return {
       servers = {
         ---@type lspconfig.options.tsserver
         tsserver = {
+          capabilities = {
+            documentFormattingProvider = false,
+          },
+          init_options = {
+            hostInfo = "neovim",
+            disableAutomaticTypingAcquisition = false,
+            preferences = {
+              quotePreference = "single",
+            },
+          },
           settings = {
             javascript = {
               format = {
@@ -36,13 +46,6 @@ return {
             },
             completions = {
               completeFunctionCalls = true,
-            },
-          },
-          init_options = {
-            hostInfo = "neovim",
-            disableAutomaticTypingAcquisition = false,
-            preferences = {
-              quotePreference = "single",
             },
           },
         },
