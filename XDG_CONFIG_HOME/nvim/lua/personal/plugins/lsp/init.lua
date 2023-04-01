@@ -37,16 +37,7 @@ return {
       },
       -- LSP Server Settings
       ---@type lspconfig.options
-      servers = {
-        -- tflint = {
-        -- 	-- root_pattern(".terraform", ".git", ".tflint.hcl")
-        -- 	root_dir = require("lspconfig").util.root_pattern(".git", ".tflint.hcl"),
-        -- },
-        -- terraformls = {
-        -- 	-- root_pattern(".terraform", ".git", ".tflint.hcl")
-        -- 	root_dir = require("lspconfig").util.root_pattern(".git", ".tflint.hcl"),
-        -- },
-      },
+      servers = {},
       -- you can do any additional lsp server setup here
       -- return true if you don't want this server to be setup with lspconfig
       ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
@@ -115,18 +106,40 @@ return {
     end,
   },
 
+  -- cmdline tools and lsp servers
+  {
+    "williamboman/mason.nvim",
+    cmd = "Mason",
+    keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
+    opts = {
+      ensure_installed = {},
+    },
+    ---@param opts MasonSettings | {ensure_installed: string[]}
+    config = function(_, opts)
+      require("mason").setup(opts)
+      local mr = require("mason-registry")
+      local function ensure_installed()
+        for _, tool in ipairs(opts.ensure_installed) do
+          local p = mr.get_package(tool)
+          if not p:is_installed() then
+            p:install()
+          end
+        end
+      end
+      if mr.refresh then
+        mr.refresh(ensure_installed)
+      else
+        ensure_installed()
+      end
+    end,
+  },
+
   -- null_ls
   {
     "jose-elias-alvarez/null-ls.nvim",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = { "mason.nvim" },
     opts = function()
-      local null_ls = require("null-ls")
-
-      -- for conciseness
-      local diagnostics = null_ls.builtins.diagnostics
-      local formatting = null_ls.builtins.formatting
-
       -- to setup format on save
       local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
@@ -155,34 +168,6 @@ return {
           end
         end,
       }
-    end,
-  },
-
-  -- cmdline tools and lsp servers
-  {
-    "williamboman/mason.nvim",
-    cmd = "Mason",
-    keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
-    opts = {
-      ensure_installed = {},
-    },
-    ---@param opts MasonSettings | {ensure_installed: string[]}
-    config = function(_, opts)
-      require("mason").setup(opts)
-      local mr = require("mason-registry")
-      local function ensure_installed()
-        for _, tool in ipairs(opts.ensure_installed) do
-          local p = mr.get_package(tool)
-          if not p:is_installed() then
-            p:install()
-          end
-        end
-      end
-      if mr.refresh then
-        mr.refresh(ensure_installed)
-      else
-        ensure_installed()
-      end
     end,
   },
 }
