@@ -46,7 +46,7 @@ return {
       { "<leader>ci", "<cmd>Lspsaga incoming_calls<CR>", desc = "Incoming calls" },
       { "<leader>co", "<cmd>Lspsaga outgoing_calls<CR>", desc = "Outgoing calls" },
 
-      { "<A-d>", "<cmd>Lspsaga term_toggle<CR>", mode = { "n", "t" }, desc = "Term toggle" },
+      { "<leader>ft", "<cmd>Lspsaga term_toggle<CR>", mode = { "n", "t" }, desc = "Term toggle" },
     },
     opts = {
       finder = {
