@@ -144,7 +144,6 @@ return {
       -- for conciseness
       local diagnostics = null_ls.builtins.diagnostics
       local formatting = null_ls.builtins.formatting
-      local code_actions = null_ls.builtins.code_actions
 
       -- to setup format on save
       local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
@@ -223,10 +222,7 @@ return {
     cmd = "Mason",
     keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
     opts = {
-      ensure_installed = {
-        -- "flake8",
-        "pyright",
-      },
+      ensure_installed = {},
     },
     ---@param opts MasonSettings | {ensure_installed: string[]}
     config = function(_, opts)

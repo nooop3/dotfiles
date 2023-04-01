@@ -10,7 +10,6 @@ return {
       "sql",
       "markdown",
       "markdown_inline",
-      "python",
       "go",
       "gomod",
       "java",
