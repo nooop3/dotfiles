@@ -28,6 +28,7 @@ require("lazy").setup({
     -- import/override with your plugins
     { import = "personal.plugins" },
     { import = "personal.plugins.lsp.lspsaga" },
+    { import = "personal.plugins.lang.lua" },
     { import = "personal.plugins.lang.typescript" },
     { import = "personal.plugins.lang.json" },
     { import = "personal.plugins.lang.rust" },
