@@ -33,8 +33,7 @@ return {
   {
     "hrsh7th/nvim-cmp",
     version = false,
-    -- load cmp on InsertEnter
-    event = "InsertEnter",
+    event = { "InsertEnter", "CmdlineEnter" },
     -- these dependencies will only be loaded when cmp loads
     -- dependencies are always lazy-loaded unless specified otherwise
     dependencies = {
@@ -58,6 +57,10 @@ return {
       local has_words_before = function()
         local line, col = unpack(vim.api.nvim_win_get_cursor(0))
         return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+      end
+
+      local t = function(str)
+        return vim.api.nvim_replace_termcodes(str, true, true, true)
       end
 
       -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
@@ -92,13 +95,35 @@ return {
           entries = { name = "custom", selection_order = "near_cursor" },
         },
         mapping = cmp.mapping.preset.insert({
+          ["<C-a>"] = cmp.mapping({
+            c = function()
+              vim.api.nvim_feedkeys(t("<Home>"), "n", true)
+            end,
+          }),
+          ["<C-e>"] = cmp.mapping({
+            c = function()
+              vim.api.nvim_feedkeys(t("<End>"), "n", true)
+            end,
+            i = cmp.mapping.abort(),
+          }),
+          ["<C-b>"] = cmp.mapping({
+            c = function()
+              vim.api.nvim_feedkeys(t("<Left>"), "n", true)
+            end,
+          }),
+          ["<C-f>"] = cmp.mapping({
+            c = function()
+              vim.api.nvim_feedkeys(t("<Right>"), "n", true)
+            end,
+            i = cmp.mapping.scroll_docs(4),
+          }),
+          ["<C-u>"] = cmp.mapping({
+            i = cmp.mapping.scroll_docs(-4),
+          }),
           ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
           ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-          ["<C-f>"] = cmp.mapping.scroll_docs(4),
-          ["<C-u>"] = cmp.mapping.scroll_docs(-4),
           -- ["<C-Space>"] = cmp.mapping.complete(),
           ["<C-d>"] = cmp.mapping.complete(),
-          ["<C-e>"] = cmp.mapping.abort(),
           ["<CR>"] = cmp.mapping.confirm({
             behavior = cmp.ConfirmBehavior.Replace,
             -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
@@ -134,8 +159,7 @@ return {
           { name = "nvim_lua" },
           { name = "luasnip", option = { show_autosnippets = true } },
           { name = "path" },
-        }, {
-          { name = "buffer", keyword_length = 3 },
+          { name = "buffer", option = { keyword_length = 3 } },
         }),
         formatting = {
           format = lspkind.cmp_format({
