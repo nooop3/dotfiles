@@ -5,13 +5,8 @@ return {
   event = { "BufReadPost", "BufNewFile" },
   opts = {
     ensure_installed = {
-      "hcl",
       "markdown",
       "markdown_inline",
-      "java",
-      "kotlin",
-      "scala",
-      "hocon",
 
       "vim",
 
