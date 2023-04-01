@@ -5,7 +5,6 @@ return {
   event = { "BufReadPost", "BufNewFile" },
   opts = {
     ensure_installed = {
-      "yaml",
       "hcl",
       "markdown",
       "markdown_inline",
