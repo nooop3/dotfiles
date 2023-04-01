@@ -39,6 +39,7 @@ require("lazy").setup({
     { import = "personal.plugins.lang.rust" },
     { import = "personal.plugins.lang.golang" },
     { import = "personal.plugins.lang.clang" },
+    { import = "personal.plugins.lang.hcl" },
     -- { import = "personal.plugins.formatting.prettier" },
     { import = "personal.plugins.linting.eslint" },
   },

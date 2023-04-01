@@ -137,13 +137,6 @@ return {
 
           -- filetypes: "markdown", "tex", "asciidoc"
           diagnostics.vale,
-          -- filetypes: "yaml"
-          diagnostics.yamllint,
-
-          -- filetypes: "hcl"
-          -- formatting.packer,
-          -- filetypes: "terraform", "tf"
-          formatting.terraform_fmt,
         },
         -- configure format on save
         on_attach = function(current_client, bufnr)
