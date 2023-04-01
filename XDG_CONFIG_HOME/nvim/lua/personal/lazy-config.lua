@@ -32,6 +32,7 @@ require("lazy").setup({
     { import = "personal.plugins.lang.json" },
     { import = "personal.plugins.lang.rust" },
     -- { import = "personal.plugins.formatting.prettier" },
+    { import = "personal.plugins.linting.eslint" },
   },
   defaults = {
     -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
