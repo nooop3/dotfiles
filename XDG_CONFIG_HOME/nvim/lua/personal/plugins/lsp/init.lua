@@ -135,21 +135,11 @@ return {
         sources = {
           -- code_actions.gitsigns,
 
-          -- filetypes: "proto"
-          -- install: yay -S protolint
-          diagnostics.protolint,
           -- filetypes: "markdown", "tex", "asciidoc"
           diagnostics.vale,
           -- filetypes: "yaml"
           diagnostics.yamllint,
 
-          -- filetypes: "proto"
-          -- install:
-          -- Arch:
-          -- yay -S protolint
-          -- brew tap yoheimuta/protolint
-          -- brew install protolint
-          formatting.protolint,
           -- filetypes: "hcl"
           -- formatting.packer,
           -- filetypes: "terraform", "tf"
