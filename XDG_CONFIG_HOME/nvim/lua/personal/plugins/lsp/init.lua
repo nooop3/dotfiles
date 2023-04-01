@@ -41,7 +41,6 @@ return {
         clangd = {
           filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
         },
-        bashls = {},
         gopls = {
           settings = {
             gopls = {
@@ -153,17 +152,11 @@ return {
       return {
         root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
         sources = {
-          -- setup code actions
-          -- filetypes: "javascript", "javascriptreact", "typescript", "typescriptreact", "vue"
-          -- filetypes: "sh"
-          code_actions.shellcheck,
           -- code_actions.gitsigns,
 
           -- filetypes: "proto"
           -- install: yay -S protolint
           diagnostics.protolint,
-          -- filetypes: "sh"
-          diagnostics.shellcheck,
           -- filetypes: "sql"
           -- install: sudo pacman -S sqlfluff
           diagnostics.sqlfluff.with({
@@ -174,8 +167,6 @@ return {
           -- filetypes: "yaml"
           diagnostics.yamllint,
 
-          -- setup code formatters
-          formatting.shfmt,
           -- filetypes: "proto"
           -- install:
           -- Arch:
@@ -233,8 +224,6 @@ return {
     keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
     opts = {
       ensure_installed = {
-        -- Formatter
-        "shfmt",
         -- "flake8",
         "pyright",
       },

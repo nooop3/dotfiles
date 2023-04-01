@@ -11,7 +11,6 @@ return {
       "markdown",
       "markdown_inline",
       "python",
-      "bash",
       "go",
       "gomod",
       "java",

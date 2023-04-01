@@ -23,7 +23,7 @@ return {
     opts = {
       -- make sure mason installs the server
       servers = {
-        ---@type lspconfig.options.tsserver
+        ---@type lspconfig.options.lua_ls
         lua_ls = {
           -- mason = false, -- set to false if you don't want this server to be installed with mason
           settings = {
