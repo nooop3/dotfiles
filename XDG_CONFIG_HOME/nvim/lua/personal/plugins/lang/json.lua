@@ -1,5 +1,4 @@
 return {
-  -- add json to treesitter
   {
     "nvim-treesitter/nvim-treesitter",
     opts = function(_, opts)
