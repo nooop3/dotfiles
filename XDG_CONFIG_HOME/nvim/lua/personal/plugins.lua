@@ -4,7 +4,7 @@ return {
   { "folke/lazy.nvim", version = "*" },
   { "nvim-tree/nvim-web-devicons", lazy = true },
   { "nvim-lua/plenary.nvim", lazy = true },
-  { "b0o/schemastore.nvim", lazy = true },
+  { "b0o/SchemaStore.nvim", lazy = true },
 
   -- start screen
   -- "mhinz/vim-startify",
