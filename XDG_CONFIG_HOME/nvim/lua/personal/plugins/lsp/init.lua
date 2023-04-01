@@ -189,7 +189,6 @@ return {
         sources = {
           -- setup code actions
           -- filetypes: "javascript", "javascriptreact", "typescript", "typescriptreact", "vue"
-          -- code_actions.eslint_d,
           -- filetypes: "sh"
           code_actions.shellcheck,
           -- code_actions.gitsigns,
