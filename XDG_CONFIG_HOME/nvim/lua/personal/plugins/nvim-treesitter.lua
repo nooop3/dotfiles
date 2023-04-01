@@ -21,7 +21,6 @@ return {
 
       "vim",
       "lua",
-      "rust",
 
       "php",
       "toml",
