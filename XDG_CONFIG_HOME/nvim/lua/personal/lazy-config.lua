@@ -19,13 +19,6 @@ vim.opt.rtp:prepend(vim.env.LAZY or install_path)
 
 require("lazy").setup({
   spec = {
-    -- add LazyVim and import its plugins
-    -- { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-    -- import any extras modules here
-    -- { import = "lazyvim.plugins.extras.lang.typescript" },
-    -- { import = "lazyvim.plugins.extras.lang.json" },
-    -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
-    -- import/override with your plugins
     { import = "personal.plugins" },
     { import = "personal.plugins.lsp.lspsaga" },
     { import = "personal.plugins.lang.lua" },
@@ -57,7 +50,7 @@ require("lazy").setup({
   git = {
     timeout = 60,
     -- url_format = "https://github.com/%s.git",
-    -- url_format = "https://hub.fastgit.xyz/%s.git",
+    -- url_format = "https://hub.fgit.ml/%s.git",
   },
   install = { colorscheme = { "gruvbox-material" } },
   change_detection = { enabled = false },

@@ -49,12 +49,12 @@ return {
             },
           },
         },
-        eslint = {
-          settings = {
-            -- helps eslint find the eslintrc when it's placed in a subfolder instead of the cwd root
-            workingDirectory = { mode = "auto" },
-          },
-        },
+        -- eslint = {
+        --   settings = {
+        --     -- helps eslint find the eslintrc when it's placed in a subfolder instead of the cwd root
+        --     workingDirectory = { mode = "auto" },
+        --   },
+        -- },
       },
       setup = {
         tsserver = function(_, opts)
@@ -84,15 +84,18 @@ return {
   {
     "williamboman/mason.nvim",
     opts = function(_, opts)
-      table.insert(opts.ensure_installed, "prettierd")
+      vim.list_extend(opts.ensure_installed, { "eslint_d", "prettierd" })
     end,
   },
   {
     "jose-elias-alvarez/null-ls.nvim",
     opts = function(_, opts)
-      -- local nls = require("null-ls")
+      local nls = require("null-ls")
       vim.list_extend(opts.sources, {
         require("typescript.extensions.null-ls.code-actions"),
+        nls.builtins.code_actions.eslint_d,
+        nls.builtins.diagnostics.eslint_d,
+        nls.builtins.formatting.eslint_d,
         -- nls.builtins.formatting.prettierd
       })
     end,
