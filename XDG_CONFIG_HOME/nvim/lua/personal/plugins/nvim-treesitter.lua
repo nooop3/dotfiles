@@ -10,8 +10,6 @@ return {
       "sql",
       "markdown",
       "markdown_inline",
-      "go",
-      "gomod",
       "java",
       "kotlin",
       "scala",

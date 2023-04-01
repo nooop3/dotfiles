@@ -1,7 +1,6 @@
 local Util = require("personal.util")
 
 return {
-  -- add typescript to treesitter
   {
     "nvim-treesitter/nvim-treesitter",
     opts = function(_, opts)
