@@ -47,14 +47,6 @@ return {
       -- LSP Server Settings
       ---@type lspconfig.options
       servers = {
-        jsonls = {
-          settings = {
-            json = {
-              schemas = require("schemastore").json.schemas(),
-              validate = { enable = true },
-            },
-          },
-        },
         lua_ls = {
           -- mason = false, -- set to false if you don't want this server to be installed with mason
           settings = {

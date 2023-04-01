@@ -7,7 +7,6 @@ return {
     ensure_installed = {
       "yaml",
       "hcl",
-      "json",
       "sql",
       "markdown",
       "markdown_inline",
