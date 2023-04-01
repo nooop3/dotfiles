@@ -31,10 +31,10 @@ return {
 
       -- personalize
       { "<c-p>", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd) - personal" },
-      { "<leader>ft", Util.telescope("filetypes"), desc = "Filetypes" },
+      { "<leader>fT", Util.telescope("filetypes"), desc = "Filetypes" },
 
       -- tags
-      { "<leader>fo", Util.telescope("current_buffer_tags"), desc = "Filetypes" },
+      { "<leader>fo", Util.telescope("current_buffer_tags"), desc = "Current buffer tags" },
       { "<leader>fO", Util.telescope("tags"), desc = "tags" },
 
       { "<leader>-pp", Util.telescope("planets"), desc = "Planets" },
