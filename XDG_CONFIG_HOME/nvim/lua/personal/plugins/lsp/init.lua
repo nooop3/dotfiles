@@ -211,8 +211,6 @@ return {
 
           -- setup code formatters
           formatting.shfmt,
-          -- filetypes: "javascript", "javascriptreact"
-          -- formatting.prettier,
           -- filetypes: "proto"
           -- install:
           -- Arch:
