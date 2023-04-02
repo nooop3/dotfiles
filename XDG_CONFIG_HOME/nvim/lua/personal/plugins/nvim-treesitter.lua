@@ -6,6 +6,8 @@ return {
   opts = {
     ensure_installed = {
       "vim",
+      "help",
+      "regex",
       "php",
       "toml",
       "html",
