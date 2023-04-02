@@ -11,7 +11,7 @@ function M.get()
     -- stylua: ignore
     M._keys =  {
       -- personalize
-      -- vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, opts)
+      { "<leader>ql", vim.diagnostic.setloclist, desc = "Add buffer diagnostics to the location list." },
 
       -- LazyVim
       { "<leader>cd", vim.diagnostic.open_float, desc = "Line Diagnostics" },
