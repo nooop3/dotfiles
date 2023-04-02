@@ -2,12 +2,12 @@
 -- nvim --headless "+Lazy! sync" +qa
 
 require("personal.options")
-require("personal.lazy-config")
+require("personal.lazy")
 
 if vim.fn.argc(-1) == 0 then
   -- autocmds and keymaps can wait to load
   vim.api.nvim_create_autocmd("User", {
-    group = vim.api.nvim_create_augroup("LazyVim", { clear = true }),
+    group = vim.api.nvim_create_augroup("LazyLoading", { clear = true }),
     pattern = "VeryLazy",
     callback = function()
       require("personal.autocmds")
