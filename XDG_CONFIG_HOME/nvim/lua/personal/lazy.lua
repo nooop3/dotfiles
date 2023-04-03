@@ -35,7 +35,7 @@ require("lazy").setup({
   concurrency = 4,
   git = {
     timeout = 60,
-    -- url_format = "https://github.com/%s.git",
+    url_format = "https://github.com/%s.git",
     -- url_format = "https://hub.fgit.ml/%s.git",
   },
   install = { colorscheme = { "gruvbox-material" } },
