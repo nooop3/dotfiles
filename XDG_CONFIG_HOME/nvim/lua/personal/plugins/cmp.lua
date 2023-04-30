@@ -161,6 +161,7 @@ return {
           { name = "luasnip", option = { show_autosnippets = true } },
           { name = "path" },
           { name = "buffer", option = { keyword_length = 3 } },
+          { name = "codeium" },
         }),
         formatting = {
           format = lspkind.cmp_format({
@@ -168,6 +169,9 @@ return {
             maxwidth = 50,
             ellipsis_char = "...",
           }),
+        },
+        experimental = {
+          ghost_text = false,
         },
       }
     end,
