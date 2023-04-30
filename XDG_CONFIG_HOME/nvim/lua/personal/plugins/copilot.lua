@@ -1,5 +1,25 @@
 return {
   {
+    "jcdickinson/codeium.nvim",
+    enabled = true,
+    config = function()
+      -- vim.g.codeium_filetypes = {
+      --   ["*"] = false,
+      --   ["javascript"] = true,
+      --   -- ["typescript"] = true,
+      --   -- ["lua"] = false,
+      --   -- ["rust"] = true,
+      --   -- ["c"] = true,
+      --   -- ["c#"] = true,
+      --   -- ["c++"] = true,
+      --   -- ["go"] = true,
+      --   ["python"] = true,
+      --   -- ["java"] = true,
+      -- }
+      require("codeium").setup({})
+    end,
+  },
+  {
     "github/copilot.vim",
     enabled = false,
     opts = function()
