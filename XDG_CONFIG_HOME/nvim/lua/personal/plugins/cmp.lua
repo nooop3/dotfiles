@@ -83,10 +83,6 @@ return {
       })
 
       return {
-        -- vim.opt.completeopt = { "menu", "menuone", "noselect" }
-        completion = {
-          completeopt = "menu,menuone,noinsert",
-        },
         snippet = {
           expand = function(args)
             luasnip.lsp_expand(args.body)
@@ -166,8 +162,8 @@ return {
         formatting = {
           format = lspkind.cmp_format({
             mode = "symbol_text",
-            maxwidth = 50,
-            ellipsis_char = "...",
+            -- maxwidth = 50,
+            -- ellipsis_char = "...",
           }),
         },
         experimental = {
