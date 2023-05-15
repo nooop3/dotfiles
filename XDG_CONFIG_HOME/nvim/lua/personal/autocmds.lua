@@ -89,6 +89,7 @@ autocmd({ "FileType" }, {
     "sh",
     "xml",
     "sbt",
+    "hocon",
   },
   callback = function()
     opt_local.expandtab = true
