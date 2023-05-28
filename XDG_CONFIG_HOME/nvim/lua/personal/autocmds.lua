@@ -80,6 +80,8 @@ autocmd({ "FileType" }, {
   pattern = {
     "javascript",
     "typescript",
+    "javascriptreact",
+    "typescriptreact",
     "json",
     "yaml",
     "html",
@@ -126,6 +128,13 @@ autocmd({ "FileType" }, {
   pattern = { "json" },
   callback = function()
     opt_local.filetype = "jsonc"
+  end,
+})
+autocmd({ "BufNewFile", "BufRead" }, {
+  group = custom_file_type_changes,
+  pattern = { "Podfile", "*.podspec" },
+  callback = function()
+    opt_local.filetype = "ruby"
   end,
 })
 autocmd({ "BufNewFile", "BufRead" }, {
