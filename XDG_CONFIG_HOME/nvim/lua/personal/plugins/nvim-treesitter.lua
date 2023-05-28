@@ -11,6 +11,7 @@ return {
       "php",
       "toml",
       "html",
+      "ruby",
     },
 
     -- Install parsers synchronously (only applied to `ensure_installed`)
