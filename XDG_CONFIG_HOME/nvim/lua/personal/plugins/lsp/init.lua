@@ -145,7 +145,9 @@ return {
     dependencies = { "mason.nvim" },
     opts = function()
       return {
+        -- debug = true,
         root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
+        diagnostics_format = "[#{c}] #{m} (#{s})",
         sources = {
           -- code_actions.gitsigns,
         },

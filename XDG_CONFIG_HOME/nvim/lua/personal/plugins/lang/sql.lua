@@ -20,9 +20,11 @@ return {
       vim.list_extend(opts.sources, {
         nls.builtins.diagnostics.sqlfluff.with({
           extra_args = { "--dialect", "postgres" }, -- change to your dialect
+          -- method = nls.methods.DIAGNOSTICS_ON_SAVE,
         }),
         nls.builtins.formatting.sqlfluff.with({
           extra_args = { "--dialect", "postgres" }, -- change to your dialect
+          -- method = nls.methods.DIAGNOSTICS_ON_SAVE,
         }),
         -- nls.builtins.formatting.pg_format.with({
         --   extra_args = {

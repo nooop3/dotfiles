@@ -18,8 +18,26 @@ return {
     opts = function(_, opts)
       local nls = require("null-ls")
       vim.list_extend(opts.sources, {
-        nls.builtins.diagnostics.protolint,
-        nls.builtins.formatting.protolint,
+        nls.builtins.diagnostics.protolint.with({
+          -- diagnostics_format = "[#{c}] #{m} (#{s})",
+          args = {
+            "-config_path",
+            vim.loop.cwd() .. "/.protolint.yaml",
+            "-reporter",
+            "json",
+            "$FILENAME",
+          },
+        }),
+        nls.builtins.formatting.protolint.with({
+          -- diagnostics_format = "[#{c}] #{m} (#{s})",
+          args = {
+            "-config_path",
+            vim.loop.cwd() .. "/.protolint.yaml",
+            "-reporter",
+            "json",
+            "$FILENAME",
+          },
+        }),
       })
     end,
   },
