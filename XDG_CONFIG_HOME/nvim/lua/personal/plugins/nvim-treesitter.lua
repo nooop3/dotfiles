@@ -45,9 +45,9 @@ return {
 
     local parser_configs = parsers.get_parser_configs()
 
-    -- local github_mirror = "https://hub.fgit.ml/"
+    local github_mirror = "https://hub.fgit.ml/"
     -- local github_mirror = "https://hub.fgit.gq/"
-    local github_mirror = "https://github.com/"
+    -- local github_mirror = "https://github.com/"
     parser_configs.gotmpl = {
       install_info = {
         url = "https://github.com/ngalaiko/tree-sitter-go-template",
