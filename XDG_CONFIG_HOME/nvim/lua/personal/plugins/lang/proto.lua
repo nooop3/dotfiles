@@ -1,3 +1,5 @@
+local Util = require("personal.util")
+
 return {
   {
     "nvim-treesitter/nvim-treesitter",
@@ -20,23 +22,47 @@ return {
       vim.list_extend(opts.sources, {
         nls.builtins.diagnostics.protolint.with({
           -- diagnostics_format = "[#{c}] #{m} (#{s})",
-          args = {
-            "-config_path",
-            vim.loop.cwd() .. "/.protolint.yaml",
-            "-reporter",
-            "json",
-            "$FILENAME",
-          },
+          cwd = function()
+            return Util.get_root()
+          end,
+          args = function()
+            if vim.fn.filereadable(".protolint.yaml") ~= 0 then
+              return {
+                "-config_path",
+                ".protolint.yaml",
+                "-reporter",
+                "json",
+                "$FILENAME",
+              }
+            else
+              return {
+                "-reporter",
+                "json",
+                "$FILENAME",
+              }
+            end
+          end,
         }),
         nls.builtins.formatting.protolint.with({
           -- diagnostics_format = "[#{c}] #{m} (#{s})",
-          args = {
-            "-config_path",
-            vim.loop.cwd() .. "/.protolint.yaml",
-            "-reporter",
-            "json",
-            "$FILENAME",
-          },
+          cwd = function()
+            return Util.get_root()
+          end,
+          args = function()
+            if vim.fn.filereadable(".protolint.yaml") ~= 0 then
+              return {
+                "-config_path",
+                ".protolint.yaml",
+                "-fix",
+                "$FILENAME",
+              }
+            else
+              return {
+                "-fix",
+                "$FILENAME",
+              }
+            end
+          end,
         }),
       })
     end,
