@@ -20,6 +20,21 @@ return {
   -- sudo pacman -S ctags
   { "majutsushi/tagbar", enabled = false },
 
+  -- auto change cwd
+  {
+    "ahmedkhalf/project.nvim",
+    main = "project_nvim",
+    opts = {
+      detection_methods = { "pattern", "lsp" },
+      -- patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json" },
+      ignore_lsp = {},
+      exclude_dirs = { "~/.cargo/*", "*/node_modules/*" },
+      show_hidden = true,
+      silent_chdir = true,
+      scope_chdir = "tab",
+    },
+  },
+
   -- "voldikss/vim-floaterm",
   -- "lewis6991/impatient.nvim",
   -- "tpope/vim-commentary",
