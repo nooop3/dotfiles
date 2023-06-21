@@ -27,7 +27,13 @@ return {
             disableAutomaticTypingAcquisition = false,
             preferences = {
               quotePreference = "single",
+              -- importModuleSpecifierEnding = "js",
+              importModuleSpecifierEnding = "auto",
             },
+            -- tsserver = {
+            --   logDirectory = vim.fn.expand("~/.cache/nvim/"),
+            --   logVerbosity = "verbose",
+            -- },
           },
           settings = {
             javascript = {
