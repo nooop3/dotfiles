@@ -31,6 +31,7 @@ return {
 
       -- personalize
       { "<c-p>", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd) - personal" },
+      -- { "<c-p>", Util.telescope("files"), desc = "Find Files (cwd) - personal" },
       { "<leader>fT", Util.telescope("filetypes"), desc = "Filetypes" },
 
       -- tags
@@ -120,19 +121,6 @@ return {
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
       -- "nvim-telescope/telescope-project.nvim",
       "LukasPietzschmann/telescope-tabs",
-      {
-        "ahmedkhalf/project.nvim",
-        main = "project_nvim",
-        opts = {
-          detection_methods = { "pattern", "lsp" },
-          -- patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json" },
-          ignore_lsp = {},
-          exclude_dirs = { "~/.cargo/*" },
-          show_hidden = true,
-          silent_chdir = true,
-          scope_chdir = "tab",
-        },
-      },
     },
     opts = function()
       local fn = vim.fn
