@@ -102,7 +102,11 @@ return {
         nls.builtins.code_actions.eslint_d,
         nls.builtins.diagnostics.eslint_d,
         nls.builtins.formatting.eslint_d,
-        -- nls.builtins.formatting.prettierd
+        nls.builtins.formatting.prettierd.with({
+          condition = function(utils)
+            return utils.root_has_file({ ".prettierrc", ".prettierrc.json" })
+          end,
+        }),
       })
     end,
   },
