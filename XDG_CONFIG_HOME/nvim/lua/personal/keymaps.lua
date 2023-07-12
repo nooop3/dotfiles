@@ -170,3 +170,7 @@ map("c", "<C-F>", "<Right>", { desc = "Support navigating in vims command mode" 
 -- map("c", "w!!", "w !sudo tee > /dev/null %", { desc = "Allow saving of files as sudo when I forgot to start vim using sudo." })
 -- map("n", "l", [[:IndentLinesToggle]], {})
 -- map("n", "t", [[:TagbarToggle]], {})
+
+-- quick select last changed block
+-- nnoremap <expr> gV '`[' . getregtype()[0] . '`]'
+map("n", "gV", [["`[" .. getregtype()[0] .. "`]"]], { expr = true, desc = "Quick select last changed block" })
