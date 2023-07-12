@@ -99,9 +99,21 @@ return {
       local nls = require("null-ls")
       vim.list_extend(opts.sources, {
         require("typescript.extensions.null-ls.code-actions"),
-        nls.builtins.code_actions.eslint_d,
-        nls.builtins.diagnostics.eslint_d,
-        nls.builtins.formatting.eslint_d,
+        nls.builtins.code_actions.eslint_d.with({
+          condition = function(utils)
+            return utils.root_has_file({ ".eslintrc", ".eslintrc.js", ".eslintrc.cjs", ".eslintrc.json" })
+          end,
+        }),
+        nls.builtins.diagnostics.eslint_d.with({
+          condition = function(utils)
+            return utils.root_has_file({ ".eslintrc", ".eslintrc.js", ".eslintrc.cjs", ".eslintrc.json" })
+          end,
+        }),
+        nls.builtins.formatting.eslint_d.with({
+          condition = function(utils)
+            return utils.root_has_file({ ".eslintrc", ".eslintrc.js", ".eslintrc.cjs", ".eslintrc.json" })
+          end,
+        }),
         nls.builtins.formatting.prettierd.with({
           condition = function(utils)
             return utils.root_has_file({ ".prettierrc", ".prettierrc.json" })
