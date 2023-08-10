@@ -55,12 +55,12 @@ return {
             },
           },
         },
-        -- eslint = {
-        --   settings = {
-        --     -- helps eslint find the eslintrc when it's placed in a subfolder instead of the cwd root
-        --     workingDirectory = { mode = "auto" },
-        --   },
-        -- },
+        eslint = {
+          settings = {
+            -- helps eslint find the eslintrc when it's placed in a subfolder instead of the cwd root
+            workingDirectory = { mode = "auto" },
+          },
+        },
       },
       setup = {
         tsserver = function(_, opts)
@@ -99,17 +99,17 @@ return {
       local nls = require("null-ls")
       vim.list_extend(opts.sources, {
         require("typescript.extensions.null-ls.code-actions"),
-        nls.builtins.code_actions.eslint_d.with({
+        nls.builtins.code_actions.eslint.with({
           condition = function(utils)
             return utils.root_has_file({ ".eslintrc", ".eslintrc.js", ".eslintrc.cjs", ".eslintrc.json" })
           end,
         }),
-        nls.builtins.diagnostics.eslint_d.with({
+        nls.builtins.diagnostics.eslint.with({
           condition = function(utils)
             return utils.root_has_file({ ".eslintrc", ".eslintrc.js", ".eslintrc.cjs", ".eslintrc.json" })
           end,
         }),
-        nls.builtins.formatting.eslint_d.with({
+        nls.builtins.formatting.eslint.with({
           condition = function(utils)
             return utils.root_has_file({ ".eslintrc", ".eslintrc.js", ".eslintrc.cjs", ".eslintrc.json" })
           end,
