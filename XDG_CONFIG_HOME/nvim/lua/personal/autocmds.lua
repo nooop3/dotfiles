@@ -123,6 +123,13 @@ autocmd({ "BufNewFile", "BufRead" }, {
     opt_local.filetype = "hcl"
   end,
 })
+autocmd({ "BufNewFile", "BufRead" }, {
+  group = custom_file_type_changes,
+  pattern = { "*.tf" },
+  callback = function()
+    opt_local.filetype = "terraform"
+  end,
+})
 autocmd({ "FileType" }, {
   group = custom_file_type_changes,
   pattern = { "json" },
@@ -173,13 +180,13 @@ autocmd({ "FileType" }, {
 })
 
 -- autocmd BufWritePre *.tf lua vim.lsp.buf.formatting_sync()
--- local terraform_format = augroup("terraform_format", { clear = true })
--- autocmd({"BufWritePre"}, {
+-- local terraform_format = augroup("terraform_format")
+-- autocmd({ "BufWritePre" }, {
 --   group = terraform_format,
 --   pattern = { "*.tf" },
 --   callback = function()
 --     return vim.lsp.buf.formatting_sync()
---   end
+--   end,
 -- })
 
 g.input_toggle = 0
