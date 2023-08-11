@@ -66,8 +66,7 @@ return {
         "force",
         {},
         vim.lsp.protocol.make_client_capabilities(),
-        has_cmp and cmp_nvim_lsp.default_capabilities() or {},
-        opts.capabilities or {}
+        has_cmp and cmp_nvim_lsp.default_capabilities() or {}
       )
 
       local function setup(server)
