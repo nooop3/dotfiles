@@ -114,11 +114,11 @@ return {
             return utils.root_has_file({ ".eslintrc", ".eslintrc.js", ".eslintrc.cjs", ".eslintrc.json" })
           end,
         }),
-        nls.builtins.formatting.prettierd.with({
-          condition = function(utils)
-            return utils.root_has_file({ ".prettierrc", ".prettierrc.json" })
-          end,
-        }),
+        -- nls.builtins.formatting.prettierd.with({
+        --   condition = function(utils)
+        --     return utils.root_has_file({ ".prettierrc", ".prettierrc.json" })
+        --   end,
+        -- }),
       })
     end,
   },
