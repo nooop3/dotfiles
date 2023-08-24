@@ -1,6 +1,8 @@
 local Util = require("personal.util")
 
 return {
+
+  -- add typescript to treesitter
   {
     "nvim-treesitter/nvim-treesitter",
     opts = function(_, opts)
@@ -19,25 +21,23 @@ return {
       servers = {
         ---@type lspconfig.options.tsserver
         tsserver = {
-          capabilities = {
-            documentFormattingProvider = false,
-          },
-          init_options = {
-            hostInfo = "neovim",
-            disableAutomaticTypingAcquisition = false,
-            preferences = {
-              quotePreference = "single",
-              -- importModuleSpecifierEnding = "js",
-              importModuleSpecifierEnding = "auto",
-            },
-            -- tsserver = {
-            --   logDirectory = vim.fn.expand("~/.cache/nvim/"),
-            --   logVerbosity = "verbose",
-            -- },
+          keys = {
+            { "<leader>co", "<cmd>TypescriptOrganizeImports<CR>", desc = "Organize Imports" },
+            { "<leader>cR", "<cmd>TypescriptRenameFile<CR>", desc = "Rename File" },
           },
           settings = {
+            typescript = {
+              format = {
+                indentSize = vim.o.shiftwidth,
+                convertTabsToSpaces = vim.o.expandtab,
+                tabSize = vim.o.tabstop,
+              },
+            },
             javascript = {
               format = {
+                indentSize = vim.o.shiftwidth,
+                convertTabsToSpaces = vim.o.expandtab,
+                tabSize = vim.o.tabstop,
                 semicolons = "remove",
               },
             },
@@ -54,6 +54,22 @@ return {
               completeFunctionCalls = true,
             },
           },
+          capabilities = {
+            documentFormattingProvider = false,
+          },
+          init_options = {
+            hostInfo = "neovim",
+            disableAutomaticTypingAcquisition = false,
+            preferences = {
+              quotePreference = "single",
+              -- importModuleSpecifierEnding = "js",
+              importModuleSpecifierEnding = "auto",
+            },
+            -- tsserver = {
+            --   logDirectory = vim.fn.expand("~/.cache/nvim/"),
+            --   logVerbosity = "verbose",
+            -- },
+          },
         },
         eslint = {
           settings = {
@@ -64,22 +80,23 @@ return {
       },
       setup = {
         tsserver = function(_, opts)
-          Util.on_attach(function(client, buffer)
-            if client.name == "tsserver" then
-              -- stylua: ignore
-              vim.keymap.set("n", "<leader>co", "<cmd>TypescriptOrganizeImports<CR>", { buffer = buffer, desc = "Organize Imports" })
-              -- stylua: ignore
-              vim.keymap.set("n", "<leader>cR", "<cmd>TypescriptRenameFile<CR>", { desc = "Rename File", buffer = buffer })
-            end
-          end)
           require("typescript").setup({ server = opts })
           return true
         end,
         eslint = function()
           vim.api.nvim_create_autocmd("BufWritePre", {
             callback = function(event)
-              if require("lspconfig.util").get_active_client_by_name(event.buf, "eslint") then
-                vim.cmd("EslintFixAll")
+              if not require("personal.plugins.lsp.format").enabled() then
+                -- exit early if autoformat is not enabled
+                return
+              end
+
+              local client = vim.lsp.get_active_clients({ bufnr = event.buf, name = "eslint" })[1]
+              if client then
+                local diag = vim.diagnostic.get(event.buf, { namespace = vim.lsp.diagnostic.get_namespace(client.id) })
+                if #diag > 0 then
+                  vim.cmd("EslintFixAll")
+                end
               end
             end,
           })
@@ -87,39 +104,42 @@ return {
       },
     },
   },
-  {
-    "williamboman/mason.nvim",
-    opts = function(_, opts)
-      vim.list_extend(opts.ensure_installed, { "eslint_d", "prettierd" })
-    end,
-  },
+  -- {
+  --   "williamboman/mason.nvim",
+  --   opts = function(_, opts)
+  --     vim.list_extend(opts.ensure_installed, { "eslint_d", "prettierd" })
+  --   end,
+  -- },
   {
     "jose-elias-alvarez/null-ls.nvim",
     opts = function(_, opts)
-      local nls = require("null-ls")
-      vim.list_extend(opts.sources, {
-        require("typescript.extensions.null-ls.code-actions"),
-        nls.builtins.code_actions.eslint.with({
-          condition = function(utils)
-            return utils.root_has_file({ ".eslintrc", ".eslintrc.js", ".eslintrc.cjs", ".eslintrc.json" })
-          end,
-        }),
-        nls.builtins.diagnostics.eslint.with({
-          condition = function(utils)
-            return utils.root_has_file({ ".eslintrc", ".eslintrc.js", ".eslintrc.cjs", ".eslintrc.json" })
-          end,
-        }),
-        nls.builtins.formatting.eslint.with({
-          condition = function(utils)
-            return utils.root_has_file({ ".eslintrc", ".eslintrc.js", ".eslintrc.cjs", ".eslintrc.json" })
-          end,
-        }),
-        -- nls.builtins.formatting.prettierd.with({
-        --   condition = function(utils)
-        --     return utils.root_has_file({ ".prettierrc", ".prettierrc.json" })
-        --   end,
-        -- }),
-      })
+      table.insert(opts.sources, require("typescript.extensions.null-ls.code-actions"))
     end,
+    -- opts = function(_, opts)
+    --   local nls = require("null-ls")
+    --   vim.list_extend(opts.sources, {
+    --     require("typescript.extensions.null-ls.code-actions"),
+    --     nls.builtins.code_actions.eslint.with({
+    --       condition = function(utils)
+    --         return utils.root_has_file({ ".eslintrc", ".eslintrc.js", ".eslintrc.cjs", ".eslintrc.json" })
+    --       end,
+    --     }),
+    --     nls.builtins.diagnostics.eslint.with({
+    --       condition = function(utils)
+    --         return utils.root_has_file({ ".eslintrc", ".eslintrc.js", ".eslintrc.cjs", ".eslintrc.json" })
+    --       end,
+    --     }),
+    --     nls.builtins.formatting.eslint.with({
+    --       condition = function(utils)
+    --         return utils.root_has_file({ ".eslintrc", ".eslintrc.js", ".eslintrc.cjs", ".eslintrc.json" })
+    --       end,
+    --     }),
+    --     -- nls.builtins.formatting.prettierd.with({
+    --     --   condition = function(utils)
+    --     --     return utils.root_has_file({ ".prettierrc", ".prettierrc.json" })
+    --     --   end,
+    --     -- }),
+    --   })
+    -- end,
   },
 }
