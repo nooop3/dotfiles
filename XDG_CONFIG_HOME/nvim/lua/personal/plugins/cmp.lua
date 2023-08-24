@@ -34,6 +34,7 @@ return {
   {
     "hrsh7th/nvim-cmp",
     version = false,
+    commit = "6c84bc75c64f778e9f1dcb798ed41c7fcb93b639",
     event = { "InsertEnter", "CmdlineEnter" },
     -- these dependencies will only be loaded when cmp loads
     -- dependencies are always lazy-loaded unless specified otherwise

@@ -2,6 +2,10 @@ return {
   {
     "jcdickinson/codeium.nvim",
     enabled = true,
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "hrsh7th/nvim-cmp",
+    },
     config = function()
       -- vim.g.codeium_filetypes = {
       --   ["*"] = false,
