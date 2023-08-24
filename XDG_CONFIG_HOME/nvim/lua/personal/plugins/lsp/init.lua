@@ -1,26 +1,52 @@
-local Util = require("personal.util")
-
 return {
   -- lspconfig
   {
     "neovim/nvim-lspconfig",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-      { "folke/neoconf.nvim", cmd = "Neoconf", config = true },
-      { "folke/neodev.nvim", opts = { experimental = { pathStrict = true } } },
+      { "folke/neoconf.nvim", cmd = "Neoconf", config = false, dependencies = { "nvim-lspconfig" } },
+      { "folke/neodev.nvim", opts = {} },
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
       {
         "hrsh7th/cmp-nvim-lsp",
         cond = function()
-          return Util.has("nvim-cmp")
+          return require("personal.util").has("nvim-cmp")
         end,
       },
     },
     ---@class PluginLspOpts
     opts = {
+      -- options for vim.diagnostic.config()
+      diagnostics = {
+        underline = true,
+        update_in_insert = false,
+        virtual_text = {
+          spacing = 4,
+          source = "if_many",
+          prefix = "●",
+          -- this will set set the prefix to a function that returns the diagnostics icon based on the severity
+          -- this only works on a recent 0.10.0 build. Will be set to "●" when not supported
+          -- prefix = "icons",
+        },
+        severity_sort = true,
+      },
+      -- Enable this to enable the builtin LSP inlay hints on Neovim >= 0.10.0
+      -- Be aware that you also will need to properly configure your LSP server to
+      -- provide the inlay hints.
+      inlay_hints = {
+        enabled = false,
+      },
+      -- add any global capabilities here
+      capabilities = {},
       -- Automatically format on save
       autoformat = true,
+      -- Enable this to show formatters used in a notification
+      -- Useful for debugging formatter issues
+      format_notify = false,
+      -- options for vim.lsp.buf.format
+      -- `bufnr` and `filter` is handled by the LazyVim formatter,
+      -- but can be also overridden when specified
       -- options for vim.lsp.buf.format
       format = {
         -- filter = function(client)
@@ -29,13 +55,6 @@ return {
         formatting_options = nil,
         timeout_ms = nil,
       },
-      -- options for vim.diagnostic.config()
-      diagnostics = {
-        underline = true,
-        update_in_insert = false,
-        virtual_text = { spacing = 4, prefix = "●" },
-        severity_sort = true,
-      },
       -- LSP Server Settings
       ---@type lspconfig.options
       servers = {},
@@ -43,22 +62,54 @@ return {
       -- return true if you don't want this server to be setup with lspconfig
       ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
       setup = {
+        -- example to setup with typescript.nvim
+        -- tsserver = function(_, opts)
+        --   require("typescript").setup({ server = opts })
+        --   return true
+        -- end,
         -- Specify * to use this function as a fallback for any server
         -- ["*"] = function(server, opts) end,
       },
     },
     ---@param opts PluginLspOpts
     config = function(_, opts)
+      local Util = require("personal.util")
+
+      if Util.has("neoconf.nvim") then
+        local plugin = require("lazy.core.config").spec.plugins["neoconf.nvim"]
+        require("neoconf").setup(require("lazy.core.plugin").values(plugin, "opts", false))
+      end
       -- setup autoformat
-      require("personal.plugins.lsp.format").autoformat = opts.autoformat
+      require("personal.plugins.lsp.format").setup(opts)
       -- setup formatting and keymaps
       Util.on_attach(function(client, buffer)
-        require("personal.plugins.lsp.format").on_attach(client, buffer)
         require("personal.plugins.lsp.keymaps").on_attach(client, buffer)
       end)
 
+      local register_capability = vim.lsp.handlers["client/registerCapability"]
+
+      vim.lsp.handlers["client/registerCapability"] = function(err, res, ctx)
+        local ret = register_capability(err, res, ctx)
+        local client_id = ctx.client_id
+        ---@type lsp.Client
+        local client = vim.lsp.get_client_by_id(client_id)
+        local buffer = vim.api.nvim_get_current_buf()
+        require("personal.plugins.lsp.keymaps").on_attach(client, buffer)
+        return ret
+      end
+
       -- diagnostics
-      vim.diagnostic.config(opts.diagnostics)
+
+      local inlay_hint = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
+
+      if opts.inlay_hints.enabled and inlay_hint then
+        Util.on_attach(function(client, buffer)
+          if client.supports_method('textDocument/inlayHint') then
+            inlay_hint(buffer, true)
+          end
+        end)
+      end
+      vim.diagnostic.config(vim.deepcopy(opts.diagnostics))
 
       local servers = opts.servers
       local has_cmp, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
@@ -66,7 +117,8 @@ return {
         "force",
         {},
         vim.lsp.protocol.make_client_capabilities(),
-        has_cmp and cmp_nvim_lsp.default_capabilities() or {}
+        has_cmp and cmp_nvim_lsp.default_capabilities() or {},
+        opts.capabilities or {}
       )
 
       local function setup(server)
@@ -109,6 +161,14 @@ return {
       if have_mason then
         mlsp.setup({ ensure_installed = ensure_installed })
         mlsp.setup_handlers({ setup })
+      end
+
+      if Util.lsp_get_config("denols") and Util.lsp_get_config("tsserver") then
+        local is_deno = require("lspconfig.util").root_pattern("deno.json", "deno.jsonc")
+        Util.lsp_disable("tsserver", is_deno)
+        Util.lsp_disable("denols", function(root_dir)
+          return not is_deno(root_dir)
+        end)
       end
     end,
   },

@@ -18,15 +18,18 @@ return {
   -- correctly setup lspconfig
   {
     "neovim/nvim-lspconfig",
-    dependencies = { "jose-elias-alvarez/typescript.nvim" },
     opts = {
       -- make sure mason installs the server
       servers = {
         ---@type lspconfig.options.lua_ls
         lua_ls = {
-          -- mason = false, -- set to false if you don't want this server to be installed with mason
           settings = {
             Lua = {
+              workspace = {
+                -- Make the server aware of Neovim runtime files
+                library = lua_ls_library,
+                checkThirdParty = false,
+              },
               completion = {
                 callSnippet = "Replace",
               },
@@ -37,11 +40,6 @@ return {
               diagnostics = {
                 -- Get the language server to recognize the `vim` global
                 globals = { "vim" },
-              },
-              workspace = {
-                -- Make the server aware of Neovim runtime files
-                library = lua_ls_library,
-                checkThirdParty = false,
               },
               -- Do not send telemetry data containing a randomized but unique identifier
               telemetry = {
