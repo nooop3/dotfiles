@@ -17,7 +17,21 @@ return {
   --   opts = {
   --     -- make sure mason installs the server
   --     servers = {
-  --       tsserver = {},
+  --       tsserver = {
+  --         settings = {
+  --           expose_as_code_action = {
+  --             "fix_all",
+  --             "remove_unused",
+  --             "add_missing_imports",
+  --           },
+  --           tsserver_file_preferences = {
+  --             quotePreference = "single",
+  --             -- importModuleSpecifierEnding = "js",
+  --             importModuleSpecifierEnding = "auto",
+  --           },
+  --           tsserver_format_options = {},
+  --         },
+  --       },
   --     },
   --     setup = {
   --       ---@diagnostic disable-next-line: unused-local
@@ -26,19 +40,15 @@ return {
   --         require("typescript-tools").setup({
   --           handlers = {
   --             ["textDocument/publishDiagnostics"] = api.filter_diagnostics({
+  --               -- Could not find a declaration file for module '{0}'. '{1}' implicitly has an 'any' type.
+  --               -- 7016,
   --               -- File is a CommonJS module; it may be converted to an ES module.
   --               80001,
   --               -- Ignore 'This may be converted to an async function' diagnostics.
   --               -- 80006
   --             }),
   --           },
-  --           settings = {
-  --             expose_as_code_action = {
-  --               "fix_all",
-  --               "remove_unused",
-  --               "add_missing_imports",
-  --             },
-  --           },
+  --           settings = opts.settings,
   --         })
   --         return true
   --       end,
@@ -46,7 +56,7 @@ return {
   --   },
   -- },
 
-  -- correctly setup lspconfig
+  -- typescript
   {
     "neovim/nvim-lspconfig",
     dependencies = { "jose-elias-alvarez/typescript.nvim" },
