@@ -2,6 +2,7 @@ return {
   -- Improve LSP UI
   {
     "nvimdev/lspsaga.nvim",
+    commit = "4cad6da6e05b7651ca8f66ec1fb3a824395ada68",
     -- cmd = "Lspsaga",
     event = "LspAttach",
     dependencies = {
