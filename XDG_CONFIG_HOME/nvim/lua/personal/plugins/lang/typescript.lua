@@ -69,7 +69,7 @@ return {
             { "<leader>cR", "<cmd>TypescriptRenameFile<CR>", desc = "Rename File" },
           },
           capabilities = {
-            documentFormattingProvider = false,
+            -- documentFormattingProvider = false,
           },
           init_options = {
             hostInfo = "neovim",
@@ -87,17 +87,17 @@ return {
           settings = {
             javascript = {
               format = {
-                indentSize = vim.o.shiftwidth,
-                convertTabsToSpaces = vim.o.expandtab,
-                tabSize = vim.o.tabstop,
+                -- indentSize = vim.o.shiftwidth,
+                -- convertTabsToSpaces = vim.o.expandtab,
+                -- tabSize = vim.o.tabstop,
                 semicolons = "remove",
               },
             },
             typescript = {
               format = {
-                indentSize = vim.o.shiftwidth,
-                convertTabsToSpaces = vim.o.expandtab,
-                tabSize = vim.o.tabstop,
+                -- indentSize = vim.o.shiftwidth,
+                -- convertTabsToSpaces = vim.o.expandtab,
+                -- tabSize = vim.o.tabstop,
               },
             },
             diagnostics = {
@@ -105,6 +105,8 @@ return {
                 -- See https://github.com/microsoft/TypeScript/blob/master/src/compiler/diagnosticMessages.json for a full list of valid codes.
                 -- Could not find a declaration file for module '{0}'. '{1}' implicitly has an 'any' type.
                 7016,
+                -- Parameter '{0}' implicitly has an 'any' type, but a better type may be inferred from usage.
+                7044,
                 -- File is a CommonJS module; it may be converted to an ES module.
                 80001,
               },
@@ -188,12 +190,6 @@ return {
           end,
         }),
         nls.builtins.diagnostics.eslint.with({
-          only_local = "node_modules/.bin",
-          condition = function(utils)
-            return utils.root_has_file({ ".eslintrc", ".eslintrc.js", ".eslintrc.cjs", ".eslintrc.json" })
-          end,
-        }),
-        nls.builtins.formatting.eslint.with({
           only_local = "node_modules/.bin",
           condition = function(utils)
             return utils.root_has_file({ ".eslintrc", ".eslintrc.js", ".eslintrc.cjs", ".eslintrc.json" })
