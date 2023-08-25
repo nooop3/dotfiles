@@ -102,10 +102,12 @@ return {
             },
             diagnostics = {
               ignoredCodes = {
-                -- See https://github.com/microsoft/TypeScript/blob/master/src/compiler/diagnosticMessages.json for a full list of valid codes.
+                -- See https://github.com/microsoft/TypeScript/blob/main/src/compiler/diagnosticMessages.json for a full list of valid codes.
+                -- Initializer provides no value for this binding element and the binding element has no default value.
+                2525,
                 -- Could not find a declaration file for module '{0}'. '{1}' implicitly has an 'any' type.
                 7016,
-                -- Parameter '{0}' implicitly has an 'any' type, but a better type may be inferred from usage.
+                -- Parameter '{0}' implicitly has an '{1}' type, but a better type may be inferred from usage.
                 7044,
                 -- File is a CommonJS module; it may be converted to an ES module.
                 80001,
@@ -170,12 +172,13 @@ return {
     },
   },
 
-  -- {
-  --   "williamboman/mason.nvim",
-  --   opts = function(_, opts)
-  --     vim.list_extend(opts.ensure_installed, { "eslint_d", "prettierd" })
-  --   end,
-  -- },
+  {
+    "williamboman/mason.nvim",
+    opts = function(_, opts)
+      -- vim.list_extend(opts.ensure_installed, { "eslint_d", "prettierd" })
+      vim.list_extend(opts.ensure_installed, { "prettierd" })
+    end,
+  },
 
   {
     "jose-elias-alvarez/null-ls.nvim",
@@ -195,11 +198,11 @@ return {
             return utils.root_has_file({ ".eslintrc", ".eslintrc.js", ".eslintrc.cjs", ".eslintrc.json" })
           end,
         }),
-        -- nls.builtins.formatting.prettierd.with({
-        --   condition = function(utils)
-        --     return utils.root_has_file({ ".prettierrc", ".prettierrc.json" })
-        --   end,
-        -- }),
+        nls.builtins.formatting.prettierd.with({
+          condition = function(utils)
+            return utils.root_has_file({ ".prettierrc", ".prettierrc.json" })
+          end,
+        }),
       })
     end,
   },
