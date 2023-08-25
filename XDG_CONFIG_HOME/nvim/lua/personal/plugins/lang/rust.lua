@@ -15,7 +15,7 @@ return {
     opts = {
       -- make sure mason installs the server
       servers = {
-        ---@type lspconfig.options.tsserver
+        ---@type lspconfig.options.rust_analyzer
         rust_analyzer = {
           cargo = {
             -- features = { "all" },
