@@ -187,13 +187,13 @@ return {
       vim.list_extend(opts.sources, {
         require("typescript.extensions.null-ls.code-actions"),
         nls.builtins.code_actions.eslint.with({
-          only_local = "node_modules/.bin",
+          prefer_local = "node_modules/.bin",
           condition = function(utils)
             return utils.root_has_file({ ".eslintrc", ".eslintrc.js", ".eslintrc.cjs", ".eslintrc.json" })
           end,
         }),
         nls.builtins.diagnostics.eslint.with({
-          only_local = "node_modules/.bin",
+          prefer_local = "node_modules/.bin",
           condition = function(utils)
             return utils.root_has_file({ ".eslintrc", ".eslintrc.js", ".eslintrc.cjs", ".eslintrc.json" })
           end,
