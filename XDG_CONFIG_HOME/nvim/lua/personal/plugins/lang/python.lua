@@ -15,7 +15,17 @@ return {
       -- make sure mason installs the server
       servers = {
         ---@type lspconfig.options.pyright
-        pyright = {},
+        pyright = {
+          settings = {
+            python = {
+              analysis = {
+                autoSearchPaths = true,
+                useLibraryCodeForTypes = true,
+                diagnosticMode = "workspace",
+              },
+            },
+          },
+        },
       },
     },
   },
