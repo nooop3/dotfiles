@@ -69,7 +69,7 @@ return {
             { "<leader>cR", "<cmd>TypescriptRenameFile<CR>", desc = "Rename File" },
           },
           capabilities = {
-            -- documentFormattingProvider = false,
+            documentFormattingProvider = false,
           },
           init_options = {
             hostInfo = "neovim",
@@ -91,6 +91,8 @@ return {
                 -- convertTabsToSpaces = vim.o.expandtab,
                 -- tabSize = vim.o.tabstop,
                 semicolons = "remove",
+                -- insertSpaceAfterConstructor = true,
+                -- insertSpaceBeforeFunctionParenthesis = true,
               },
             },
             typescript = {
@@ -198,11 +200,11 @@ return {
             return utils.root_has_file({ ".eslintrc", ".eslintrc.js", ".eslintrc.cjs", ".eslintrc.json" })
           end,
         }),
-        nls.builtins.formatting.prettierd.with({
-          condition = function(utils)
-            return utils.root_has_file({ ".prettierrc", ".prettierrc.json" })
-          end,
-        }),
+        -- nls.builtins.formatting.prettierd.with({
+        --   condition = function(utils)
+        --     return utils.root_has_file({ ".prettierrc", ".prettierrc.json" })
+        --   end,
+        -- }),
       })
     end,
   },
