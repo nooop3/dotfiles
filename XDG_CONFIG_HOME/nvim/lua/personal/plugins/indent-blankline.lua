@@ -1,10 +1,16 @@
 return {
   "lukas-reineke/indent-blankline.nvim",
   event = { "BufReadPost", "BufNewFile" },
+  main = "ibl",
   opts = {
-    char = "│",
-    filetype_exclude = { "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy" },
-    show_trailing_blankline_indent = false,
-    show_current_context = true,
+    indent = {
+      char = "│",
+    },
+    whitespace = {
+      remove_blankline_trail = true,
+    },
+    exclude = {
+      filetypes = { "lspinfo", "packer", "checkhealth", "man", "gitcommit", "TelescopePrompt", "TelescopeResults", "", "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy" },
+    },
   },
 }
