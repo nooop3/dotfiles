@@ -3,14 +3,28 @@ return {
   event = { "BufReadPost", "BufNewFile" },
   main = "ibl",
   opts = {
-    indent = {
-      char = "│",
-    },
+    indent = { char = "▎" },
     whitespace = {
+      -- highlight = { "Whitespace", "NonText" },
       remove_blankline_trail = true,
     },
     exclude = {
-      filetypes = { "lspinfo", "packer", "checkhealth", "man", "gitcommit", "TelescopePrompt", "TelescopeResults", "", "help", "alpha", "dashboard", "neo-tree", "Trouble", "lazy" },
+      filetypes = {
+        "lspinfo",
+        "packer",
+        "checkhealth",
+        "man",
+        "gitcommit",
+        "TelescopePrompt",
+        "TelescopeResults",
+        "",
+        "help",
+        "alpha",
+        "dashboard",
+        "neo-tree",
+        "Trouble",
+        "lazy",
+      },
     },
   },
 }
