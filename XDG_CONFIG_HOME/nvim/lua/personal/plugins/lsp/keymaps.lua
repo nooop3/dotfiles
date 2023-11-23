@@ -6,7 +6,7 @@ M._keys = nil
 ---@return (LazyKeys|{has?:string})[]
 function M.get()
   local format = function()
-    require("personal.plugins.lsp.format").format({ force = true })
+    require("personal.util.format").format({ force = true })
   end
   if not M._keys then
   ---@class PluginLspKeys

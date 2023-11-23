@@ -1,4 +1,4 @@
---[[ autpcmds.lua ]]
+--[[ autocmds.lua ]]
 
 local o = vim.o
 local g = vim.g
@@ -16,24 +16,6 @@ local nvim_buf_get_option = vim.api.nvim_buf_get_option
 local function augroup(name)
   return vim.api.nvim_create_augroup("lazyvim_" .. name, { clear = true })
 end
-
--- https://github.com/vim/vim/blob/master/runtime/defaults.vim#L101
--- When editing a file, always jump to the last known cursor position.
--- Don't do it when the position is invalid, when inside an event handler
--- (happens when dropping a file on gvim) and for a commit message (it's
--- likely a different one than last time).
-local vim_startup = augroup("vim_startup")
-autocmd({ "BufReadPost" }, {
-  group = vim_startup,
-  pattern = { "*" },
-  callback = function()
-    local quote_mark_line = fn.line("'" .. '"')
-    local last_line = fn.line("$")
-    if quote_mark_line >= 1 and quote_mark_line <= last_line and o.ft ~= "commit" then
-      cmd('normal! g`"')
-    end
-  end,
-})
 
 -- Markdown add the checkbox
 local markdown_checkbox = augroup("markdown_checkbox")
@@ -238,19 +220,22 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 vim.api.nvim_create_autocmd({ "VimResized" }, {
   group = augroup("resize_splits"),
   callback = function()
+    local current_tab = vim.fn.tabpagenr()
     vim.cmd("tabdo wincmd =")
+    vim.cmd("tabnext " .. current_tab)
   end,
 })
 
 -- go to last loc when opening a buffer
 vim.api.nvim_create_autocmd("BufReadPost", {
   group = augroup("last_loc"),
-  callback = function()
+  callback = function(event)
     local exclude = { "gitcommit" }
-    local buf = vim.api.nvim_get_current_buf()
-    if vim.tbl_contains(exclude, vim.bo[buf].filetype) then
+    local buf = event.buf
+    if vim.tbl_contains(exclude, vim.bo[buf].filetype) or vim.b[buf].lazyvim_last_loc then
       return
     end
+    vim.b[buf].lazyvim_last_loc = true
     local mark = vim.api.nvim_buf_get_mark(buf, '"')
     local lcount = vim.api.nvim_buf_line_count(buf)
     if mark[1] > 0 and mark[1] <= lcount then
@@ -269,6 +254,7 @@ vim.api.nvim_create_autocmd("FileType", {
     "man",
     "notify",
     "qf",
+    "query",
     "spectre_panel",
     "startuptime",
     "tsplayground",

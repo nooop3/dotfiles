@@ -80,7 +80,7 @@ return {
         require("neoconf").setup(require("lazy.core.plugin").values(plugin, "opts", false))
       end
       -- setup autoformat
-      require("personal.plugins.lsp.format").setup(opts)
+      require("personal.util.format").setup(opts)
       -- setup formatting and keymaps
       Util.on_attach(function(client, buffer)
         require("personal.plugins.lsp.keymaps").on_attach(client, buffer)
