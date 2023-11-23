@@ -155,7 +155,7 @@ return {
         eslint = function()
           vim.api.nvim_create_autocmd("BufWritePre", {
             callback = function(event)
-              if not require("personal.plugins.lsp.format").enabled() then
+              if not require("personal.util.format").enabled() then
                 -- exit early if autoformat is not enabled
                 return
               end

@@ -1,8 +1,18 @@
-local Util = require("lazy.core.util")
+local LazyUtil = require("lazy.core.util")
 
 local M = {}
 
 M.root_patterns = { ".git", "lua" }
+
+setmetatable(M, {
+  __index = function(t, k)
+    if LazyUtil[k] then
+      return LazyUtil[k]
+    end
+    t[k] = require("personal.util." .. k)
+    return t[k]
+  end,
+})
 
 ---@param on_attach fun(client, buffer)
 function M.on_attach(on_attach)
@@ -174,14 +184,14 @@ function M.toggle(option, silent, values)
     else
       vim.opt_local[option] = values[1]
     end
-    return Util.info("Set " .. option .. " to " .. vim.opt_local[option]:get(), { title = "Option" })
+    return LazyUtil.info("Set " .. option .. " to " .. vim.opt_local[option]:get(), { title = "Option" })
   end
   vim.opt_local[option] = not vim.opt_local[option]:get()
   if not silent then
     if vim.opt_local[option]:get() then
-      Util.info("Enabled " .. option, { title = "Option" })
+      LazyUtil.info("Enabled " .. option, { title = "Option" })
     else
-      Util.warn("Disabled " .. option, { title = "Option" })
+      LazyUtil.warn("Disabled " .. option, { title = "Option" })
     end
   end
 end
@@ -192,11 +202,11 @@ function M.toggle_number()
     nu = { number = vim.opt_local.number:get(), relativenumber = vim.opt_local.relativenumber:get() }
     vim.opt_local.number = false
     vim.opt_local.relativenumber = false
-    Util.warn("Disabled line numbers", { title = "Option" })
+    LazyUtil.warn("Disabled line numbers", { title = "Option" })
   else
     vim.opt_local.number = nu.number
     vim.opt_local.relativenumber = nu.relativenumber
-    Util.info("Enabled line numbers", { title = "Option" })
+    LazyUtil.info("Enabled line numbers", { title = "Option" })
   end
 end
 
@@ -205,15 +215,15 @@ function M.toggle_diagnostics()
   enabled = not enabled
   if enabled then
     vim.diagnostic.enable()
-    Util.info("Enabled diagnostics", { title = "Diagnostics" })
+    LazyUtil.info("Enabled diagnostics", { title = "Diagnostics" })
   else
     vim.diagnostic.disable()
-    Util.warn("Disabled diagnostics", { title = "Diagnostics" })
+    LazyUtil.warn("Disabled diagnostics", { title = "Diagnostics" })
   end
 end
 
 function M.deprecate(old, new)
-  Util.warn(("`%s` is deprecated. Please use `%s` instead"):format(old, new), { title = "LazyVim" })
+  LazyUtil.warn(("`%s` is deprecated. Please use `%s` instead"):format(old, new), { title = "LazyVim" })
 end
 
 -- delay notifications till vim.notify was replaced or after 500ms

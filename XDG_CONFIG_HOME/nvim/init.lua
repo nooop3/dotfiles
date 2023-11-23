@@ -4,18 +4,19 @@
 require("personal.options")
 require("personal.lazy")
 
-if vim.fn.argc(-1) == 0 then
-  -- autocmds and keymaps can wait to load
-  vim.api.nvim_create_autocmd("User", {
-    group = vim.api.nvim_create_augroup("LazyLoading", { clear = true }),
-    pattern = "VeryLazy",
-    callback = function()
-      require("personal.autocmds")
-      require("personal.keymaps")
-    end,
-  })
-else
-  -- load them now so they affect the opened buffers
+-- autocmds can be loaded lazily when not opening a file
+local lazy_autocmds = vim.fn.argc(-1) == 0
+if not lazy_autocmds then
   require("personal.autocmds")
-  require("personal.keymaps")
 end
+local group = vim.api.nvim_create_augroup("LazyVim", { clear = true })
+vim.api.nvim_create_autocmd("User", {
+  group = group,
+  pattern = "VeryLazy",
+  callback = function()
+    if lazy_autocmds then
+      require("personal.autocmds")
+    end
+    require("personal.keymaps")
+  end,
+})

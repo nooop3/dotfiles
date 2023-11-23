@@ -25,6 +25,9 @@ vim.g.gruvbox_material_enable_bold = 1
 vim.g.gruvbox_material_enable_italic = 1
 -- vim.g.gruvbox_material_dim_inactive_windows = 1
 
+-- Enable LazyVim auto format
+vim.g.autoformat = true
+
 opt.autowrite = true -- Enable auto write
 -- opt.clipboard = "unnamedplus" -- Sync with system clipboard
 opt.completeopt = { "menu", "menuone", "preview", "noinsert" }
