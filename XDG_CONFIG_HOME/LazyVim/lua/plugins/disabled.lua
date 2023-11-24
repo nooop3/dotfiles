@@ -1,2 +1,4 @@
--- stylua: ignore
-if true then return {} end
+return {
+  -- disable trouble
+  { "folke/trouble.nvim", enabled = false },
+}
