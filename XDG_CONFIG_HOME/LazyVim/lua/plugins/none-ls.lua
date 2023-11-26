@@ -36,50 +36,31 @@ return {
       vim.list_extend(opts.sources, {
         nls.builtins.diagnostics.protolint.with({
           -- diagnostics_format = "[#{c}] #{m} (#{s})",
-          args = function()
+          extra_args = function()
             local cwd = Util.root.get()
             local config_file_path = find_config_file(cwd)
-            vim.print("diagnostics: " .. cwd)
-            vim.print("diagnostics: " .. config_file_path)
 
-            if config_file_path then
-              return {
-                "-config_path",
-                config_file_path,
-                "-reporter",
-                "json",
-                "$FILENAME",
-              }
-            else
-              return {
-                "-reporter",
-                "json",
-                "$FILENAME",
-              }
-            end
+            return config_file_path and { "--config_path", config_file_path } or {}
           end,
         }),
         nls.builtins.formatting.protolint.with({
           -- diagnostics_format = "[#{c}] #{m} (#{s})",
-          args = function()
+          extra_args = function()
             local cwd = Util.root.get()
             local config_file_path = find_config_file(cwd)
-            vim.print("formatting: " .. cwd)
-            vim.print("formatting: " .. config_file_path)
 
-            if config_file_path then
-              return {
-                "-config_path",
-                config_file_path,
-                "-fix",
-                "$FILENAME",
-              }
-            else
-              return {
-                "-fix",
-                "$FILENAME",
-              }
-            end
+            local args = config_file_path
+                and {
+                  "--config_path",
+                  config_file_path,
+                }
+              or {}
+
+            return vim.list_extend(args, {
+              "-auto_disable",
+              -- "this",
+              "next",
+            })
           end,
         }),
       })
