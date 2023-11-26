@@ -2,12 +2,9 @@
 -- Default autocmds that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
 -- Add any additional autocmds here
 
-local fn = vim.fn
-local cmd = vim.cmd
 local map = vim.keymap.set
 local opt_local = vim.opt_local
 local autocmd = vim.api.nvim_create_autocmd
-local nvim_buf_get_option = vim.api.nvim_buf_get_option
 
 local function augroup(name)
   return vim.api.nvim_create_augroup("lazyvim_" .. name, { clear = true })
@@ -84,29 +81,6 @@ autocmd({ "BufNewFile", "BufRead" }, {
   end,
 })
 
--- Delete trailing white space on save, useful for Python and CoffeeScript ;)
-local delete_trailing_white_space = augroup("delete_trailing_white_space")
-autocmd({ "FileType" }, {
-  group = delete_trailing_white_space,
-  pattern = {
-    "python",
-    "c",
-    "cpp",
-    "markdown",
-    "typescript",
-    -- "javascript",
-    "sql",
-    "proto",
-  },
-  callback = function()
-    if not vim.bo.binary and vim.bo.filetype ~= "diff" and nvim_buf_get_option(0, "modifiable") then
-      local current_view = fn.winsaveview()
-      cmd([[keeppatterns %s/\s\+$//e]])
-      fn.winrestview(current_view)
-    end
-  end,
-})
-
 vim.g.input_toggle = 0
 local fcitx2en = function()
   local input_status = vim.fn.trim(vim.fn.system("fcitx5-remote"))
@@ -138,20 +112,22 @@ if vim.fn.has("Mac") == 0 then
   })
 end
 
--- local file_type_comment_strings = augroup_lazy("file_type_comment_strings")
--- -- vim.print(file_type_comment_strings)
--- vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
---   group = file_type_comment_strings,
---   pattern = { "*" },
---   callback = function()
---     local filetype_comments = {
---       proto = "//%s",
---     }
---
---     local ft = vim.bo.filetype
---     vim.print(ft)
---     if file_type_comment_strings[ft] then
---       opt_local.commentstring = filetype_comments[ft]
---     end
---   end,
--- })
+local file_type_comment_string = augroup("file_type_comment_string")
+autocmd({ "BufNewFile", "BufRead" }, {
+  group = file_type_comment_string,
+  pattern = { "*" },
+  callback = function()
+    local filetype_comments = {
+      proto = "//%s",
+      -- ft.set("sbt", { "//%s", "/*%s*/" })
+      sbt = "//%s",
+      hocon = "#%s",
+      editorconfig = "#%s",
+    }
+
+    local ft = vim.bo.filetype
+    if filetype_comments[ft] then
+      opt_local.commentstring = filetype_comments[ft]
+    end
+  end,
+})
