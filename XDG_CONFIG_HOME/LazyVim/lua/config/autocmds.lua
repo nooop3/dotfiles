@@ -111,23 +111,3 @@ if vim.fn.has("Mac") == 0 then
     callback = fcitx2zh,
   })
 end
-
-local file_type_comment_string = augroup("file_type_comment_string")
-autocmd({ "BufNewFile", "BufRead" }, {
-  group = file_type_comment_string,
-  pattern = { "*" },
-  callback = function()
-    local filetype_comments = {
-      proto = "//%s",
-      -- ft.set("sbt", { "//%s", "/*%s*/" })
-      sbt = "//%s",
-      hocon = "#%s",
-      editorconfig = "#%s",
-    }
-
-    local ft = vim.bo.filetype
-    if filetype_comments[ft] then
-      opt_local.commentstring = filetype_comments[ft]
-    end
-  end,
-})
