@@ -13,15 +13,6 @@ return {
         "php",
         "ruby",
       })
-      vim.incremental_selection = {
-        enable = true,
-        keymaps = {
-          init_selection = "<CR>",
-          scope_incremental = "<CR>",
-          node_incremental = "<TAB>",
-          node_decremental = "<S-TAB>",
-        },
-      }
 
       local parser_configs = parsers.get_parser_configs()
 
@@ -38,6 +29,21 @@ return {
       for _, config in pairs(parser_configs) do
         config.install_info.url = config.install_info.url:gsub("https://github.com/", github_mirror)
       end
+
+      return {
+        incremental_selection = {
+          enable = true,
+          keymaps = {
+            init_selection = "<CR>",
+            scope_incremental = "<CR>",
+            node_incremental = "<TAB>",
+            node_decremental = "<S-TAB>",
+          },
+        },
+        indent = {
+          enable = true,
+        },
+      }
     end,
   },
 }
