@@ -30,7 +30,7 @@ return {
         config.install_info.url = config.install_info.url:gsub("https://github.com/", github_mirror)
       end
 
-      return {
+      return vim.tbl_deep_extend("force", opts, {
         incremental_selection = {
           enable = true,
           keymaps = {
@@ -43,7 +43,7 @@ return {
         indent = {
           enable = true,
         },
-      }
+      })
     end,
   },
 }
