@@ -4,6 +4,15 @@ local Util = require("lazyvim.util")
 return {
   {
     "nvim-telescope/telescope.nvim",
+    dependencies = {
+      -- project management
+      {
+        "ahmedkhalf/project.nvim",
+        opts = {
+          manual_mode = false,
+        },
+      },
+    },
     keys = {
       { "<c-p>", Util.telescope("files"), desc = "Find Files (root dir)" },
       { "<leader>fT", Util.telescope("filetypes"), desc = "Filetypes" },
