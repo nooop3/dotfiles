@@ -12,6 +12,9 @@ return {
       end,
     },
     opts = {
+      inlay_hints = {
+        enabled = true,
+      },
       servers = {
         clangd = {
           -- enabled = false,
@@ -19,6 +22,7 @@ return {
           filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
         },
         tsserver = {
+          -- enabled = false,
           init_options = {
             hostInfo = "neovim",
             disableAutomaticTypingAcquisition = false,
@@ -33,6 +37,28 @@ return {
             -- },
           },
           settings = {
+            javascript = {
+              inlayHints = {
+                includeInlayEnumMemberValueHints = true,
+                includeInlayFunctionLikeReturnTypeHints = true,
+                includeInlayFunctionParameterTypeHints = true,
+                includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
+                includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+                includeInlayPropertyDeclarationTypeHints = true,
+                includeInlayVariableTypeHints = true,
+              },
+            },
+            typescript = {
+              inlayHints = {
+                includeInlayEnumMemberValueHints = true,
+                includeInlayFunctionLikeReturnTypeHints = true,
+                includeInlayFunctionParameterTypeHints = true,
+                includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
+                includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+                includeInlayPropertyDeclarationTypeHints = true,
+                includeInlayVariableTypeHints = true,
+              },
+            },
             diagnostics = {
               ignoredCodes = {
                 -- See https://github.com/microsoft/TypeScript/blob/main/src/compiler/diagnosticMessages.json for a full list of valid codes.
@@ -58,6 +84,15 @@ return {
         tsserver = function(_, opts)
           require("typescript").setup({ server = opts })
           return true
+        end,
+        eslint = function()
+          require("lazyvim.util").lsp.on_attach(function(client)
+            if client.name == "eslint" then
+              client.server_capabilities.documentFormattingProvider = true
+            elseif client.name == "tsserver" then
+              client.server_capabilities.documentFormattingProvider = false
+            end
+          end)
         end,
       },
     },
