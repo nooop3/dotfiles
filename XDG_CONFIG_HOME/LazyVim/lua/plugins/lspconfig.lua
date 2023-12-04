@@ -16,6 +16,30 @@ return {
         enabled = true,
       },
       servers = {
+        lua_ls = {
+          settings = {
+            Lua = {
+              workspace = {
+                checkThirdParty = false,
+              },
+              completion = {
+                callSnippet = "Replace",
+              },
+              runtime = {
+                version = "LuaJIT",
+              },
+              diagnostics = {
+                globals = { "vim" },
+              },
+              telemetry = {
+                enable = false,
+              },
+              semantic = {
+                enable = false,
+              },
+            },
+          },
+        },
         clangd = {
           -- enabled = false,
           -- disabled_filetypes = { "proto" },
