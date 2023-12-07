@@ -12,6 +12,7 @@ return {
         "hocon",
         "php",
         "ruby",
+        "dart",
       })
 
       local parser_configs = parsers.get_parser_configs()
