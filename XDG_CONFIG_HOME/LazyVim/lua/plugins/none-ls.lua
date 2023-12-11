@@ -34,6 +34,8 @@ return {
       -- opts.debug = true
       local nls = require("null-ls")
       vim.list_extend(opts.sources, {
+        require("typescript.extensions.null-ls.code-actions"),
+
         nls.builtins.diagnostics.protolint.with({
           -- diagnostics_format = "[#{c}] #{m} (#{s})",
           extra_args = function()
