@@ -13,3 +13,7 @@ map("n", "<leader>6", ":6tabnext<CR>", { silent = true })
 map("n", "<leader>7", ":7tabnext<CR>", { silent = true })
 map("n", "<leader>8", ":8tabnext<CR>", { silent = true })
 map("n", "<leader>9", ":9tabnext<CR>", { silent = true })
+
+-- quick select last changed block
+-- nnoremap <expr> gV '`[' . getregtype()[0] . '`]'
+map("n", "gV", [["`[" .. getregtype()[0] .. "`]"]], { expr = true, desc = "Quick select last changed block" })
