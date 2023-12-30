@@ -10,6 +10,8 @@ return {
         "ahmedkhalf/project.nvim",
         opts = {
           manual_mode = false,
+          exclude_dirs = { "~/.cargo/*", "*/node_modules/*" },
+          scope_chdir = "tab",
         },
       },
     },
