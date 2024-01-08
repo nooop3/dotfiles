@@ -12,7 +12,10 @@ return {
   {
     "hrsh7th/nvim-cmp",
     event = { "InsertEnter", "CmdlineEnter" },
-    dependencies = { "hrsh7th/cmp-cmdline" },
+    dependencies = {
+      "hrsh7th/cmp-cmdline",
+      "hrsh7th/cmp-nvim-lua",
+    },
     opts = function(_, opts)
       local t = function(str)
         return vim.api.nvim_replace_termcodes(str, true, true, true)
@@ -28,6 +31,9 @@ return {
       local cmp = require("cmp")
       -- opts.sources = cmp.config.sources(vim.list_extend(opts.sources, { { name = "emoji" } }))
 
+      opts.view = {
+        entries = { name = "custom", selection_order = "near_cursor" },
+      }
       opts.mapping = vim.tbl_deep_extend("force", opts.mapping, {
         ["<C-a>"] = cmp.mapping({
           c = function()
@@ -79,6 +85,15 @@ return {
           end
         end, { "i", "s" }),
       })
+      opts.sources = vim.list_extend(
+        opts.sources,
+        cmp.config.sources({
+          { name = "luasnip", option = { show_autosnippets = true } },
+          { name = "nvim_lsp_signature_help" },
+          { name = "nvim_lua" },
+          { name = "buffer", option = { keyword_length = 3 } },
+        })
+      )
 
       -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
       ---@diagnostic disable-next-line: missing-fields
