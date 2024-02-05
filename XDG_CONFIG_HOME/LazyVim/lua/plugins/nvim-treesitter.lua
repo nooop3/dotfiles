@@ -31,6 +31,7 @@ return {
         config.install_info.url = config.install_info.url:gsub("https://github.com/", github_mirror)
       end
 
+      vim.treesitter.language.register("terraform", "terraform-vars")
       return vim.tbl_deep_extend("force", opts, {
         incremental_selection = {
           enable = true,

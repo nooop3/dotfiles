@@ -105,6 +105,7 @@ return {
             },
           },
         },
+        terraformls = {},
       },
       setup = {
         tsserver = function(_, opts)
