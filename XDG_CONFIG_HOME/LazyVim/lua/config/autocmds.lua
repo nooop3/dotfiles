@@ -80,13 +80,6 @@ autocmd({ "BufNewFile", "BufRead" }, {
     end
   end,
 })
-autocmd({ "BufNewFile", "BufRead" }, {
-  group = custom_file_type_changes,
-  pattern = { "*.tf", "*.tfvars" },
-  callback = function()
-    opt_local.filetype = "terraform"
-  end,
-})
 
 vim.g.input_toggle = 0
 local fcitx2en = function()
