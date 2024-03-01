@@ -1,0 +1,43 @@
+vim9script
+
+# runtime defaults.vim
+# unlet! skip_defaults_vim
+unlet! g:skip_defaults_vim
+source $VIMRUNTIME/defaults.vim
+
+if !has('gui_running') && &term =~ '^\%(screen\|tmux\)'
+    # Better mouse support, see  :help 'ttymouse'
+    set ttymouse=sgr
+
+    # Enable true colors, see  :help xterm-true-color
+    # &termguicolors = v:true
+    &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+
+    # Enable bracketed paste mode, see  :help xterm-bracketed-paste
+    &t_BE = "\<Esc>[?2004h"
+    &t_BD = "\<Esc>[?2004l"
+    &t_PS = "\<Esc>[200~"
+    &t_PE = "\<Esc>[201~"
+
+    # Enable focus event tracking, see  :help xterm-focus-event
+    &t_fe = "\<Esc>[?1004h"
+    &t_fd = "\<Esc>[?1004l"
+    execute "set <FocusGained>=\<Esc>[I"
+    execute "set <FocusLost>=\<Esc>[O"
+
+    # Enable modified arrow keys, see  :help arrow_modifiers
+    execute "silent! set <xUp>=\<Esc>[@;*A"
+    execute "silent! set <xDown>=\<Esc>[@;*B"
+    execute "silent! set <xRight>=\<Esc>[@;*C"
+    execute "silent! set <xLeft>=\<Esc>[@;*D"
+endif
+
+set noswapfile
+set number
+set relativenumber
+set termguicolors
+
+# colorscheme
+colorscheme habamax
+hi Normal guibg=NONE ctermbg=NONE
