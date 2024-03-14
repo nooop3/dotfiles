@@ -8,7 +8,6 @@ return {
         "proto",
         "java",
         "kotlin",
-        "scala",
         "hocon",
         "php",
         "ruby",
