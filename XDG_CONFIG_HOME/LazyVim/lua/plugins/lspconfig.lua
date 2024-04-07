@@ -121,6 +121,13 @@ return {
             end
           end)
         end,
+        terraformls = function()
+          require("lazyvim.util").lsp.on_attach(function(client)
+            if client.name == "terraformls" then
+              client.server_capabilities.semanticTokensProvider = nil -- turn off semantic tokens
+            end
+          end)
+        end,
       },
     },
     init = function()
