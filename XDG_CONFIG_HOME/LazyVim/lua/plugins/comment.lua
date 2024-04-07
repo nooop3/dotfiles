@@ -60,6 +60,7 @@ return {
     opts = {
       highlight = {
         multiline = false,
+        after = "",
       },
     },
   },
