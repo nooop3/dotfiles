@@ -1,0 +1,31 @@
+# vim: set ft=conf:
+[repositories]
+  local
+  huaweicloud-ivy: https://mirrors.huaweicloud.com/repository/ivy/, [organization]/[module]/(scala_[scalaVersion]/)(sbt_[sbtVersion]/)[revision]/[type]s/[artifact](-[classifier]).[ext]
+  huaweicloud-maven: https://mirrors.huaweicloud.com/repository/maven/ 
+  bintray-typesafe-ivy: https://dl.bintray.com/typesafe/ivy-releases/, [organization]/[module]/(scala_[scalaVersion]/)(sbt_[sbtVersion]/)[revision]/[type]s/[artifact](-[classifier]).[ext]
+  bintray-sbt-plugins: https://dl.bintray.com/sbt/sbt-plugin-releases/, [organization]/[module]/(scala_[scalaVersion]/)(sbt_[sbtVersion]/)[revision]/[type]s/[artifact](-[classifier]).[ext], bootOnly
+
+  # aliyun not works for ivy
+  # aliyun-ivy: https://maven.aliyun.com/repository/public/, [organization]/[module]/(scala_[scalaVersion]/)(sbt_[sbtVersion]/)[revision]/[type]s/[artifact](-[classifier]).[ext]
+  # aliyun-public-mirror:  https://maven.aliyun.com/repository/public/
+  # netease-ivy: http://mirrors.163.com/maven/repository/maven-public/, [organization]/[module]/(scala_[scalaVersion]/)(sbt_[sbtVersion]/)[revision]/[type]s/[artifact](-[classifier]).[ext]
+  # netease-mirror: http://mirrors.163.com/maven/repository/maven-public/
+
+  # https://mirrors.huaweicloud.com/
+  # include typesafe-ivy-releases / sbt-plugin-releases / sonatype-oss-releases / sonatype-oss-snapshots
+  # NOTICE typesafe-ivy-releases / sbt-plugin-releases seems did not works
+  # huaweicloud-maven: https://mirrors.huaweicloud.com/repository/maven/ 
+
+  # maven-central: https://repo1.maven.org/maven2/
+
+  # use bintray-typesafe-ivy now
+  # typesafe-ivy-releases: https://repo.typesafe.com/typesafe/ivy-releases/, [organization]/[module]/[revision]/[type]s/[artifact](-[classifier]).[ext], bootOnly
+  # bintray-typesafe-ivy: https://dl.bintray.com/typesafe/ivy-releases/, [organization]/[module]/(scala_[scalaVersion]/)(sbt_[sbtVersion]/)[revision]/[type]s/[artifact](-[classifier]).[ext]
+
+  # use bintray-sbt-plugins
+  # sbt-plugins: https://repo.scala-sbt.org/scalasbt/sbt-plugin-releases/, [organization]/[module]/(scala_[scalaVersion]/)(sbt_[sbtVersion]/)[revision]/[type]s/[artifact](-[classifier]).[ext], bootOnly
+  # bintray-sbt-plugins: https://dl.bintray.com/sbt/sbt-plugin-releases/, [organization]/[module]/(scala_[scalaVersion]/)(sbt_[sbtVersion]/)[revision]/[type]s/[artifact](-[classifier]).[ext], bootOnly
+
+  # jcenter: http://jcenter.bintray.com
+# notice $HOME/Library/Caches/Coursier/v1/
