@@ -2,6 +2,9 @@ return {
   {
     "numToStr/Comment.nvim",
     event = "VeryLazy",
+    dependencies = {
+      "JoosepAlviste/nvim-ts-context-commentstring",
+    },
     opts = function()
       local ft = require("Comment.ft")
 
