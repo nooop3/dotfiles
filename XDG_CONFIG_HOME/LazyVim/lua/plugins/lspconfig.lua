@@ -165,6 +165,8 @@ return {
               client.server_capabilities.documentFormattingProvider = true
               -- elseif client.name == "tsserver" then
               --   client.server_capabilities.documentFormattingProvider = false
+              -- elseif client.name == "vtsls" then
+              --   client.server_capabilities.documentFormattingProvider = false
             end
           end)
         end,
