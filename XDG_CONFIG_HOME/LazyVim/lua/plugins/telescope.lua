@@ -1,5 +1,4 @@
 local actions = require("telescope.actions")
-local Util = require("lazyvim.util")
 
 return {
   {
@@ -16,8 +15,8 @@ return {
       },
     },
     keys = {
-      { "<c-p>", Util.telescope("files"), desc = "Find Files (root dir)" },
-      { "<leader>fT", Util.telescope("filetypes"), desc = "Filetypes" },
+      { "<c-p>", LazyVim.pick("files"), desc = "Find Files (root dir)" },
+      { "<leader>fT", LazyVim.pick("filetypes"), desc = "Filetypes" },
     },
     opts = {
       defaults = {
