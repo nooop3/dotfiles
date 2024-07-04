@@ -1,5 +1,3 @@
-local Util = require("lazyvim.util")
-
 local function find_config_file(cwd)
   -- set cwd default to home dir
   cwd = cwd or vim.fn.expand("$HOME")
@@ -39,7 +37,7 @@ return {
         nls.builtins.diagnostics.protolint.with({
           -- diagnostics_format = "[#{c}] #{m} (#{s})",
           extra_args = function()
-            local cwd = Util.root.get()
+            local cwd = LazyVim.root.get()
             local config_file_path = find_config_file(cwd)
 
             return config_file_path and { "--config_path", config_file_path } or {}
@@ -48,7 +46,7 @@ return {
         nls.builtins.formatting.protolint.with({
           -- diagnostics_format = "[#{c}] #{m} (#{s})",
           extra_args = function()
-            local cwd = Util.root.get()
+            local cwd = LazyVim.root.get()
             local config_file_path = find_config_file(cwd)
 
             local args = config_file_path

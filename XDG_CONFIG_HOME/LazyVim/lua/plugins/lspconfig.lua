@@ -1,5 +1,3 @@
-local Util = require("lazyvim.util")
-
 return {
   {
     "neovim/nvim-lspconfig",
@@ -183,7 +181,7 @@ return {
       local keys = require("lazyvim.plugins.lsp.keymaps").get()
       keys[#keys + 1] = {
         "gr",
-        Util.telescope("lsp_references", { jump_type = "never" }),
+        LazyVim.pick("lsp_references", { jump_type = "never" }),
         desc = "References by LSP",
       }
     end,
