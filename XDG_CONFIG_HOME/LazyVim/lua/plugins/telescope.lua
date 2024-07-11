@@ -3,17 +3,6 @@ local actions = require("telescope.actions")
 return {
   {
     "nvim-telescope/telescope.nvim",
-    dependencies = {
-      -- project management
-      {
-        "ahmedkhalf/project.nvim",
-        opts = {
-          manual_mode = false,
-          exclude_dirs = { "~/.cargo/*", "*/node_modules/*" },
-          scope_chdir = "tab",
-        },
-      },
-    },
     keys = {
       { "<c-p>", LazyVim.pick("auto"), desc = "Find Files (root dir)" },
       { "<leader>fT", LazyVim.pick("filetypes"), desc = "Filetypes" },
@@ -34,5 +23,21 @@ return {
         },
       },
     },
+  },
+  -- project management
+  {
+    "ahmedkhalf/project.nvim",
+    opts = {
+      manual_mode = false,
+      exclude_dirs = { "~/.cargo/*", "*/node_modules/*" },
+      scope_chdir = "tab",
+    },
+    event = "VeryLazy",
+    config = function(_, opts)
+      require("project_nvim").setup(opts)
+      LazyVim.on_load("telescope.nvim", function()
+        require("telescope").load_extension("projects")
+      end)
+    end,
   },
 }
