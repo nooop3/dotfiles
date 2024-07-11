@@ -15,7 +15,7 @@ return {
       },
     },
     keys = {
-      { "<c-p>", LazyVim.pick("files"), desc = "Find Files (root dir)" },
+      { "<c-p>", LazyVim.pick("auto"), desc = "Find Files (root dir)" },
       { "<leader>fT", LazyVim.pick("filetypes"), desc = "Filetypes" },
     },
     opts = {
