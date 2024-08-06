@@ -66,7 +66,7 @@ autocmd({ "FileType" }, {
 })
 autocmd({ "BufNewFile", "BufRead" }, {
   group = custom_file_type_changes,
-  pattern = { "Podfile", "*.podspec", "*/fastlane/**" },
+  pattern = { "Podfile", "*.podspec", "*/fastlane/*file" },
   callback = function()
     opt_local.filetype = "ruby"
   end,
