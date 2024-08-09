@@ -151,6 +151,14 @@ return {
           },
         },
         terraformls = {},
+
+        yamlls = {
+          settings = {
+            yaml = {
+              customTags = { "!Ref", "!ImportValue", "!reference sequence" },
+            },
+          },
+        },
       },
       setup = {
         -- tsserver = function(_, opts)
