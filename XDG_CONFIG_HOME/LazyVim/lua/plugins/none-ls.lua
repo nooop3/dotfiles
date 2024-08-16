@@ -1,3 +1,7 @@
+if true then
+  return {}
+end
+
 local function find_config_file(cwd)
   -- set cwd default to home dir
   cwd = cwd or vim.fn.expand("$HOME")
