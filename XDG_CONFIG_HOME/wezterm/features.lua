@@ -59,7 +59,7 @@ M.font_switcher = function(window, pane)
 end
 
 M.theme_switcher = function(window, pane)
-	local schemes = wezterm.get_builtin_color_schemes()
+	local schemes = wezterm.color.get_builtin_schemes()
 	local action = wezterm.action_callback(function(_, _, _, label)
 		if label then
 			local lua = M.getLuaFromTOML()

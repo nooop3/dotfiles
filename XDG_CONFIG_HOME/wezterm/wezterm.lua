@@ -6,6 +6,10 @@ local theme_switcher = require("theme-switcher")
 local act = wezterm.action
 local mux = wezterm.mux
 
+-- https://github.com/wez/wezterm/discussions/4728
+local is_darwin = wezterm.target_triple:find("darwin") ~= nil
+local is_linux = wezterm.target_triple:find("linux") ~= nil
+
 Colorscheme = "Dracula (Official)"
 
 -- --------------------------------------------------------------------
@@ -13,34 +17,61 @@ Colorscheme = "Dracula (Official)"
 -- --------------------------------------------------------------------
 local config = wezterm.config_builder()
 
-config.color_scheme = Colorscheme
-
-config.font = wezterm.font_with_fallback({
-	"FiraCode Nerd Font",
-	"SauceCodePro Nerd Font",
-	"JetBrains Mono",
-})
-config.font_size = 12.0
-
-config.enable_wayland = false
-
--- tmux like config
-config.tab_bar_at_bottom = true
-config.use_fancy_tab_bar = false
-config.tab_max_width = 32
-config.switch_to_last_active_tab_when_closing_tab = true
-config.pane_focus_follows_mouse = true
-config.scrollback_lines = 50000
+-- appearance
+config.hide_mouse_cursor_when_typing = true
+config.hide_tab_bar_if_only_one_tab = true
+-- config.native_macos_fullscreen_mode = true
+config.window_decorations = "RESIZE"
 config.window_padding = {
 	left = 0,
 	right = 0,
 	top = 0,
 	bottom = 0,
 }
+
+-- bell
+config.audible_bell = "Disabled"
+
+-- color
+config.color_scheme = Colorscheme
+
+-- mouse
+config.mouse_wheel_scrolls_tabs = true
+config.pane_focus_follows_mouse = false
+config.selection_word_boundary = ",│`|:\"' ()[]{}<>\t"
+config.swallow_mouse_click_on_pane_focus = true
+config.swallow_mouse_click_on_window_focus = true
+
+-- tag_bar
+config.enable_tab_bar = true
+-- config.show_close_tab_button_in_tabs = true
+config.show_new_tab_button_in_tab_bar = false
+config.show_tab_index_in_tab_bar = true
+config.show_tabs_in_tab_bar = true
+config.switch_to_last_active_tab_when_closing_tab = true
+config.tab_and_split_indices_are_zero_based = false
+config.tab_bar_at_bottom = true
+config.tab_max_width = 32
+config.use_fancy_tab_bar = false
+
+-- TODO: review
+config.adjust_window_size_when_changing_font_size = false
+config.font = wezterm.font_with_fallback({
+	"FiraCode Nerd Font",
+	"SauceCodePro Nerd Font",
+	"JetBrains Mono",
+})
+config.font_size = is_darwin and 13.0 or 8.0
+
+config.enable_wayland = is_linux and false
+config.use_ime = true
+
+-- tmux like config
+config.scrollback_lines = 50000
 config.leader = {
 	key = "b",
 	mods = "CTRL",
-	timeout_milliseconds = 2000,
+	timeout_milliseconds = 1000,
 }
 config.unix_domains = {
 	{
@@ -48,10 +79,8 @@ config.unix_domains = {
 	},
 }
 
--- config.adjust_window_size_when_changing_font_size = false
 -- config.automatically_reload_config = true
 -- config.enable_scroll_bar = true
--- config.hide_tab_bar_if_only_one_tab = true
 -- config.mouse_bindings = {
 -- 	-- Open URLs with Ctrl+Click
 -- 	{
@@ -60,34 +89,20 @@ config.unix_domains = {
 -- 		action = act.OpenLinkAtMouseCursor,
 -- 	},
 -- }
--- config.pane_focus_follows_mouse = true
 -- config.scrollback_lines = 5000
 -- config.use_dead_keys = false
 -- config.warn_about_missing_glyphs = false
--- config.window_decorations = "TITLE | RESIZE"
--- config.window_padding = {
--- 	left = 0,
--- 	right = 0,
--- 	top = 0,
--- 	bottom = 0,
--- }
 
--- -- Tab bar
--- config.use_fancy_tab_bar = true
--- config.tab_bar_at_bottom = true
--- config.switch_to_last_active_tab_when_closing_tab = true
--- config.tab_max_width = 32
--- config.colors = {
--- 	tab_bar = {
--- 		active_tab = {
--- 			fg_color = "#073642",
--- 			bg_color = "#2aa198",
--- 		},
--- 	},
--- }
+-- key bindings
+local function merge_table(table1, table2)
+	for _, value in ipairs(table2) do
+		table1[#table1 + 1] = value
+	end
+	return table1
+end
 
 -- Custom key bindings
-config.keys = {
+local keys = {
 	-- Turn off the default CMD-m Hide action, allowing CMD-m to
 	-- be potentially recognized and handled by the tab
 	{ key = "m", mods = "CMD", action = act.DisableDefaultAssignment },
@@ -245,7 +260,7 @@ config.keys = {
 			size = { Percent = 50 },
 		}),
 	},
-	-- CTRL + (h,j,k,l) to move between panes
+	--[[ -- CTRL + (h,j,k,l) to move between panes
 	{
 		key = "h",
 		mods = "CTRL",
@@ -286,7 +301,7 @@ config.keys = {
 		key = "l",
 		mods = "ALT",
 		action = act({ EmitEvent = "resize-right" }),
-	},
+	}, ]]
 	-- Close/kill active pane
 	{
 		key = "x",
@@ -380,5 +395,17 @@ config.keys = {
 		action = act({ EmitEvent = "restore_session" }),
 	},
 }
+
+local tmux_activate_tab_keys = {}
+for i = 1, 9 do
+	table.insert(tmux_activate_tab_keys, {
+		key = tostring(i),
+		mods = "LEADER",
+		action = act.ActivateTab(i - 1),
+	})
+end
+merge_table(keys, tmux_activate_tab_keys)
+
+config.keys = keys
 
 return config
