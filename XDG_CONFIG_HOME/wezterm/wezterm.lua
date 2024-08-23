@@ -54,6 +54,10 @@ config.tab_bar_at_bottom = true
 config.tab_max_width = 32
 config.use_fancy_tab_bar = false
 
+-- updates
+config.check_for_updates = false
+config.show_update_window = false
+
 -- TODO: review
 config.adjust_window_size_when_changing_font_size = false
 config.font = wezterm.font_with_fallback({
