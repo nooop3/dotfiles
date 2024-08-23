@@ -1,12 +1,10 @@
 return {
 	automatically_reload_config = true,
-	check_for_updates = false,
 	-- default_cursor_style = "SteadyBlock",
 	-- default_gui_startup_args = {"start", "--", "tmux", "new-session", "-A", "-s", "main"},
 	-- default_gui_startup_args = {"ssh", "fencing"},
 	exit_behavior = "Close",
 
-	hide_tab_bar_if_only_one_tab = true,
 	initial_cols = 180,
 	initial_rows = 68,
 
@@ -16,7 +14,6 @@ return {
 		"[0-9a-f]{7,40}",
 	},
 	-- scroll_to_bottom_on_input = true,
-	show_update_window = false,
 
 	ssh_domains = {
 		{
