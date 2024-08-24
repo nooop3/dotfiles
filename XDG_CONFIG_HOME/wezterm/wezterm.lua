@@ -41,6 +41,7 @@ config.color_scheme = Colorscheme
 -- config.debug_key_events = true
 
 -- event
+-- config.default_gui_startup_args = {"start", "--", "tmux", "new-session", "-A", "-s", "main"}
 wezterm.on("update-status", function(window)
 	local date = wezterm.strftime("%a %b %-d %H:%M ")
 	window:set_right_status(wezterm.format({
@@ -57,6 +58,10 @@ wezterm.on("update-status", function(window)
 		window:set_left_status("")
 	end
 end)
+
+-- exit_behavior
+config.exit_behavior = "CloseOnCleanExit"
+config.window_close_confirmation = "NeverPrompt"
 
 -- font
 config.adjust_window_size_when_changing_font_size = false
@@ -86,6 +91,35 @@ config.mouse_bindings = {
 	},
 }
 
+-- multiplexing
+-- TODO:
+config.default_workspace = "main"
+config.unix_domains = {
+	{
+		name = "unix",
+	},
+}
+
+-- quick_select
+-- config.disable_default_quick_select_patterns = true
+config.quick_select_patterns = {
+	-- match things that look like sha1 hashes
+	-- (this is actually one of the default patterns)
+	"[0-9a-f]{7,40}",
+}
+
+-- reload
+config.automatically_reload_config = true
+
+-- scroll_bar
+config.enable_scroll_bar = false
+config.scrollback_lines = 50000
+
+-- spawn
+config.initial_cols = 180
+config.initial_rows = 68
+config.prefer_to_spawn_tabs = true
+
 -- tag_bar
 config.enable_tab_bar = true
 -- config.show_close_tab_button_in_tabs = true
@@ -98,28 +132,25 @@ config.tab_and_split_indices_are_zero_based = false
 config.tab_max_width = 32
 config.use_fancy_tab_bar = false
 
+-- unicode
+config.treat_east_asian_ambiguous_width_as_wide = false
+config.unicode_version = 14
+
 -- updates
 config.check_for_updates = false
 config.show_update_window = false
 
--- TODO: review
+-- tempfile=$(mktemp) \
+-- && curl -o $tempfile https://raw.githubusercontent.com/wez/wezterm/main/termwiz/data/wezterm.terminfo \
+-- && tic -x -o ~/.terminfo $tempfile \
+-- && rm $tempfile
+-- config.term = "wezterm"
+-- term = "tmux-256color",
 config.enable_wayland = is_linux and false
-config.use_ime = true
-
--- tmux like config
-config.scrollback_lines = 50000
-config.unix_domains = {
-	{
-		name = "unix",
-	},
-}
-
--- config.automatically_reload_config = true
--- config.enable_scroll_bar = true
--- config.scrollback_lines = 5000
--- config.use_dead_keys = false
+config.use_dead_keys = false
 
 -- keys
+config.use_ime = true
 -- config.enable_csi_u_key_encoding = true
 -- config.enable_kitty_keyboard = true
 -- config.disable_default_key_bindings = true
