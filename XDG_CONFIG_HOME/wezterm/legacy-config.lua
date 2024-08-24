@@ -1,3 +1,14 @@
+--[[
+# Testing ligatures
+1 || 2
+4 <= 5
+a =~ b
+4 != 5
+Test::test
+Test->test()
+a++
+]]
+
 return {
 	automatically_reload_config = true,
 	-- default_cursor_style = "SteadyBlock",

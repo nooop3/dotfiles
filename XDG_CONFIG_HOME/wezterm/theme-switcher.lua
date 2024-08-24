@@ -7,7 +7,7 @@ M.theme_switcher = function(window, pane)
 	-- get builting color schemes
 	local schemes = wezterm.color.get_builtin_schemes()
 	local choices = {}
-	local config_path = wezterm.config_dir .. "/wezterm.lua"
+	local config_path = wezterm.config_file
 
 	-- populate theme names in choices list
 	for key, _ in pairs(schemes) do

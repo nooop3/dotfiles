@@ -35,6 +35,27 @@ config.audible_bell = "Disabled"
 -- color
 config.color_scheme = Colorscheme
 
+-- debug
+-- config.debug_key_events = true
+
+-- font
+config.adjust_window_size_when_changing_font_size = false
+config.font = wezterm.font_with_fallback({
+	"FiraCode Nerd Font",
+	"SauceCodePro Nerd Font",
+	"JetBrains Mono",
+})
+config.font_size = is_darwin and 14.0 or 8.0
+config.command_palette_font_size = is_darwin and 16.0 or 10.0
+-- config.harfbuzz_features = { "zero" }
+config.warn_about_missing_glyphs = true
+wezterm.on("update-right-status", function(window)
+	local date = wezterm.strftime("%a %b %-d %H:%M ")
+	window:set_right_status(wezterm.format({
+		{ Text = wezterm.nerdfonts.fa_clock_o .. " " .. date },
+	}))
+end)
+
 -- mouse
 config.mouse_wheel_scrolls_tabs = true
 config.pane_focus_follows_mouse = false
@@ -50,7 +71,7 @@ config.show_tab_index_in_tab_bar = true
 config.show_tabs_in_tab_bar = true
 config.switch_to_last_active_tab_when_closing_tab = true
 config.tab_and_split_indices_are_zero_based = false
-config.tab_bar_at_bottom = true
+-- config.tab_bar_at_bottom = true
 config.tab_max_width = 32
 config.use_fancy_tab_bar = false
 
@@ -59,13 +80,6 @@ config.check_for_updates = false
 config.show_update_window = false
 
 -- TODO: review
-config.adjust_window_size_when_changing_font_size = false
-config.font = wezterm.font_with_fallback({
-	"FiraCode Nerd Font",
-	"SauceCodePro Nerd Font",
-	"JetBrains Mono",
-})
-config.font_size = is_darwin and 13.0 or 8.0
 
 config.enable_wayland = is_linux and false
 config.use_ime = true
@@ -95,7 +109,6 @@ config.unix_domains = {
 -- }
 -- config.scrollback_lines = 5000
 -- config.use_dead_keys = false
--- config.warn_about_missing_glyphs = false
 
 -- key bindings
 local function merge_table(table1, table2)
