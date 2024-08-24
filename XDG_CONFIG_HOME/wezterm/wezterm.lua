@@ -1,6 +1,8 @@
 -- Pull in the wezterm API
 local wezterm = require("wezterm")
 
+local utils = require("utils")
+
 local theme_switcher = require("theme-switcher")
 
 local act = wezterm.action
@@ -38,6 +40,24 @@ config.color_scheme = Colorscheme
 -- debug
 -- config.debug_key_events = true
 
+-- event
+wezterm.on("update-status", function(window)
+	local date = wezterm.strftime("%a %b %-d %H:%M ")
+	window:set_right_status(wezterm.format({
+		{ Text = wezterm.nerdfonts.fa_clock_o .. " " .. date },
+	}))
+
+	-- Show which key table is active in the status area
+	local key_table = window:active_key_table()
+	if key_table then
+		key_table = key_table:gsub("^%l", string.upper):gsub("_", " ")
+		-- key_table = string.gsub(" " .. key_table, "%W%l", string.upper):sub(2):gsub("_", " ")
+		window:set_left_status(wezterm.nerdfonts.md_keyboard .. " " .. key_table .. " ")
+	else
+		window:set_left_status("")
+	end
+end)
+
 -- font
 config.adjust_window_size_when_changing_font_size = false
 config.font = wezterm.font_with_fallback({
@@ -49,19 +69,22 @@ config.font_size = is_darwin and 14.0 or 8.0
 config.command_palette_font_size = is_darwin and 16.0 or 10.0
 -- config.harfbuzz_features = { "zero" }
 config.warn_about_missing_glyphs = true
-wezterm.on("update-right-status", function(window)
-	local date = wezterm.strftime("%a %b %-d %H:%M ")
-	window:set_right_status(wezterm.format({
-		{ Text = wezterm.nerdfonts.fa_clock_o .. " " .. date },
-	}))
-end)
 
 -- mouse
+-- config.disable_default_mouse_bindings = true
 config.mouse_wheel_scrolls_tabs = true
 config.pane_focus_follows_mouse = false
 config.selection_word_boundary = ",│`|:\"' ()[]{}<>\t"
 config.swallow_mouse_click_on_pane_focus = true
 config.swallow_mouse_click_on_window_focus = true
+config.mouse_bindings = {
+	-- Open URLs with Ctrl+Click
+	{
+		event = { Up = { streak = 1, button = "Left" } },
+		mods = "CTRL",
+		action = act.OpenLinkAtMouseCursor,
+	},
+}
 
 -- tag_bar
 config.enable_tab_bar = true
@@ -80,17 +103,11 @@ config.check_for_updates = false
 config.show_update_window = false
 
 -- TODO: review
-
 config.enable_wayland = is_linux and false
 config.use_ime = true
 
 -- tmux like config
 config.scrollback_lines = 50000
-config.leader = {
-	key = "b",
-	mods = "CTRL",
-	timeout_milliseconds = 1000,
-}
 config.unix_domains = {
 	{
 		name = "unix",
@@ -99,24 +116,19 @@ config.unix_domains = {
 
 -- config.automatically_reload_config = true
 -- config.enable_scroll_bar = true
--- config.mouse_bindings = {
--- 	-- Open URLs with Ctrl+Click
--- 	{
--- 		event = { Up = { streak = 1, button = "Left" } },
--- 		mods = "CTRL",
--- 		action = act.OpenLinkAtMouseCursor,
--- 	},
--- }
 -- config.scrollback_lines = 5000
 -- config.use_dead_keys = false
 
--- key bindings
-local function merge_table(table1, table2)
-	for _, value in ipairs(table2) do
-		table1[#table1 + 1] = value
-	end
-	return table1
-end
+-- keys
+-- config.enable_csi_u_key_encoding = true
+-- config.enable_kitty_keyboard = true
+-- config.disable_default_key_bindings = true
+config.key_map_preference = "Mapped"
+config.leader = {
+	key = "b",
+	mods = "CTRL",
+	timeout_milliseconds = 1000,
+}
 
 -- Custom key bindings
 local keys = {
@@ -127,6 +139,28 @@ local keys = {
 	{ key = "k", mods = "CMD|ALT", action = wezterm.action_callback(function(window, pane)
 		theme_switcher.theme_switcher(window, pane)
 	end) },
+
+	{
+		key = "r",
+		mods = "LEADER",
+		action = act.ActivateKeyTable({
+			name = "resize_pane",
+			one_shot = false,
+		}),
+	},
+	{
+		key = "t",
+		mods = "LEADER",
+		action = act.ActivateKeyTable({
+			name = "activate_pane",
+			timeout_milliseconds = 2000,
+		}),
+	},
+	{
+		key = "Space",
+		mods = "LEADER",
+		action = act.QuickSelect,
+	},
 
 	-- tmux-like keybindings
 	-- Attach to muxer
@@ -421,8 +455,51 @@ for i = 1, 9 do
 		action = act.ActivateTab(i - 1),
 	})
 end
-merge_table(keys, tmux_activate_tab_keys)
+utils.table.merge_table(keys, tmux_activate_tab_keys)
 
 config.keys = keys
+
+config.key_tables = {
+	-- Defines the keys that are active in our resize-pane mode.
+	-- Since we're likely to want to make multiple adjustments,
+	-- we made the activation one_shot=false. We therefore need
+	-- to define a key assignment for getting out of this mode.
+	-- 'resize_pane' here corresponds to the name="resize_pane" in
+	-- the key assignments above.
+	resize_pane = {
+		{ key = "LeftArrow", action = act.AdjustPaneSize({ "Left", 1 }) },
+		{ key = "h", action = act.AdjustPaneSize({ "Left", 1 }) },
+
+		{ key = "RightArrow", action = act.AdjustPaneSize({ "Right", 1 }) },
+		{ key = "l", action = act.AdjustPaneSize({ "Right", 1 }) },
+
+		{ key = "UpArrow", action = act.AdjustPaneSize({ "Up", 1 }) },
+		{ key = "k", action = act.AdjustPaneSize({ "Up", 1 }) },
+
+		{ key = "DownArrow", action = act.AdjustPaneSize({ "Down", 1 }) },
+		{ key = "j", action = act.AdjustPaneSize({ "Down", 1 }) },
+
+		-- Cancel the mode by pressing escape
+		{ key = "Escape", action = "PopKeyTable" },
+		{ key = "q", action = "PopKeyTable" },
+	},
+
+	-- Defines the keys that are active in our activate-pane mode.
+	-- 'activate_pane' here corresponds to the name="activate_pane" in
+	-- the key assignments above.
+	activate_pane = {
+		{ key = "LeftArrow", action = act.ActivatePaneDirection("Left") },
+		{ key = "h", action = act.ActivatePaneDirection("Left") },
+
+		{ key = "RightArrow", action = act.ActivatePaneDirection("Right") },
+		{ key = "l", action = act.ActivatePaneDirection("Right") },
+
+		{ key = "UpArrow", action = act.ActivatePaneDirection("Up") },
+		{ key = "k", action = act.ActivatePaneDirection("Up") },
+
+		{ key = "DownArrow", action = act.ActivatePaneDirection("Down") },
+		{ key = "j", action = act.ActivatePaneDirection("Down") },
+	},
+}
 
 return config
