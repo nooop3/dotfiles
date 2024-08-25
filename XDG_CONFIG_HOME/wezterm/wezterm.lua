@@ -3,6 +3,8 @@ local wezterm = require("wezterm")
 
 local utils = require("utils")
 
+local session_manager = require("session-manager")
+
 local theme_switcher = require("theme-switcher")
 
 local act = wezterm.action
@@ -20,9 +22,14 @@ Colorscheme = "AyuDark (Gogh)"
 local config = wezterm.config_builder()
 
 -- appearance
+-- config.default_cursor_style = "BlinkingBlock"
 config.hide_mouse_cursor_when_typing = true
 config.hide_tab_bar_if_only_one_tab = true
 -- config.native_macos_fullscreen_mode = true
+config.inactive_pane_hsb = {
+	saturation = 1.0,
+	brightness = 1.0,
+}
 config.window_decorations = "RESIZE"
 config.window_padding = {
 	left = 0,
@@ -250,10 +257,6 @@ local keys = {
 	{ key = ";", mods = "LEADER", action = act.ActivatePaneDirection("Prev") },
 	{ key = "o", mods = "LEADER", action = act.ActivatePaneDirection("Next") },
 
-	{ key = "S", mods = "LEADER", action = wezterm.action({ EmitEvent = "save_session" }) },
-	{ key = "L", mods = "LEADER", action = wezterm.action({ EmitEvent = "load_session" }) },
-	{ key = "R", mods = "LEADER", action = wezterm.action({ EmitEvent = "restore_session" }) },
-
 	{ key = "v", mods = "LEADER", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
 	{ key = "h", mods = "LEADER", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
 	{ key = "b", mods = "LEADER|CTRL", action = act.SendKey({ key = "b", mods = "CTRL" }) },
@@ -457,23 +460,6 @@ local keys = {
 			end),
 		}),
 	},
-
-	-- Session manager bindings
-	{
-		key = "s",
-		mods = "LEADER|SHIFT",
-		action = act({ EmitEvent = "save_session" }),
-	},
-	{
-		key = "L",
-		mods = "LEADER|SHIFT",
-		action = act({ EmitEvent = "load_session" }),
-	},
-	{
-		key = "R",
-		mods = "LEADER|SHIFT",
-		action = act({ EmitEvent = "restore_session" }),
-	},
 }
 
 local tmux_activate_tab_keys = {}
@@ -485,6 +471,7 @@ for i = 1, 9 do
 	})
 end
 utils.table.merge_table(keys, tmux_activate_tab_keys)
+utils.table.merge_table(keys, session_manager.keys)
 
 config.keys = keys
 
