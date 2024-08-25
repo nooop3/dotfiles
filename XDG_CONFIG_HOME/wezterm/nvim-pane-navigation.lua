@@ -55,3 +55,52 @@ end)
 wezterm.on("resize-down", function(window, pane)
 	vim_resize(window, pane, "Down", "j")
 end)
+
+local keys = {
+	--[[ -- CTRL + (h,j,k,l) to move between panes
+	{
+		key = "h",
+		mods = "CTRL",
+		action = act({ EmitEvent = "move-left" }),
+	},
+	{
+		key = "j",
+		mods = "CTRL",
+		action = act({ EmitEvent = "move-down" }),
+	},
+	{
+		key = "k",
+		mods = "CTRL",
+		action = act({ EmitEvent = "move-up" }),
+	},
+	{
+		key = "l",
+		mods = "CTRL",
+		action = act({ EmitEvent = "move-right" }),
+	},
+	-- ALT + (h,j,k,l) to resize panes
+	{
+		key = "h",
+		mods = "ALT",
+		action = act({ EmitEvent = "resize-left" }),
+	},
+	{
+		key = "j",
+		mods = "ALT",
+		action = act({ EmitEvent = "resize-down" }),
+	},
+	{
+		key = "k",
+		mods = "ALT",
+		action = act({ EmitEvent = "resize-up" }),
+	},
+	{
+		key = "l",
+		mods = "ALT",
+		action = act({ EmitEvent = "resize-right" }),
+	}, ]]
+}
+
+return {
+	keys = keys,
+}

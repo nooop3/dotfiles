@@ -7,12 +7,6 @@ local mux = wezterm.mux
 
 local M = {}
 
-M.leader = {
-	key = "b",
-	mods = "CTRL",
-	timeout_milliseconds = 1000,
-}
-
 local tmux_activate_tab_keys = {}
 for i = 1, 9 do
 	table.insert(tmux_activate_tab_keys, {
