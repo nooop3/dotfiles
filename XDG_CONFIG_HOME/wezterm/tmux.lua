@@ -123,6 +123,10 @@ M.keys = {
 	-- bind-key -r -T prefix S-Down  refresh-client -D 10
 	-- bind-key -r -T prefix S-Left  refresh-client -L 10
 	-- bind-key -r -T prefix S-Right refresh-client -R 10
+
+	{ key = "a", mods = "LEADER", action = act.AttachDomain("unix") },
+	{ key = "v", mods = "LEADER", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
+	{ key = "h", mods = "LEADER", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
 }
 
 utils.table.merge_table(M.keys, tmux_activate_tab_keys)
