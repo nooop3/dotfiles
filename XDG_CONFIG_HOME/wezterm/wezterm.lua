@@ -1,8 +1,8 @@
--- Pull in the wezterm API
 local wezterm = require("wezterm")
 
 local utils = require("utils")
 
+local tmux = require("tmux")
 local session_manager = require("session-manager")
 
 local theme_switcher = require("theme-switcher")
@@ -268,7 +268,6 @@ local keys = {
 
 	{ key = "v", mods = "LEADER", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
 	{ key = "h", mods = "LEADER", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
-	{ key = "b", mods = "LEADER|CTRL", action = act.SendKey({ key = "b", mods = "CTRL" }) },
 	-- -- Disable Alt-Enter combination (already used in tmux to split pane)
 	-- {
 	--     key = 'Enter',
@@ -427,11 +426,6 @@ local keys = {
 		mods = "LEADER",
 		action = act.ActivatePaneDirection("Prev"),
 	},
-	{
-		key = "o",
-		mods = "LEADER",
-		action = act.ActivatePaneDirection("Next"),
-	},
 
 	-- ----------------------------------------------------------------
 	-- Workspaces
@@ -471,15 +465,7 @@ local keys = {
 	},
 }
 
-local tmux_activate_tab_keys = {}
-for i = 1, 9 do
-	table.insert(tmux_activate_tab_keys, {
-		key = tostring(i),
-		mods = "LEADER",
-		action = act.ActivateTab(i - 1),
-	})
-end
-utils.table.merge_table(keys, tmux_activate_tab_keys)
+utils.table.merge_table(keys, tmux.keys)
 utils.table.merge_table(keys, session_manager.keys)
 
 config.keys = keys
