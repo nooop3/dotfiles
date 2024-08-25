@@ -23,6 +23,7 @@ local config = wezterm.config_builder()
 
 -- appearance
 -- config.default_cursor_style = "BlinkingBlock"
+-- config.force_reverse_video_cursor = true
 config.hide_mouse_cursor_when_typing = true
 config.hide_tab_bar_if_only_one_tab = true
 -- config.native_macos_fullscreen_mode = true
@@ -112,7 +113,6 @@ config.default_workspace = "main"
 config.unix_domains = {
 	{
 		name = "unix",
-		local_echo_threshold_ms = 10,
 	},
 }
 
@@ -156,6 +156,15 @@ config.unicode_version = 14
 config.check_for_updates = false
 config.show_update_window = false
 
+for _, gpu in ipairs(wezterm.gui.enumerate_gpus()) do
+	if gpu.backend == "Vulkan" and gpu.device_type == "IntegratedGpu" then
+		config.webgpu_preferred_adapter = gpu
+		config.front_end = "WebGpu"
+		-- config.webgpu_power_preference = "HighPerformance"
+		-- config.webgpu_force_fallback_adapter = true
+		break
+	end
+end
 -- tempfile=$(mktemp) \
 -- && curl -o $tempfile https://raw.githubusercontent.com/wez/wezterm/main/termwiz/data/wezterm.terminfo \
 -- && tic -x -o ~/.terminfo $tempfile \
