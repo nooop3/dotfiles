@@ -41,11 +41,16 @@ config.color_scheme = Colorscheme
 -- config.debug_key_events = true
 
 -- event
--- config.default_gui_startup_args = {"start", "--", "tmux", "new-session", "-A", "-s", "main"}
 wezterm.on("update-status", function(window)
 	local date = wezterm.strftime("%a %b %-d %H:%M ")
 	window:set_right_status(wezterm.format({
-		{ Text = wezterm.nerdfonts.fa_clock_o .. " " .. date },
+		{
+			Text = table.concat({
+				window:active_workspace(),
+				wezterm.nerdfonts.fa_clock_o,
+				date,
+			}, " "),
+		},
 	}))
 
 	-- Show which key table is active in the status area
@@ -60,7 +65,7 @@ wezterm.on("update-status", function(window)
 end)
 
 -- exit_behavior
-config.exit_behavior = "CloseOnCleanExit"
+config.exit_behavior = "Close"
 config.window_close_confirmation = "NeverPrompt"
 
 -- font
@@ -92,11 +97,15 @@ config.mouse_bindings = {
 }
 
 -- multiplexing
--- TODO:
+config.default_domain = "unix"
+config.default_mux_server_domain = "local"
 config.default_workspace = "main"
+-- config.default_gui_startup_args = {"start", "--", "tmux", "new-session", "-A", "-s", "main"}
+-- config.default_gui_startup_args = { "connect", "unix" }
 config.unix_domains = {
 	{
 		name = "unix",
+		local_echo_threshold_ms = 10,
 	},
 }
 
@@ -144,7 +153,7 @@ config.show_update_window = false
 -- && curl -o $tempfile https://raw.githubusercontent.com/wez/wezterm/main/termwiz/data/wezterm.terminfo \
 -- && tic -x -o ~/.terminfo $tempfile \
 -- && rm $tempfile
-config.term = "wezterm"
+-- config.term = "wezterm"
 -- config.term = "tmux-256color",
 config.enable_wayland = is_linux and false
 config.use_dead_keys = false
@@ -212,8 +221,6 @@ local keys = {
 			end),
 		}),
 	},
-	-- Show list of workspaces
-	{ key = "s", mods = "LEADER", action = act.ShowLauncherArgs({ flags = "WORKSPACES" }) },
 
 	{ key = "[", mods = "LEADER", action = act.ActivateCopyMode },
 	{ key = "z", mods = "LEADER", action = act.TogglePaneZoomState },
@@ -435,11 +442,7 @@ local keys = {
 	},
 
 	-- Show list of workspaces
-	{
-		key = "s",
-		mods = "LEADER",
-		action = act.ShowLauncherArgs({ flags = "WORKSPACES" }),
-	},
+	{ key = "s", mods = "LEADER", action = act.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" }) },
 	-- Rename current session; analagous to command in tmux
 	{
 		key = "$",
