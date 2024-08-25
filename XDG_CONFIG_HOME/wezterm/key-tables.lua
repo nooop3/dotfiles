@@ -2,6 +2,20 @@ local wezterm = require("wezterm")
 
 local act = wezterm.action
 
+local function resize_pane(key, direction)
+	return {
+		key = key,
+		action = act.AdjustPaneSize({ direction, 1 }),
+	}
+end
+
+local function activate_pane(key, direction)
+	return {
+		key = key,
+		action = act.ActivatePaneDirection(direction),
+	}
+end
+
 return {
 	-- Defines the keys that are active in our resize-pane mode.
 	-- Since we're likely to want to make multiple adjustments,
@@ -10,17 +24,17 @@ return {
 	-- 'resize_pane' here corresponds to the name="resize_pane" in
 	-- the key assignments above.
 	resize_pane = {
-		{ key = "LeftArrow", action = act.AdjustPaneSize({ "Left", 1 }) },
-		{ key = "h", action = act.AdjustPaneSize({ "Left", 1 }) },
+		resize_pane("LeftArrow", "Left"),
+		resize_pane("h", "Left"),
 
-		{ key = "RightArrow", action = act.AdjustPaneSize({ "Right", 1 }) },
-		{ key = "l", action = act.AdjustPaneSize({ "Right", 1 }) },
+		resize_pane("RightArrow", "Right"),
+		resize_pane("l", "Right"),
 
-		{ key = "UpArrow", action = act.AdjustPaneSize({ "Up", 1 }) },
-		{ key = "k", action = act.AdjustPaneSize({ "Up", 1 }) },
+		resize_pane("UpArrow", "Up"),
+		resize_pane("k", "Up"),
 
-		{ key = "DownArrow", action = act.AdjustPaneSize({ "Down", 1 }) },
-		{ key = "j", action = act.AdjustPaneSize({ "Down", 1 }) },
+		resize_pane("DownArrow", "Down"),
+		resize_pane("j", "Down"),
 
 		-- Cancel the mode by pressing escape
 		{ key = "Escape", action = "PopKeyTable" },
@@ -31,16 +45,13 @@ return {
 	-- 'activate_pane' here corresponds to the name="activate_pane" in
 	-- the key assignments above.
 	activate_pane = {
-		{ key = "LeftArrow", action = act.ActivatePaneDirection("Left") },
-		{ key = "h", action = act.ActivatePaneDirection("Left") },
-
-		{ key = "RightArrow", action = act.ActivatePaneDirection("Right") },
-		{ key = "l", action = act.ActivatePaneDirection("Right") },
-
-		{ key = "UpArrow", action = act.ActivatePaneDirection("Up") },
-		{ key = "k", action = act.ActivatePaneDirection("Up") },
-
-		{ key = "DownArrow", action = act.ActivatePaneDirection("Down") },
-		{ key = "j", action = act.ActivatePaneDirection("Down") },
+		activate_pane("LeftArrow", "Left"),
+		activate_pane("h", "Left"),
+		activate_pane("RightArrow", "Right"),
+		activate_pane("l", "Right"),
+		activate_pane("UpArrow", "Up"),
+		activate_pane("k", "Up"),
+		activate_pane("DownArrow", "Down"),
+		activate_pane("j", "Down"),
 	},
 }
