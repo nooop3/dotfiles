@@ -5,6 +5,7 @@ local utils = require("utils")
 local tmux = require("tmux")
 local key_tables = require("key-tables")
 local session_manager = require("session-manager")
+require("events")
 
 local theme_switcher = require("theme-switcher")
 
@@ -44,30 +45,6 @@ config.color_scheme = Colorscheme
 
 -- debug
 -- config.debug_key_events = true
-
--- event
-wezterm.on("update-status", function(window)
-	local date = wezterm.strftime("%a %b %-d %H:%M ")
-	window:set_right_status(wezterm.format({
-		{
-			Text = table.concat({
-				window:active_workspace(),
-				wezterm.nerdfonts.fa_clock_o,
-				date,
-			}, " "),
-		},
-	}))
-
-	-- Show which key table is active in the status area
-	local key_table = window:active_key_table()
-	if key_table then
-		key_table = key_table:gsub("^%l", string.upper):gsub("_", " ")
-		-- key_table = string.gsub(" " .. key_table, "%W%l", string.upper):sub(2):gsub("_", " ")
-		window:set_left_status(wezterm.nerdfonts.md_keyboard .. " " .. key_table .. " ")
-	else
-		window:set_left_status("")
-	end
-end)
 
 -- exit_behavior
 config.exit_behavior = "Close"
@@ -195,12 +172,21 @@ local keys = {
 
 	{ key = "Space", mods = "LEADER", action = act.QuickSelect },
 
-	-- tmux-like keybindings
-	-- Attach to muxer
-	{ key = "a", mods = "LEADER", action = act.AttachDomain("unix") },
+	--[[ {
+		key = "l",
+		mods = "CTRL",
+		---@diagnostic disable-next-line: unused-local
+		action = wezterm.action_callback(function(window, pane)
+			local pos = pane:get_cursor_position()
+			-- local move_viewport_to_scrollback = string.rep("\r\n", pos.y)
+			local dims = pane:get_dimensions()
+			local move_viewport_to_scrollback = string.rep("\r\n", pos.y - dims.physical_top)
+			pane:inject_output(move_viewport_to_scrollback)
+			-- pane:send_text("\x0c") -- CTRL-L
+		end),
+	}, ]]
 
-	{ key = "v", mods = "LEADER", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
-	{ key = "h", mods = "LEADER", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
+	-- tmux-like keybindings
 }
 
 utils.table.merge_table(keys, tmux.keys)
