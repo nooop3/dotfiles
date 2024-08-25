@@ -172,6 +172,11 @@ local keys = {
 
 	{ key = "Space", mods = "LEADER", action = act.QuickSelect },
 
+	{ key = ",", mods = "SUPER", action = wezterm.action.SpawnCommandInNewTab({
+		cwd = wezterm.home_dir,
+		args = { "nvim", wezterm.config_file },
+	}) },
+
 	--[[ {
 		key = "l",
 		mods = "CTRL",
@@ -185,8 +190,6 @@ local keys = {
 			-- pane:send_text("\x0c") -- CTRL-L
 		end),
 	}, ]]
-
-	-- tmux-like keybindings
 }
 
 utils.table.merge_table(keys, tmux.keys)
