@@ -12,7 +12,7 @@ local mux = wezterm.mux
 local is_darwin = wezterm.target_triple:find("darwin") ~= nil
 local is_linux = wezterm.target_triple:find("linux") ~= nil
 
-Colorscheme = "Dracula (Official)"
+Colorscheme = "AyuDark (Gogh)"
 
 -- --------------------------------------------------------------------
 -- CONFIGURATION
@@ -144,8 +144,8 @@ config.show_update_window = false
 -- && curl -o $tempfile https://raw.githubusercontent.com/wez/wezterm/main/termwiz/data/wezterm.terminfo \
 -- && tic -x -o ~/.terminfo $tempfile \
 -- && rm $tempfile
--- config.term = "wezterm"
--- term = "tmux-256color",
+config.term = "wezterm"
+-- config.term = "tmux-256color",
 config.enable_wayland = is_linux and false
 config.use_dead_keys = false
 
@@ -400,11 +400,6 @@ local keys = {
 	{
 		key = "z",
 		mods = "LEADER",
-		action = act.TogglePaneZoomState,
-	},
-	{
-		key = "f",
-		mods = "ALT",
 		action = act.TogglePaneZoomState,
 	},
 	-- Move to next/previous pane
