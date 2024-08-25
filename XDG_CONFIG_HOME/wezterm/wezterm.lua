@@ -3,6 +3,7 @@ local wezterm = require("wezterm")
 local utils = require("utils")
 
 local tmux = require("tmux")
+local key_tables = require("key-tables")
 local session_manager = require("session-manager")
 
 local theme_switcher = require("theme-switcher")
@@ -15,9 +16,6 @@ local is_linux = wezterm.target_triple:find("linux") ~= nil
 
 Colorscheme = "AyuDark (Gogh)"
 
--- --------------------------------------------------------------------
--- CONFIGURATION
--- --------------------------------------------------------------------
 local config = wezterm.config_builder()
 
 -- appearance
@@ -203,97 +201,12 @@ local keys = {
 
 	{ key = "v", mods = "LEADER", action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }) },
 	{ key = "h", mods = "LEADER", action = act.SplitVertical({ domain = "CurrentPaneDomain" }) },
-
-	--[[ -- CTRL + (h,j,k,l) to move between panes
-	{
-		key = "h",
-		mods = "CTRL",
-		action = act({ EmitEvent = "move-left" }),
-	},
-	{
-		key = "j",
-		mods = "CTRL",
-		action = act({ EmitEvent = "move-down" }),
-	},
-	{
-		key = "k",
-		mods = "CTRL",
-		action = act({ EmitEvent = "move-up" }),
-	},
-	{
-		key = "l",
-		mods = "CTRL",
-		action = act({ EmitEvent = "move-right" }),
-	},
-	-- ALT + (h,j,k,l) to resize panes
-	{
-		key = "h",
-		mods = "ALT",
-		action = act({ EmitEvent = "resize-left" }),
-	},
-	{
-		key = "j",
-		mods = "ALT",
-		action = act({ EmitEvent = "resize-down" }),
-	},
-	{
-		key = "k",
-		mods = "ALT",
-		action = act({ EmitEvent = "resize-up" }),
-	},
-	{
-		key = "l",
-		mods = "ALT",
-		action = act({ EmitEvent = "resize-right" }),
-	}, ]]
 }
 
 utils.table.merge_table(keys, tmux.keys)
 utils.table.merge_table(keys, session_manager.keys)
-
 config.keys = keys
 
-config.key_tables = {
-	-- Defines the keys that are active in our resize-pane mode.
-	-- Since we're likely to want to make multiple adjustments,
-	-- we made the activation one_shot=false. We therefore need
-	-- to define a key assignment for getting out of this mode.
-	-- 'resize_pane' here corresponds to the name="resize_pane" in
-	-- the key assignments above.
-	resize_pane = {
-		{ key = "LeftArrow", action = act.AdjustPaneSize({ "Left", 1 }) },
-		{ key = "h", action = act.AdjustPaneSize({ "Left", 1 }) },
-
-		{ key = "RightArrow", action = act.AdjustPaneSize({ "Right", 1 }) },
-		{ key = "l", action = act.AdjustPaneSize({ "Right", 1 }) },
-
-		{ key = "UpArrow", action = act.AdjustPaneSize({ "Up", 1 }) },
-		{ key = "k", action = act.AdjustPaneSize({ "Up", 1 }) },
-
-		{ key = "DownArrow", action = act.AdjustPaneSize({ "Down", 1 }) },
-		{ key = "j", action = act.AdjustPaneSize({ "Down", 1 }) },
-
-		-- Cancel the mode by pressing escape
-		{ key = "Escape", action = "PopKeyTable" },
-		{ key = "q", action = "PopKeyTable" },
-	},
-
-	-- Defines the keys that are active in our activate-pane mode.
-	-- 'activate_pane' here corresponds to the name="activate_pane" in
-	-- the key assignments above.
-	activate_pane = {
-		{ key = "LeftArrow", action = act.ActivatePaneDirection("Left") },
-		{ key = "h", action = act.ActivatePaneDirection("Left") },
-
-		{ key = "RightArrow", action = act.ActivatePaneDirection("Right") },
-		{ key = "l", action = act.ActivatePaneDirection("Right") },
-
-		{ key = "UpArrow", action = act.ActivatePaneDirection("Up") },
-		{ key = "k", action = act.ActivatePaneDirection("Up") },
-
-		{ key = "DownArrow", action = act.ActivatePaneDirection("Down") },
-		{ key = "j", action = act.ActivatePaneDirection("Down") },
-	},
-}
+config.key_tables = key_tables
 
 return config
