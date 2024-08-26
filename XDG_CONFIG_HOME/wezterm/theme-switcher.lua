@@ -22,7 +22,6 @@ M.theme_switcher = function(window, pane)
 		return c1.label < c2.label
 	end)
 
-	local sed = util_sys.is_darwin and "gsed" or "sed"
 	window:perform_action(
 		action.InputSelector({
 			title = "🎨 Pick a Theme!",
@@ -35,7 +34,7 @@ M.theme_switcher = function(window, pane)
 				inner_window:perform_action(
 					action.SpawnCommandInNewTab({
 						args = {
-							sed,
+							util_sys.is_darwin and "/opt/homebrew/bin/gsed" or "sed",
 							"-i.bak",
 							'/^Colorscheme/c\\Colorscheme = "' .. label .. '"',
 							config_path,
