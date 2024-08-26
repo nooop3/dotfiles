@@ -175,16 +175,8 @@ local keys = {
 		action = wezterm.action.SpawnCommandInNewTab({
 			cwd = wezterm.home_dir,
 			args = {
-				-- -- if is_darwin then
-				-- -- 	config.set_environment_variables = {
-				-- -- 		PATH = "/opt/homebrew/bin:" .. os.getenv("PATH"),
-				-- -- 	}
-				-- -- end
-				os.getenv("SHELL"),
-				"-ic",
-				"nvim " .. wezterm.shell_quote_arg(wezterm.config_file),
-				-- "/opt/homebrew/bin/nvim",
-				-- wezterm.config_file,
+				util_sys.is_darwin and "/opt/homebrew/bin/nvim" or "nvim",
+				wezterm.config_file,
 			},
 		}),
 	},
