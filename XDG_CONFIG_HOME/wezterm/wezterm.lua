@@ -12,7 +12,7 @@ local theme_switcher = require("theme-switcher")
 
 local act = wezterm.action
 
-Colorscheme = "3024 (base16)"
+Colorscheme = "Dracula (Official)"
 
 local config = wezterm.config_builder()
 
