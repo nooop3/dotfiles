@@ -1,4 +1,7 @@
 local wezterm = require("wezterm")
+
+local util_sys = require("utils.sys")
+
 local action = wezterm.action
 
 local M = {}
@@ -19,6 +22,7 @@ M.theme_switcher = function(window, pane)
 		return c1.label < c2.label
 	end)
 
+	local sed = util_sys.is_darwin and "gsed" or "sed"
 	window:perform_action(
 		action.InputSelector({
 			title = "🎨 Pick a Theme!",
@@ -31,7 +35,7 @@ M.theme_switcher = function(window, pane)
 				inner_window:perform_action(
 					action.SpawnCommandInNewTab({
 						args = {
-							"sed",
+							sed,
 							"-i.bak",
 							'/^Colorscheme/c\\Colorscheme = "' .. label .. '"',
 							config_path,
