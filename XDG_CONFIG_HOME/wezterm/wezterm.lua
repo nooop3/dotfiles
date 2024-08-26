@@ -106,8 +106,8 @@ config.enable_scroll_bar = false
 config.scrollback_lines = 50000
 
 -- spawn
-config.initial_cols = 180
-config.initial_rows = 68
+-- config.initial_cols = 180
+-- config.initial_rows = 68
 config.prefer_to_spawn_tabs = true
 
 -- tag_bar
