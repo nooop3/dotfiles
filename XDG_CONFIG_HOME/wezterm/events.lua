@@ -3,10 +3,23 @@ local wezterm = require("wezterm")
 local mux = wezterm.mux
 
 -- event
-wezterm.on("gui-startup", function()
-	---@diagnostic disable-next-line: unused-local
-	local tab, pane, window = mux.spawn_window({})
-	window:gui_window():maximize()
+-- wezterm.on("gui-startup", function(cwd)
+-- 	---@diagnostic disable-next-line: unused-local
+-- 	local tab, pane, window = mux.spawn_window(cwd or {})
+-- 	-- window:gui_window():maximize()
+-- 	window:gui_window():toggle_fullscreen()
+-- end)
+
+---@diagnostic disable-next-line: unused-local
+wezterm.on("gui-attached", function(domain)
+	-- maximize all displayed windows on startup
+	local workspace = mux.get_active_workspace()
+	for _, window in ipairs(mux.all_windows()) do
+		if window:get_workspace() == workspace then
+			-- window:gui_window():maximize()
+			window:gui_window():toggle_fullscreen()
+		end
+	end
 end)
 
 -- Returns a bool based on whether the host operating system's
