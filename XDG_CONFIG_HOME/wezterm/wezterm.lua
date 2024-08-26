@@ -1,6 +1,7 @@
 local wezterm = require("wezterm")
 
 local utils = require("utils")
+local util_sys = require("utils.sys")
 
 local tmux = require("tmux")
 local key_tables = require("key-tables")
@@ -11,11 +12,7 @@ local theme_switcher = require("theme-switcher")
 
 local act = wezterm.action
 
--- https://github.com/wez/wezterm/discussions/4728
-local is_darwin = wezterm.target_triple:find("darwin") ~= nil
-local is_linux = wezterm.target_triple:find("linux") ~= nil
-
-Colorscheme = "AyuDark (Gogh)"
+Colorscheme = "3024 (base16)"
 
 local config = wezterm.config_builder()
 
@@ -57,8 +54,8 @@ config.font = wezterm.font_with_fallback({
 	"SauceCodePro Nerd Font",
 	"JetBrains Mono",
 })
-config.font_size = is_darwin and 14.0 or 8.0
-config.command_palette_font_size = is_darwin and 16.0 or 10.0
+config.font_size = util_sys.is_darwin and 14.0 or 8.0
+config.command_palette_font_size = util_sys.is_darwin and 16.0 or 10.0
 -- config.harfbuzz_features = { "zero" }
 config.warn_about_missing_glyphs = true
 
@@ -145,7 +142,7 @@ end
 -- && rm $tempfile
 -- config.term = "wezterm"
 -- config.term = "tmux-256color",
-config.enable_wayland = is_linux and false
+config.enable_wayland = util_sys.is_linux and false
 config.use_dead_keys = false
 
 -- keys
@@ -172,10 +169,25 @@ local keys = {
 
 	{ key = "Space", mods = "LEADER", action = act.QuickSelect },
 
-	{ key = ",", mods = "SUPER", action = wezterm.action.SpawnCommandInNewTab({
-		cwd = wezterm.home_dir,
-		args = { "nvim", wezterm.config_file },
-	}) },
+	{
+		key = ",",
+		mods = "SUPER",
+		action = wezterm.action.SpawnCommandInNewTab({
+			cwd = wezterm.home_dir,
+			args = {
+				-- -- if is_darwin then
+				-- -- 	config.set_environment_variables = {
+				-- -- 		PATH = "/opt/homebrew/bin:" .. os.getenv("PATH"),
+				-- -- 	}
+				-- -- end
+				os.getenv("SHELL"),
+				"-ic",
+				"nvim " .. wezterm.shell_quote_arg(wezterm.config_file),
+				-- "/opt/homebrew/bin/nvim",
+				-- wezterm.config_file,
+			},
+		}),
+	},
 
 	--[[ {
 		key = "l",
