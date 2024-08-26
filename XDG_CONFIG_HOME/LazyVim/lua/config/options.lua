@@ -13,6 +13,7 @@ vim.opt.swapfile = false
 -- vim.opt.wrap = true
 vim.opt.clipboard:remove("unnamedplus")
 vim.opt.cursorcolumn = true
+vim.opt.termsync = false
 
 --[[ neovide ]]
 if vim.g.neovide then
