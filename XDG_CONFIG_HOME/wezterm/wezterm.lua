@@ -125,7 +125,6 @@ config.unicode_version = 14
 
 -- updates
 config.check_for_updates = false
-config.show_update_window = false
 
 for _, gpu in ipairs(wezterm.gui.enumerate_gpus()) do
 	if gpu.backend == "Vulkan" and gpu.device_type == "IntegratedGpu" then
