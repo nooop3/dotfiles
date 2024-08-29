@@ -179,20 +179,6 @@ local keys = {
 			},
 		}),
 	},
-
-	--[[ {
-		key = "l",
-		mods = "CTRL",
-		---@diagnostic disable-next-line: unused-local
-		action = wezterm.action_callback(function(window, pane)
-			local pos = pane:get_cursor_position()
-			-- local move_viewport_to_scrollback = string.rep("\r\n", pos.y)
-			local dims = pane:get_dimensions()
-			local move_viewport_to_scrollback = string.rep("\r\n", pos.y - dims.physical_top)
-			pane:inject_output(move_viewport_to_scrollback)
-			-- pane:send_text("\x0c") -- CTRL-L
-		end),
-	}, ]]
 }
 
 utils.table.merge_table(keys, tmux.keys)
