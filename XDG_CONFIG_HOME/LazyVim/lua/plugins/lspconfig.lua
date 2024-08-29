@@ -152,6 +152,15 @@ return {
         },
         terraformls = {},
 
+        helm_ls = {
+          settings = {
+            ["helm-ls"] = {
+              yamlls = {
+                enabled = false,
+              },
+            },
+          },
+        },
         yamlls = {
           settings = {
             yaml = {
@@ -182,6 +191,16 @@ return {
               client.server_capabilities.semanticTokensProvider = nil -- turn off semantic tokens
             end
           end)
+        end,
+        yamlls = function()
+          ---@diagnostic disable-next-line: unused-local
+          LazyVim.lsp.on_attach(function(client, buffer)
+            if vim.bo[buffer].filetype == "helm" then
+              vim.schedule(function()
+                vim.cmd("LspStop ++force yamlls")
+              end)
+            end
+          end, "yamlls")
         end,
       },
     },
