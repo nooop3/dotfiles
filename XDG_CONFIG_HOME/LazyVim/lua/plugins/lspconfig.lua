@@ -157,6 +157,17 @@ return {
             ["helm-ls"] = {
               yamlls = {
                 enabled = false,
+                config = {
+                  schemas = {
+                    -- kubernetes = "templates/**",
+                    ["https://json.schemastore.org/kustomization.json"] = "kustomization.{yml,yaml}",
+                    ["https://raw.githubusercontent.com/docker/compose/master/compose/config/compose_spec.json"] = "docker-compose*.{yml,yaml}",
+                    ["https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/argoproj.io/application_v1alpha1.json"] = "argocd-application.yaml",
+                  },
+                  completion = true,
+                  hover = true,
+                  -- any other config from https://github.com/redhat-developer/yaml-language-server#language-server-settings
+                },
               },
             },
           },
