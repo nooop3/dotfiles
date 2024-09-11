@@ -1,7 +1,3 @@
-#!/usr/bin/env python3
-"""
-Module documentation.
-"""
 from typing import List
 from kitty.boss import Boss
 
