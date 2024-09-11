@@ -1,3 +1,5 @@
 *.swp
 *.bak
 session.conf
+
+.kitty-sessions.json
