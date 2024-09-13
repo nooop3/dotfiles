@@ -8,11 +8,12 @@ import json
 from os.path import expanduser
 
 from kitty.boss import get_boss
-from kitty.fast_data_types import Screen, get_options, current_focused_os_window_id
+from kitty.fast_data_types import Screen, get_options, current_focused_os_window_id, add_timer
 from kitty.tab_bar import DrawData, ExtraData, TabBarData, as_rgb, draw_title
 from kitty.utils import color_as_int
 
 opts = get_options()
+REFRESH_TIME = 1
 
 def get_current_session():
     session_id = current_focused_os_window_id()
@@ -80,6 +81,13 @@ def _draw_right_status(draw_data: DrawData, screen: Screen, is_last: bool) -> in
     screen.cursor.x = max(screen.cursor.x, screen.columns - right_status_length)
     return screen.cursor.x
 
+def _redraw_tab_bar(_):
+    tm = get_boss().active_tab_manager
+    if tm is not None:
+        tm.mark_tab_bar_dirty()
+
+timer_id = None
+
 def draw_tab(
     draw_data: DrawData,
     screen: Screen,
@@ -90,6 +98,10 @@ def draw_tab(
     is_last: bool,
     extra_data: ExtraData,
 ) -> int:
+    global timer_id
+    global right_status_length
+    if timer_id is None:
+        timer_id = add_timer(_redraw_tab_bar, REFRESH_TIME, True)
     # Set cursor to where `left_status` ends, instead `right_status`,
     # to enable `open new tab` feature
     end = _draw_left_status(
