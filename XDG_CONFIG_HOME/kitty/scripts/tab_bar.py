@@ -4,22 +4,23 @@
 
 import datetime
 import json
-
-from os.path import expanduser
+import os
 
 from kitty.boss import get_boss
+from kitty.constants import config_dir
 from kitty.fast_data_types import Screen, get_options, current_focused_os_window_id, add_timer
 from kitty.tab_bar import DrawData, ExtraData, TabBarData, as_rgb, draw_title
 from kitty.utils import color_as_int
 
 opts = get_options()
 REFRESH_TIME = 1
+SESSION_FILE = os.path.join(config_dir, '.kitty-sessions.json')
 
 def get_current_session():
     session_id = current_focused_os_window_id()
     session_name = ""
     try:
-        with open(f"{expanduser('~')}/.config/kitty/.kitty-sessions.json") as f:
+        with open(SESSION_FILE) as f:
             session_name = json.loads(f.read())[str(session_id)]
     except:
         for idx, window in enumerate(get_boss().list_os_windows()):

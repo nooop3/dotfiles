@@ -1,18 +1,22 @@
+# pyright: reportMissingImports=false,reportGeneralTypeIssues=false,reportAttributeAccessIssue=false,reportCallIssue=false,reportOptionalOperand=false,reportArgumentType=false,reportReturnType=false
+# pylint: disable=E0401,C0116,C0103,W0603,R0913
+
 import json
 import math
+import os
 import re
 
-from os.path import expanduser
 from itertools import islice
 from typing import List, Dict, Any
-from kitty.boss import get_boss
+from kitty.constants import config_dir
 from kitty.remote_control import create_basic_command, encode_send
 from kitty.typing import KeyEventType
-from kitty.fast_data_types import current_focused_os_window_id
 from kitty.key_encoding import RELEASE
 from kittens.tui.handler import Handler
 from kittens.tui.loop import Loop
 from kittens.tui.operations import styled, repeat
+
+SESSION_FILE = os.path.join(config_dir, '.kitty-sessions.json')
 
 class SessionSwitcher(Handler):
 
@@ -30,7 +34,7 @@ class SessionSwitcher(Handler):
         self.write(encode_send(ls))
         self.cmds.append({'type': 'ls'})
         try:
-            with open(f"{expanduser('~')}/.config/kitty/.kitty-sessions.json") as f:
+            with open(SESSION_FILE) as f:
                 self.session_names = json.loads(f.read())
         except:
             self.session_names = {}
