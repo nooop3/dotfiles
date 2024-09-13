@@ -74,6 +74,9 @@ class SessionSwitcher(Handler):
         if key_event.matches('esc'):
             self.quit_loop(0)
 
+        if key_event.matches('q'):
+            self.quit_loop(0)
+
         if key_event.matches('enter'):
             self.switch_to_session()
 
@@ -82,6 +85,14 @@ class SessionSwitcher(Handler):
             self.draw_screen()
 
         if key_event.key == 'k':
+            self.selected_session_idx = (self.selected_session_idx + -1 + len(self.os_windows)) % len(self.os_windows)
+            self.draw_screen()
+
+        if key_event.key == 'n':
+            self.selected_session_idx = (self.selected_session_idx + 1) % len(self.os_windows)
+            self.draw_screen()
+
+        if key_event.key == 'p':
             self.selected_session_idx = (self.selected_session_idx + -1 + len(self.os_windows)) % len(self.os_windows)
             self.draw_screen()
 
