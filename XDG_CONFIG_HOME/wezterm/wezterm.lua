@@ -39,6 +39,9 @@ config.audible_bell = "Disabled"
 
 -- color
 config.color_scheme = Colorscheme
+config.colors = {
+	selection_fg = "yellow",
+}
 
 -- debug
 -- config.debug_key_events = true
