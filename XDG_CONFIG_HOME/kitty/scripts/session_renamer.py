@@ -22,9 +22,28 @@ def main(args: List[str]) -> str:
     # handle_result() function
     return answer or default
 
-def handle_result(args: List[str], answer: str, target_window_id: int, boss: Boss) -> None:
-    with open(SESSION_FILE) as f:
-        session_names = json.loads(f.read())
-        session_names[str(current_focused_os_window_id())] = answer
+def handle_result_by_open(args: List[str], answer: str, target_window_id: int, boss: Boss) -> None:
+    exists = os.path.isfile(SESSION_FILE)
+    session_names = {}
+    if exists:
+        with open(SESSION_FILE, "r") as f:
+            session_names = json.loads(f.read())
+
+    session_names[str(current_focused_os_window_id())] = answer
     with open(SESSION_FILE, "w") as f:
-        f.write(json.dumps(session_names))
+        json.dump(session_names, f)
+
+def handle_result(args: List[str], answer: str, target_window_id: int, boss: Boss) -> None:
+    fd = os.open(SESSION_FILE, os.O_RDWR | os.O_CREAT)
+
+    size = os.stat(SESSION_FILE).st_size
+    content = os.read(fd, size).decode("utf-8") or '{}'
+    os.truncate(SESSION_FILE, 0)
+
+    session_names = json.loads(content)
+    session_names[str(current_focused_os_window_id())] = answer
+
+    os.lseek(fd, 0, 0)
+    os.write(fd, json.dumps(session_names).encode("utf-8"))
+
+    os.close(fd)
