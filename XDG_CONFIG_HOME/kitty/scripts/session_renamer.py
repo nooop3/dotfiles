@@ -13,13 +13,13 @@ from kitty.fast_data_types import current_focused_os_window_id
 SESSION_FILE = os.path.join(config_dir, '.kitty-sessions.json')
 
 def main(args: List[str]) -> str:
-    # this is the main entry point of the kitten, it will be executed in
-    # the overlay window when the kitten is launched
+    if (len(args) > 1):
+        raise Exception(f"Too many arguments: {args}")
+
     default = os.path.basename(os.environ['PWD'])
     print(styled('Enter the new title for this session below.', bold=True))
     answer = input(f'({default}) > ')
-    # whatever this function returns will be available in the
-    # handle_result() function
+
     return answer or default
 
 def handle_result_by_open(args: List[str], answer: str, target_window_id: int, boss: Boss) -> None:
