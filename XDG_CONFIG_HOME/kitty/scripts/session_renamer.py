@@ -7,6 +7,7 @@ import os
 from typing import List
 from kitty.boss import Boss
 from kitty.constants import config_dir
+from kittens.tui.loop import debug
 from kittens.tui.operations import styled
 from kitty.fast_data_types import current_focused_os_window_id
 
@@ -14,6 +15,7 @@ SESSION_FILE = os.path.join(config_dir, '.kitty-sessions.json')
 
 def main(args: List[str]) -> str:
     if (len(args) > 1):
+        debug(f"Too many arguments: {args}")
         raise Exception(f"Too many arguments: {args}")
 
     default = os.path.basename(os.environ['PWD'])
