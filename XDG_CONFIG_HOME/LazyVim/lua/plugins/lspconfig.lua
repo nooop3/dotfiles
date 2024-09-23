@@ -1,3 +1,21 @@
+local yaml_setting = {
+  format = {
+    enable = true,
+  },
+  validate = true,
+  schemas = {
+    kubernetes = "templates/**",
+    ["https://raw.githubusercontent.com/docker/compose/master/compose/config/compose_spec.json"] = "{docker-,}compose*.{yml,yaml}",
+  },
+  schemaStore = {
+    enable = false,
+    url = "",
+  },
+  customTags = { "!Ref", "!ImportValue", "!reference sequence" },
+
+  keyOrdering = false,
+}
+
 return {
   {
     "neovim/nvim-lspconfig",
@@ -157,18 +175,8 @@ return {
           settings = {
             ["helm-ls"] = {
               yamlls = {
-                enabled = false,
-                config = {
-                  schemas = {
-                    -- kubernetes = "templates/**",
-                    ["https://json.schemastore.org/kustomization.json"] = "kustomization.{yml,yaml}",
-                    ["https://raw.githubusercontent.com/docker/compose/master/compose/config/compose_spec.json"] = "docker-compose*.{yml,yaml}",
-                    ["https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/argoproj.io/application_v1alpha1.json"] = "argocd-application.yaml",
-                  },
-                  completion = true,
-                  hover = true,
-                  -- any other config from https://github.com/redhat-developer/yaml-language-server#language-server-settings
-                },
+                enabled = true,
+                config = yaml_setting,
               },
             },
           },
@@ -176,22 +184,7 @@ return {
         yamlls = {
           settings = {
             redhat = { telemetry = { enabled = false } },
-            yaml = {
-              format = {
-                enable = true,
-              },
-              validate = true,
-              schemas = {
-                ["https://raw.githubusercontent.com/docker/compose/master/compose/config/compose_spec.json"] = "{docker-,}compose*.{yml,yaml}",
-              },
-              schemaStore = {
-                enable = false,
-                url = "",
-              },
-              customTags = { "!Ref", "!ImportValue", "!reference sequence" },
-
-              keyOrdering = false,
-            },
+            yaml = yaml_setting,
           },
         },
       },
