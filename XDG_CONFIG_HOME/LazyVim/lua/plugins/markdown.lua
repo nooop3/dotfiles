@@ -2,7 +2,7 @@ local markdown_ft = { "markdown", "norg", "rmd", "org", "vimwiki", "Avante" }
 
 return {
   "OXY2DEV/markview.nvim",
-  enabled = true,
+  enabled = false,
   lazy = false,
   ft = markdown_ft,
   dependencies = {
