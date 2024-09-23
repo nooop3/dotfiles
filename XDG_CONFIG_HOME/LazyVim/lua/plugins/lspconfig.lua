@@ -3,6 +3,7 @@ return {
     "neovim/nvim-lspconfig",
     dependencies = {
       "jose-elias-alvarez/typescript.nvim",
+      "someone-stole-my-name/yaml-companion.nvim",
       init = function()
         require("lazyvim.util").lsp.on_attach(function(_, buffer)
           -- stylua: ignore
@@ -174,8 +175,22 @@ return {
         },
         yamlls = {
           settings = {
+            redhat = { telemetry = { enabled = false } },
             yaml = {
+              format = {
+                enable = true,
+              },
+              validate = true,
+              schemas = {
+                ["https://raw.githubusercontent.com/docker/compose/master/compose/config/compose_spec.json"] = "{docker-,}compose*.{yml,yaml}",
+              },
+              schemaStore = {
+                enable = false,
+                url = "",
+              },
               customTags = { "!Ref", "!ImportValue", "!reference sequence" },
+
+              keyOrdering = false,
             },
           },
         },
@@ -203,7 +218,7 @@ return {
             end
           end)
         end,
-        yamlls = function()
+        yamlls = function(_, opts)
           ---@diagnostic disable-next-line: unused-local
           LazyVim.lsp.on_attach(function(client, buffer)
             if vim.bo[buffer].filetype == "helm" then
@@ -212,9 +227,62 @@ return {
               end)
             end
           end, "yamlls")
+
+          local cfg = require("yaml-companion").setup({
+            builtin_matchers = {
+              kubernetes = { enabled = true },
+            },
+
+            -- schemas available in Telescope picker
+            schemas = {
+              -- not loaded automatically, manually select with
+              -- :Telescope yaml_schema
+              {
+                name = "Argo CD Application",
+                uri = "https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/argoproj.io/application_v1alpha1.json",
+              },
+              {
+                name = "SealedSecret",
+                uri = "https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/bitnami.com/sealedsecret_v1alpha1.json",
+              },
+              -- schemas below are automatically loaded, but added
+              -- them here so that they show up in the statusline
+              {
+                name = "Kustomization",
+                uri = "https://json.schemastore.org/kustomization.json",
+              },
+              {
+                name = "GitHub Workflow",
+                uri = "https://json.schemastore.org/github-workflow.json",
+              },
+            },
+            lspconfig = opts,
+          })
+          require("lspconfig")["yamlls"].setup(cfg)
+          require("telescope").load_extension("yaml_schema")
+          return true
         end,
       },
     },
+  },
+
+  {
+    "nvim-lualine/lualine.nvim",
+    event = "VeryLazy",
+    opts = function(_, opts)
+      opts.sections.lualine_z = {
+        {
+          function()
+            local schema = require("yaml-companion").get_buf_schema(0)
+            if schema.result[1].name == "none" then
+              return ""
+            end
+            return schema.result[1].name
+          end,
+        },
+        opts.sections.lualine_z,
+      }
+    end,
   },
 
   -- LSP keymaps
