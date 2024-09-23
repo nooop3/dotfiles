@@ -75,7 +75,11 @@ autocmd({ "BufNewFile", "BufRead" }, {
   group = custom_file_type_changes,
   pattern = { "*" },
   callback = function()
-    if vim.fn.expand("%:e"):match("ya?ml") and vim.fn.search("{{.\\+}}", "nw") ~= 0 then
+    if
+      not vim.fn.expand("%:p"):match("ansible")
+      and vim.fn.expand("%:e"):match("ya?ml")
+      and vim.fn.search("{{.\\+}}", "nw") ~= 0
+    then
       opt_local.filetype = "helm"
       opt_local.commentstring = "{{/* %s */}}"
     end
