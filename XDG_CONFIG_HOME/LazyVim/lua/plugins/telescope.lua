@@ -6,6 +6,7 @@ return {
     keys = {
       { "<c-p>", LazyVim.pick("auto"), desc = "Find Files (root dir)" },
       { "<leader>fT", LazyVim.pick("filetypes"), desc = "Filetypes" },
+      { "<leader>sy", "<cmd>Telescope yaml_schema<cr>", desc = "Yaml schema" },
     },
     opts = {
       defaults = {
