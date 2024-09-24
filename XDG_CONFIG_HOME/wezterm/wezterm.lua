@@ -81,7 +81,7 @@ config.mouse_bindings = {
 -- multiplexing
 config.default_domain = "unix"
 config.default_mux_server_domain = "local"
-config.default_workspace = "main"
+-- config.default_workspace = "main"
 -- config.default_gui_startup_args = {"start", "--", "tmux", "new-session", "-A", "-s", "main"}
 -- config.default_gui_startup_args = { "connect", "unix" }
 config.unix_domains = {
