@@ -57,10 +57,11 @@ local function segments_for_right_status(window)
 	}
 end
 
--- wezterm.on("update-status", function(window)
-wezterm.on("update-right-status", function(window)
+wezterm.on("update-status", function(window)
+	-- wezterm.on("update-right-status", function(window)
 	local SOLID_LEFT_ARROW = wezterm.nerdfonts.pl_right_hard_divider
 	local segments = segments_for_right_status(window)
+	-- print(segments)
 
 	local color_scheme = window:effective_config().resolved_palette
 	-- Note the use of wezterm.color.parse here, this returns
