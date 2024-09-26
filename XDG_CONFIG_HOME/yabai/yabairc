@@ -64,5 +64,7 @@ yabai -m rule --add app="^System Information$" manage=off sticky=on
 yabai -m rule --add app="^Activity Monitor$" manage=off sticky=on
 yabai -m rule --add app="^OrbStack$" manage=off sticky=on
 yabai -m rule --add app="^Finder$" manage=off sticky=on
+# float settings windows
+yabai -m rule --add title='Settings$' manage=off
 
 echo "yabai configuration loaded.."
