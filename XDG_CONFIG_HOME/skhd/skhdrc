@@ -144,18 +144,20 @@
 # toggle sticky(+float), picture-in-picture
 # alt - p : yabai -m window --toggle sticky --toggle pip
 
-
-# -- Changing Window Focus --
 # change window focus within space
 alt - j : yabai -m window --focus south
 alt - k : yabai -m window --focus north
 alt - h : yabai -m window --focus west
 alt - l : yabai -m window --focus east
-#change focus between external displays (left and right)
+
+# change focus between external displays (left and right)
+cmd + ctrl - j: yabai -m display --focus south
+cmd + ctrl - k: yabai -m display --focus north
 cmd + ctrl - h: yabai -m display --focus west
 cmd + ctrl - l: yabai -m display --focus east
+cmd + ctrl - z : yabai -m display --focus next
+cmd + ctrl - x : yabai -m display --focus prev
 
-# -- Modifying the Layout --
 # rotate layout clockwise
 shift + alt - r : yabai -m space --rotate 270
 # flip along y-axis
@@ -164,16 +166,15 @@ shift + alt - y : yabai -m space --mirror y-axis
 shift + alt - x : yabai -m space --mirror x-axis
 # toggle window float
 shift + alt - t : yabai -m window --toggle float --grid 4:4:1:1:2:2
+# toggle window split type
+# shift + alt - e : yabai -m window --toggle split
 
-# -- Modifying Window Size --
 # maximize a window
 cmd + ctrl - return : yabai -m window --toggle zoom-fullscreen
 # balance out tree of windows (resize to occupy same area)
 shift + alt - e : yabai -m space --balance
 
-# -- Moving Windows Around --
-
-# swap windows
+# swap managed window
 shift + alt - j : yabai -m window --swap south
 shift + alt - k : yabai -m window --swap north
 shift + alt - h : yabai -m window --swap west
@@ -213,6 +214,18 @@ ctrl - 2 : index=2; eval "$(yabai -m query --spaces | jq --argjson index "${inde
 ctrl - 3 : index=3; eval "$(yabai -m query --spaces | jq --argjson index "${index}" -r '(.[] | select(.index == $index).windows[0]) as $wid | if $wid then "yabai -m window --focus \"" + ($wid | tostring) + "\"" else "skhd --key \"ctrl - " + (map(select(."is-native-fullscreen" == false)) | index(map(select(.index == $index))) + 1 % 10 | tostring) + "\"" end')"
 ctrl - 4 : index=4; eval "$(yabai -m query --spaces | jq --argjson index "${index}" -r '(.[] | select(.index == $index).windows[0]) as $wid | if $wid then "yabai -m window --focus \"" + ($wid | tostring) + "\"" else "skhd --key \"ctrl - " + (map(select(."is-native-fullscreen" == false)) | index(map(select(.index == $index))) + 1 % 10 | tostring) + "\"" end')"
 ctrl - 5 : index=5; eval "$(yabai -m query --spaces | jq --argjson index "${index}" -r '(.[] | select(.index == $index).windows[0]) as $wid | if $wid then "yabai -m window --focus \"" + ($wid | tostring) + "\"" else "skhd --key \"ctrl - " + (map(select(."is-native-fullscreen" == false)) | index(map(select(.index == $index))) + 1 % 10 | tostring) + "\"" end')"
+
+
+
+# increase window size
+shift + alt - a : yabai -m window --resize left:-20:0
+shift + alt - d : yabai -m window --resize right:-20:0
+shift + alt - w : yabai -m window --resize top:0:-20
+shift + alt - s : yabai -m window --resize bottom:0:20
+# decrease window size
+shift + cmd - s : yabai -m window --resize bottom:0:-20
+shift + cmd - w : yabai -m window --resize top:0:20
+shift + cmd - a : yabai -m window --resize left:20:0
 
 # require scripting-addition
 cmd + alt - n : yabai -m space --create && \
