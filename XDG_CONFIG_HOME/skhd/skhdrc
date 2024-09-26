@@ -145,22 +145,22 @@
 # alt - p : yabai -m window --toggle sticky --toggle pip
 
 # focus window
-alt - j : yabai -m window --focus south
-alt - k : yabai -m window --focus north
-alt - h : yabai -m window --focus west
-alt - l : yabai -m window --focus east
+alt - j : yabai -m window --focus south || yabai -m window --focus first
+alt - k : yabai -m window --focus north || yabai -m window --focus last
+alt - h : yabai -m window --focus west || yabai -m window --focus last
+alt - l : yabai -m window --focus east || yabai -m window --focus first
 
 # swap managed window
-shift + alt - j : yabai -m window --swap south
-shift + alt - k : yabai -m window --swap north
-shift + alt - h : yabai -m window --swap west
-shift + alt - l : yabai -m window --swap east
+shift + alt - j : yabai -m window --swap south || yabai -m window --swap first
+shift + alt - k : yabai -m window --swap north || yabai -m window --swap last
+shift + alt - h : yabai -m window --swap west || yabai -m window --swap last
+shift + alt - l : yabai -m window --swap east || yabai -m window --swap first
 
 # move managed window
-shift + cmd - j : yabai -m window --warp south
-shift + cmd - k : yabai -m window --warp north
-shift + cmd - h : yabai -m window --warp west
-shift + cmd - l : yabai -m window --warp east
+shift + cmd - j : yabai -m window --warp south || yabai -m window --warp first
+shift + cmd - k : yabai -m window --warp north || yabai -m window --warp last
+shift + cmd - h : yabai -m window --warp west || yabai -m window --warp last
+shift + cmd - l : yabai -m window --warp east || yabai -m window --warp first
 
 # balance out tree of windows (resize to occupy same area)
 shift + alt - 0 : yabai -m space --balance
@@ -187,10 +187,10 @@ cmd + shift + ctrl - w : yabai -m space --destroy
 # send window to desktop and follow focus
 # shift + cmd - z : yabai -m window --space next; yabai -m space --focus next
 # shift + cmd - 2 : yabai -m window --space  2; yabai -m space --focus 2
-shift + cmd - p : yabai -m window --space prev; yabai -m space --focus prev;
-shift + cmd - n : yabai -m window --space next; yabai -m space --focus next;
-shift + alt - p : yabai -m space --focus prev;
-shift + alt - n : yabai -m space --focus next;
+shift + cmd - p : yabai -m window --space prev || yabai -m space --focus last; yabai -m space --focus prev || yabai -m space --focus last;
+shift + cmd - n : yabai -m window --space next || yabai -m space --focus first; yabai -m space --focus next || yabai -m space --focus first;
+shift + alt - p : yabai -m space --focus prev || yabai -m space --focus last;
+shift + alt - n : yabai -m space --focus next || yabai -m space --focus first;
 # Switch between spaces even if full screen
 ctrl - 1 : index=1; eval "$(yabai -m query --spaces | jq --argjson index "${index}" -r '(.[] | select(.index == $index).windows[0]) as $wid | if $wid then "yabai -m window --focus \"" + ($wid | tostring) + "\"" else "skhd --key \"ctrl - " + (map(select(."is-native-fullscreen" == false)) | index(map(select(.index == $index))) + 1 % 10 | tostring) + "\"" end')"
 ctrl - 2 : index=2; eval "$(yabai -m query --spaces | jq --argjson index "${index}" -r '(.[] | select(.index == $index).windows[0]) as $wid | if $wid then "yabai -m window --focus \"" + ($wid | tostring) + "\"" else "skhd --key \"ctrl - " + (map(select(."is-native-fullscreen" == false)) | index(map(select(.index == $index))) + 1 % 10 | tostring) + "\"" end')"
@@ -203,20 +203,20 @@ ctrl - 7 : index=7; eval "$(yabai -m query --spaces | jq --argjson index "${inde
 # focus monitor
 # ctrl + alt - z  : yabai -m display --focus prev
 # ctrl + alt - 3  : yabai -m display --focus 3
-ctrl + cmd - j: yabai -m display --focus south
-ctrl + cmd - k: yabai -m display --focus north
-ctrl + cmd - h: yabai -m display --focus west
-ctrl + cmd - l: yabai -m display --focus east
-ctrl + cmd - z : yabai -m display --focus next
-ctrl + cmd - x : yabai -m display --focus prev
+ctrl + cmd - j: yabai -m display --focus south || yabai -m display --focus last
+ctrl + cmd - k: yabai -m display --focus north || yabai -m display --focus first
+ctrl + cmd - h: yabai -m display --focus west || yabai -m display --focus first
+ctrl + cmd - l: yabai -m display --focus east || yabai -m display --focus last
+ctrl + cmd - p : yabai -m display --focus next || yabai -m display --focus first
+ctrl + cmd - n : yabai -m display --focus prev || yabai -m display --focus last
 
 # send window to monitor and follow focus
 # ctrl + cmd - c  : yabai -m window --display next; yabai -m display --focus next
 # ctrl + cmd - 1  : yabai -m window --display 1; yabai -m display --focus 1
-ctrl + cmd - left : yabai -m window --display west; yabai -m display --focus west;
-ctrl + cmd - right : yabai -m window --display east; yabai -m display --focus east;
-ctrl + cmd - up : yabai -m window --display north; yabai -m display --focus north;
-ctrl + cmd - down : yabai -m window --display south; yabai -m display --focus south;
+ctrl + cmd - left : yabai -m window --display west || yabai -m display --focus first; yabai -m display --focus west || yabai -m display --focus first;
+ctrl + cmd - right : yabai -m window --display east || yabai -m display --focus last; yabai -m display --focus east || yabai -m display --focus last;
+ctrl + cmd - up : yabai -m window --display north || yabai -m display --focus first; yabai -m display --focus north || yabai -m display --focus first;
+ctrl + cmd - down : yabai -m window --display south || yabai -m display --focus last; yabai -m display --focus south || yabai -m display --focus last;
 
 # move floating window
 # shift + ctrl - a : yabai -m window --move rel:-20:0
