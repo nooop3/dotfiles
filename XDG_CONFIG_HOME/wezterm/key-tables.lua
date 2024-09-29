@@ -2,6 +2,42 @@ local wezterm = require("wezterm")
 
 local act = wezterm.action
 
+local search_mode = nil
+if wezterm.gui then
+	search_mode = wezterm.gui.default_key_tables().search_mode
+	table.insert(search_mode, {
+		key = "Escape",
+		mods = "NONE",
+		action = act.Multiple({
+			act.CopyMode("ClearPattern"),
+			act.CopyMode("Close"),
+		}),
+	})
+	table.insert(search_mode, {
+		key = "Escape",
+		mods = "CTRL",
+		action = act.CopyMode("Close"),
+	})
+end
+
+local copy_mode = nil
+if wezterm.gui then
+	copy_mode = wezterm.gui.default_key_tables().copy_mode
+	table.insert(copy_mode, {
+		key = "y",
+		mods = "NONE",
+		action = act.CopyTo("ClipboardAndPrimarySelection"),
+	})
+	table.insert(copy_mode, {
+		key = "Y",
+		mods = "NONE",
+		action = act.Multiple({
+			{ CopyTo = "ClipboardAndPrimarySelection" },
+			{ Multiple = { "ScrollToBottom", { CopyMode = "Close" } } },
+		}),
+	})
+end
+
 local function resize_pane(key, direction)
 	return {
 		key = key,
@@ -17,6 +53,9 @@ local function activate_pane(key, direction)
 end
 
 return {
+	search_mode = search_mode,
+	copy_mode = copy_mode,
+
 	-- Defines the keys that are active in our resize-pane mode.
 	-- Since we're likely to want to make multiple adjustments,
 	-- we made the activation one_shot=false. We therefore need
