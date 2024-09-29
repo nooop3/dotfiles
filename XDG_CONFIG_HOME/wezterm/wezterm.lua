@@ -184,6 +184,17 @@ local keys = {
 			},
 		}),
 	},
+
+	{
+		key = "/",
+		mods = "LEADER",
+		-- action = act.Multiple({
+		-- 	{ Multiple = { { CopyMode = "ClearPattern" }, { CopyMode = "ClearSelectionMode" } } },
+		-- 	{ Search = { CaseSensitiveString = "" } },
+		-- 	-- { Search = "CurrentSelectionOrEmptyString" },
+		-- }),
+		action = act.Search({ CaseSensitiveString = "" }),
+	},
 }
 
 utils.table.merge_table(keys, tmux.keys)
