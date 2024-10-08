@@ -26,7 +26,10 @@ if wezterm.gui then
 	table.insert(copy_mode, {
 		key = "y",
 		mods = "NONE",
-		action = act.CopyTo("ClipboardAndPrimarySelection"),
+		action = act.Multiple({
+			{ CopyTo = "ClipboardAndPrimarySelection" },
+			{ CopyMode = { SetSelectionMode = "Cell" } },
+		}),
 	})
 	table.insert(copy_mode, {
 		key = "Y",
