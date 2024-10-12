@@ -9,7 +9,7 @@
 
 " set up GUI
 " equals to `hoverlink = none, menubar = grey, navbar = auothide, padwhenmaximised = some, tabs = none
-guiset_quiet gui none
+" guiset_quiet gui none
 
 " guiset_quiet hoverlink left
 " guiset_quiet menubar default
@@ -24,7 +24,6 @@ guiset_quiet gui none
 " guiset_quiet statuspanel left
 " " guiset_quiet titlebar hide
 
-
 colors dark
 
 set update.checkintervalsecs 86400
@@ -32,5 +31,19 @@ set allowautofocus false
 set smoothscroll true
 
 " bind keys
-" bind d scrollpage 0.5
+
+" make d take you to the left (I find it much less confusing)
+bind d composite tabprev; tabclose #
+bind D tabclose
+" Handy multiwindow/multitasking binds
+bind gd tabdetach
+bind gD composite tabduplicate; tabdetach
+
+bind J tabnext
+bind K tabprev
+bind j scrollline 1
+bind k scrollline -1
+
 bind ZZ !s killall firefox
+
+" vim: set filetype=tridactyl
