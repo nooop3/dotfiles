@@ -4,25 +4,21 @@
 "    Version:  0.1.2
 "    Email:    nooop3.lau@gmail.com
 "    Blog: https://uare.github.io
-"    Date: 2024-10-12
+"    Date: 2024-10-13
 " =======================================
 
 " set up GUI
-" equals to `hoverlink = none, menubar = grey, navbar = auothide, padwhenmaximised = some, tabs = none
 " guiset_quiet gui none
-
-" guiset_quiet hoverlink left
-" guiset_quiet menubar default
-" guiset_quiet navbar autohide
-" " guiset_quiet navbar always
-" guiset_quiet padwhenmaximised none
-" " guiset_quiet tabs autohide
-" guiset_quiet tabs always
-" guiset_quiet tabcount on
-" guiset_quiet tabcounts show
-" " guiset_quiet tabstoolbar show
-" guiset_quiet statuspanel left
-" " guiset_quiet titlebar hide
+" equals to `hoverlink = none, menubar = grey, navbar = auothide, padwhenmaximised = some, tabs = none
+guiset_quiet hoverlink top-left
+guiset_quiet menubar default
+guiset_quiet navbar autohide
+guiset_quiet padwhenmaximised none
+guiset_quiet statuspanel left
+guiset_quiet tabs always
+guiset_quiet tabcount on
+guiset_quiet tabcounts hide
+guiset_quiet titlebar show
 
 " General Settings
 set update.lastchecktime 1728725151792
@@ -151,9 +147,9 @@ bind ;v hint -W mpvsafe
 bind ;V hint -V
 bind ;w hint -w
 bind ;t hint -W tabopen
-bind ;O hint -W fillcmdline_notrail open 
-bind ;W hint -W fillcmdline_notrail winopen 
-bind ;T hint -W fillcmdline_notrail tabopen 
+bind ;O hint -W fillcmdline_notrail open
+bind ;W hint -W fillcmdline_notrail winopen
+bind ;T hint -W fillcmdline_notrail tabopen
 bind ;d hint -W tabopen --discard
 bind ;gd hint -qW tabopen --discard
 bind ;z hint -z
