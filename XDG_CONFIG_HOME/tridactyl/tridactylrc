@@ -8,6 +8,8 @@
 " =======================================
 
 " set up GUI
+" toolkit.legacyUserProfileCustomizations.stylesheets -> true
+" maybe need to set profiledir value of profile dir from about:support page
 " guiset_quiet gui none
 " equals to `hoverlink = none, menubar = grey, navbar = auothide, padwhenmaximised = some, tabs = none
 guiset_quiet hoverlink top-left
@@ -19,6 +21,10 @@ guiset_quiet tabs always
 guiset_quiet tabcount on
 guiset_quiet tabcounts hide
 guiset_quiet titlebar show
+
+" To make Tridactyl work on addons.mozilla.org and some other Mozilla domains
+" add privacy.resistFingerprinting.block_mozAddonManager -> true
+" remove domains from extensions.webextensions.restrictedDomains
 
 " General Settings
 set update.lastchecktime 1728725151792
@@ -39,8 +45,8 @@ bind gwa winopen https://github.com/tridactyl/tridactyl
 bind ZZ !s killall firefox
 bind d composite tabprev; tabclose #
 bind D tabclose
-bind j scrollline 1
-bind k scrollline -1
+bind j scrollline 4
+bind k scrollline -4
 bind J tabnext
 bind K tabprev
 bind ;c hint -F e => { const pos = tri.dom.getAbsoluteCentre(e); tri.excmds.exclaim_quiet("xdotool mousemove --sync " + window.devicePixelRatio * pos.x + " " + window.devicePixelRatio * pos.y + "; xdotool click 3")}
@@ -197,3 +203,6 @@ bind ` gobble 1 markjump
 
 " Removed settings
 setnull 
+
+" For syntax highlighting see https://github.com/tridactyl/vim-tridactyl
+" vim: set filetype=tridactyl
