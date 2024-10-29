@@ -43,19 +43,44 @@
     "disable-scroll": true,
     "all-outputs": true,
     "warp-on-scroll": false,
-    "format": "{name}: {icon}",
-    "format-icons": {
-      "1": "",
-      "2": "",
-      "3": "",
-      "4": "",
-      "5": "",
-      "urgent": "",
-      "focused": "",
-      "default": ""
-    },
+    "format": "{icon} {windows}",
+    // "format-icons": {
+    //   "1": "",
+    //   "2": "",
+    //   "3": "",
+    //   "4": "",
+    //   "5": "",
+    //   "urgent": "",
+    //   "focused": "",
+    //   "default": ""
+    // },
     "on-scroll-up": "hyprctl dispatch workspace e+1",
-    "on-scroll-down": "hyprctl dispatch workspace e-1"
+    "on-scroll-down": "hyprctl dispatch workspace e-1",
+    "on-click": "activate",
+    "window-rewrite-default": "",
+    "window-rewrite": {
+      "title<.*youtube.*>": "", // Windows whose titles contain "youtube"
+      "class<firefox>": "", // Windows whose classes are "firefox"
+      "class<firefox> title<.*github.*>": "", // Windows whose class is "firefox" and title contains "github"
+      "class<firefox> title<.*twitch|youtube.*>": "",
+      "class<google-chrome>": "",
+      "class<google-chrome> title<.*github.*>": "",
+      "class<google-chrome> title<.*twitch|youtube.*>": "",
+      "class<Alacritty>": "",
+      "class<kitty>": "",
+      "class<org.kde.konsole>": "",
+      "code": "",
+      "class<thunderbird>": "",
+      "class<vlc>": "",
+      "class<thunar>": "",
+      "class<org.gnome.Nautilus>": "",
+      "class<org.kde.dolphin>": "",
+      "class<org.kde.kate>": "",
+      "class<libreoffice-draw>": "",
+      "class<libreoffice-writer>": "",
+      "class<libreoffice-calc>": "",
+      "class<libreoffice-impress>": ""
+    }
   },
   "hyprland/window": {
     "separate-outputs": true
