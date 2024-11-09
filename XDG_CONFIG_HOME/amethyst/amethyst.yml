@@ -1,4 +1,3 @@
-# Default settings for Amethyst
 # Repo: `https://github.com/ianyh/Amethyst`
 #
 # Note due to issue 1419 (https://github.com/ianyh/Amethyst/issues/1419) some
@@ -18,7 +17,7 @@ layouts:
   - tall
   - fullscreen
   # - tall-right
-  - wide
+  # - wide
   # - two-pane
   # - middle-wide
   # - 3column-left
@@ -26,12 +25,12 @@ layouts:
   # - 3column-right
   # - 4column-left
   # - 4column-right
-  - column
+  # - column
   # - row
-  # - floating
+  - floating
   # - widescreen-tall
   # - widescreen-tall-right
-  # - bsp
+  - bsp
 
 # First mod (default option + shift).
 mod1:
@@ -110,12 +109,12 @@ decrease-main:
 # Focus the next window in the list going counter-clockwise.
 focus-ccw:
   mod: mod1
-  key: j
+  key: k
 
 # Focus the next window in the list going clockwise.
 focus-cw:
   mod: mod1
-  key: k
+  key: j
 
 # Focus the main window in the list.
 focus-main:
@@ -145,12 +144,12 @@ swap-screen-cw:
 # Swap the position of the currently focused window with the next window in the list going counter-clockwise.
 swap-ccw:
   mod: mod2
-  key: j
+  key: k
 
 # Swap the position of the currently focused window with the next window in the list going clockwise.
 swap-cw:
   mod: mod2
-  key: k
+  key: j
 
 # Swap the position of the currently focused window with the main window in the list.
 swap-main:
@@ -188,9 +187,9 @@ select-fullscreen-layout:
   key: d
 
 # Select column layout
-select-column-layout:
-  mod: mod1
-  key: f
+# select-column-layout:
+#   mod: mod1
+#   key: f
 
 # Move the currently focused window to the space to the left.
 throw-space-left:
@@ -233,7 +232,7 @@ relaunch-amethyst:
   key: z
 
 # disable screen padding on builtin display
-disable-padding-on-builtin-display: false
+disable-padding-on-builtin-display: true
 
 # Boolean flag for whether or not to add margins between windows (default false).
 window-margins: false
@@ -258,7 +257,18 @@ window-minimum-height: 0
 window-minimum-width: 0
 
 # List of bundle identifiers for applications to either be automatically floating or automatically tiled based on floating-is-blacklist (default []).
-floating: []
+floating:
+  - com.apple.finder
+  - com.apple.systempreferences
+  - com.henderson.henderson-touch.dev
+  - com.henderson.henderson-touch.staging
+  - com.henderson.henderson-touch
+  - com.henderson.h-circle.dev
+  - com.henderson.h-circle.staging
+  - com.henderson.h-circle
+  - com.henderson.thehenderson.dev
+  - com.henderson.thehenderson.staging
+  - com.henderson.thehenderson
 
 # Boolean flag determining behavior of the floating list. true if the applications should be floating and all others tiled. false if the applications should be tiled and all others floating (default true).
 floating-is-blacklist: true
@@ -279,10 +289,10 @@ mouse-follows-focus: false
 focus-follows-mouse: false
 
 # true if dragging and dropping windows on to each other should swap their positions (default false).
-mouse-swaps-windows: false
+mouse-swaps-windows: true
 
 # true if changing the frame of a window with the mouse should update the layout to accommodate the change (default false). Note that not all layouts will be able to respond to the change.
-mouse-resizes-windows: false
+mouse-resizes-windows: true
 
 # true to display the name of the layout when a new layout is selected (default true).
 enables-layout-hud: true
