@@ -11,7 +11,7 @@ vim.g.gruvbox_material_enable_italic = 1
 
 vim.opt.swapfile = false
 -- vim.opt.wrap = true
-vim.opt.clipboard:remove("unnamedplus")
+vim.opt.clipboard = ""
 vim.opt.cursorcolumn = true
 vim.opt.termsync = false
 
