@@ -9,6 +9,8 @@ vim.g.gruvbox_material_enable_bold = 1
 vim.g.gruvbox_material_enable_italic = 1
 -- vim.g.gruvbox_material_dim_inactive_windows = 1
 
+vim.g.lazyvim_picker = "fzf"
+
 vim.opt.swapfile = false
 -- vim.opt.wrap = true
 vim.opt.clipboard = ""
