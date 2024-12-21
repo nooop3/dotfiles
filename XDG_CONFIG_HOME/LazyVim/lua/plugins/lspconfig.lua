@@ -31,6 +31,7 @@ return {
   {
     "neovim/nvim-lspconfig",
     dependencies = {
+      "nvim-telescope/telescope.nvim",
       "jose-elias-alvarez/typescript.nvim",
       "someone-stole-my-name/yaml-companion.nvim",
       init = function()

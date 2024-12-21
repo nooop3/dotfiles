@@ -2,7 +2,7 @@ local actions = require("telescope.actions")
 
 return {
   {
-    "nvim-telescope/telescope.nvim",
+    "ibhagwan/fzf-lua",
     keys = {
       { "<c-p>", LazyVim.pick("auto"), desc = "Find Files (root dir)" },
       { "<leader>fT", LazyVim.pick("filetypes"), desc = "Filetypes" },
