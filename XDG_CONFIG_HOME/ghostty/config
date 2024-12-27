@@ -1,0 +1,21 @@
+font-family = "FiraCode Nerd Font"
+font-family = "SauceCodePro Nerd Font"
+font-family = "JetBrains Mono"
+font-family = "Sarasa Mono Slab SC"
+font-family = "Heiti SC"
+
+font-size = 16
+
+theme = "catppuccin-mocha"
+
+mouse-hide-while-typing = true
+
+macos-titlebar-style = hidden
+macos-titlebar-proxy-icon = hidden
+macos-option-as-alt = "left"
+
+window-decoration = false
+
+quit-after-last-window-closed = true
+
+auto-update = off
