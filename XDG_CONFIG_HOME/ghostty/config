@@ -1,10 +1,9 @@
-font-family = "FiraCode Nerd Font"
 font-family = "SauceCodePro Nerd Font"
 font-family = "JetBrains Mono"
 font-family = "Sarasa Mono Slab SC"
 font-family = "Heiti SC"
 
-font-size = 12
+font-size = 8
 
 # theme = "catppuccin-mocha"
 # theme = "ayu"
