@@ -6,8 +6,8 @@ font-family = "Heiti SC"
 # theme = "catppuccin-mocha"
 # theme = "ayu"
 
+font-thicken = true
 mouse-hide-while-typing = true
-
 macos-titlebar-style = hidden
 macos-titlebar-proxy-icon = hidden
 macos-option-as-alt = "left"
