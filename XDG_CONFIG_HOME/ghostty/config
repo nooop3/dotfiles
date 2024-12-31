@@ -3,8 +3,6 @@ font-family = "JetBrains Mono"
 font-family = "Sarasa Mono Slab SC"
 font-family = "Heiti SC"
 
-font-size = 8
-
 # theme = "catppuccin-mocha"
 # theme = "ayu"
 
@@ -19,3 +17,5 @@ window-decoration = false
 quit-after-last-window-closed = true
 
 auto-update = off
+
+config-file = font-config
