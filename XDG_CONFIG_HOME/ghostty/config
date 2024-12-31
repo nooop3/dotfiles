@@ -11,6 +11,8 @@ mouse-hide-while-typing = true
 macos-titlebar-style = hidden
 macos-titlebar-proxy-icon = hidden
 macos-option-as-alt = "left"
+# macos-non-native-fullscreen = true
+# fullscreen = true
 
 window-decoration = false
 
