@@ -23,6 +23,9 @@ return {
           },
         },
       },
+      files = {
+        fd_opts = "--type f --hidden --follow --exclude .git --no-ignore-vcs --ignore-file=.gitignore",
+      },
     },
   },
   -- project management
