@@ -37,6 +37,7 @@ set noswapfile
 set number
 set relativenumber
 set termguicolors
+set hlsearch
 
 # colorscheme
 colorscheme habamax
