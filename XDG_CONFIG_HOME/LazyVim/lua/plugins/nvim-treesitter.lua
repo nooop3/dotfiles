@@ -12,6 +12,7 @@ return {
         "php",
         "ruby",
         "dart",
+        "just",
       })
 
       local parser_configs = parsers.get_parser_configs()
