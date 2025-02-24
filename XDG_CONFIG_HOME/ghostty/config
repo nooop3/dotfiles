@@ -11,7 +11,9 @@ mouse-hide-while-typing = true
 macos-titlebar-style = hidden
 macos-titlebar-proxy-icon = hidden
 macos-option-as-alt = "left"
-# macos-non-native-fullscreen = true
+# waiting version 1.2 releases
+# https://github.com/ghostty-org/ghostty/pull/5750
+# macos-non-native-fullscreen = "padded-notch"
 # fullscreen = true
 
 window-decoration = false
