@@ -29,6 +29,7 @@ require("lazy").setup({
     -- { import = "lazyvim.plugins.extras.formatting.prettier" },
     { import = "lazyvim.plugins.extras.lang.helm" },
     { import = "lazyvim.plugins.extras.lang.json" },
+    { import = "lazyvim.plugins.extras.lang.python" },
     { import = "lazyvim.plugins.extras.lang.ruby" },
     -- { import = "lazyvim.plugins.extras.lang.toml" },
     -- { import = "lazyvim.plugins.extras.lang.scala" },
