@@ -14,6 +14,10 @@ return {
       -- temperature = 0,
       -- max_tokens = 8192,
     },
+    claude = {
+      -- https://github.com/yetone/avante.nvim/issues/1775
+      api_key_name = { "echo", "nothing" },
+    },
   },
   -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
   build = "make",
