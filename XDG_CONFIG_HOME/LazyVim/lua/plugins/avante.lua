@@ -2,18 +2,17 @@ return {
   "yetone/avante.nvim",
   event = "VeryLazy",
   version = false, -- Never set this value to "*"! Never!
-  enabled = false,
+  -- enabled = false,
   opts = {
-    -- add any opts here
-    -- for example
-    provider = "openai",
-    openai = {
-      endpoint = "https://api.openai.com/v1",
-      model = "gpt-4o", -- your desired model (or use gpt-4o, etc.)
-      timeout = 30000, -- Timeout in milliseconds, increase this for reasoning models
-      temperature = 0,
-      max_completion_tokens = 8192, -- Increase this to include reasoning tokens (for reasoning models)
-      --reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
+    provider = "gemini",
+    gemini = {
+      api_key_name = { "bw", "get", "notes", "gemini-api-key" },
+      -- endpoint = "https://generativelanguage.googleapis.com/v1beta/models",
+      -- model = "gemini-1.5-flash-latest",
+      -- model = "gemini-2.0-flash",
+      -- timeout = 30000,
+      -- temperature = 0,
+      -- max_tokens = 8192,
     },
   },
   -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
