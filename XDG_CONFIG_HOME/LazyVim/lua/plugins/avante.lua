@@ -6,7 +6,7 @@ return {
   opts = {
     provider = "gemini",
     gemini = {
-      api_key_name = { "bw", "get", "notes", "gemini-api-key" },
+      -- api_key_name = { "bw", "get", "notes", "gemini-api-key" },
       -- endpoint = "https://generativelanguage.googleapis.com/v1beta/models",
       -- model = "gemini-1.5-flash-latest",
       -- model = "gemini-2.0-flash",
