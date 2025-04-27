@@ -1,5 +1,12 @@
 local actions = require("telescope.actions")
 
+-- Check if current working directory has a .gitignore
+local function has_gitignore()
+  local cwd = vim.fn.getcwd()
+  local gitignore_path = cwd .. "/.gitignore"
+  return vim.fn.filereadable(gitignore_path) == 1
+end
+
 return {
   {
     "ibhagwan/fzf-lua",
@@ -24,7 +31,8 @@ return {
         },
       },
       files = {
-        fd_opts = "--type f --hidden --follow --exclude .git --no-ignore-vcs --ignore-file=.gitignore",
+        fd_opts = [[--color=never --hidden --type f --type l --exclude .git]]
+          .. (has_gitignore() and " --no-ignore-vcs --ignore-file=.gitignore" or ""),
       },
     },
   },
