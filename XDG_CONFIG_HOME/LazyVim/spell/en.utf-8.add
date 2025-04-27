@@ -40,3 +40,9 @@ cqlsh
 config
 jmeter
 Podfile
+buildx
+kaniko
+ecr
+krane
+ci
+buildah
