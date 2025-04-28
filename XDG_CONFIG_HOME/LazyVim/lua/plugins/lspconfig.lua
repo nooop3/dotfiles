@@ -137,7 +137,7 @@ return {
         vtsls = {
           -- enabled = true,
           handlers = {
-            ["textDocument/publishDiagnostics"] = function(_, result, ctx, config)
+            ["textDocument/publishDiagnostics"] = function(_, result, ctx)
               if result.diagnostics == nil then
                 return
               end
@@ -177,7 +177,7 @@ return {
                 end
               end
 
-              vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx, config)
+              vim.lsp.diagnostic.on_publish_diagnostics(_, result, ctx)
             end,
           },
         },
