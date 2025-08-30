@@ -1,0 +1,11 @@
+frame = "full"
+maximized = true
+# mouse-cursor-icon = "arrow"
+tabs = true
+theme = "auto"
+title-hidden = true
+vsync = true
+
+[font]
+normal = ["FiraCode Nerd Font Mono", "SauceCodePro Nerd Font Mono"]
+size = 12
