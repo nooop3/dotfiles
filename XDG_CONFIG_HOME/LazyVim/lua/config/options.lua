@@ -18,10 +18,7 @@ vim.opt.cursorcolumn = true
 vim.opt.termsync = false
 
 --[[ neovide ]]
-if vim.g.neovide then
-  vim.opt.guifont = "SauceCodePro Nerd Font Mono:h8"
-  -- vim.opt.guifont = "SauceCodePro NF"
-  -- vim.g.neovide_fullscreen = true
-  -- vim.g.neovide_remember_window_size = true
-  -- g.neovide_cursor_vfx_mode = "railgun"
-end
+-- if vim.g.neovide then
+--   -- vim.opt.guifont = "SauceCodePro Nerd Font Mono:h8"
+--   -- vim.opt.guifont = "SauceCodePro NF"
+-- end
