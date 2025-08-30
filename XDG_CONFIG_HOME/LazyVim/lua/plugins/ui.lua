@@ -18,6 +18,12 @@ return {
       { "<leader>b>", "<CMD>BufferLineMoveNext<CR>", desc = "Buffer move to next" },
       { "<leader>b<", "<CMD>BufferLineMovePrev<CR>", desc = "Buffer move to previous" },
     },
+    init = function()
+      local bufline = require("catppuccin.groups.integrations.bufferline")
+      function bufline.get()
+        return bufline.get_theme()
+      end
+    end,
   },
 
   {
