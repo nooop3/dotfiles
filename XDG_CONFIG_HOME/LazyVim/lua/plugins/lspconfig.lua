@@ -1,3 +1,7 @@
+if true then
+  return {}
+end
+
 local yaml_setting = {
   format = {
     enable = true,

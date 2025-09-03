@@ -1,7 +1,4 @@
 {
-  "extras": [
-    "lazyvim.plugins.extras.ai.codeium"
-  ],
   "install_version": 7,
   "news": {
     "NEWS.md": "10960"
