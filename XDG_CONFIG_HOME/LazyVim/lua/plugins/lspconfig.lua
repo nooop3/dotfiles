@@ -14,30 +14,6 @@ if true then
         },
       },
     },
-    {
-      "neovim/nvim-lspconfig",
-      opts = {
-        servers = {
-          jinja_lsp = {
-            filetypes = { "jinja", "htmldjango", "html" },
-            root_dir = function(fname)
-              return require("lspconfig.util").root_pattern("pyproject.toml", "requirements.txt", ".git")(fname)
-            end,
-          },
-        },
-      },
-    },
-
-    {
-      "williamboman/mason.nvim",
-      opts = function(_, opts)
-        opts.ensure_installed = opts.ensure_installed or {}
-        vim.list_extend(opts.ensure_installed, {
-          "jinja-lsp",
-          "djlint",
-        })
-      end,
-    },
   }
 end
 
