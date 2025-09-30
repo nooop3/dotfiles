@@ -1,5 +1,20 @@
 if true then
-  return {}
+  return {
+    {
+      "neovim/nvim-lspconfig",
+      opts = {
+        servers = {
+          yamlls = {
+            settings = {
+              yaml = {
+                customTags = { "!Ref", "!ImportValue", "!reference sequence", "!del" },
+              },
+            },
+          },
+        },
+      },
+    },
+  }
 end
 
 local yaml_setting = {
