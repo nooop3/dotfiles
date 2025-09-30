@@ -1,4 +1,4 @@
-local actions = require("telescope.actions")
+-- local actions = require("telescope.actions")
 
 -- Check if current working directory has a .gitignore
 local function has_gitignore()
@@ -13,21 +13,21 @@ return {
     keys = {
       { "<c-p>", LazyVim.pick("auto"), desc = "Find Files (root dir)" },
       { "<leader>fT", LazyVim.pick("filetypes"), desc = "Filetypes" },
-      { "<leader>sy", "<cmd>Telescope yaml_schema<cr>", desc = "Yaml schema" },
+      -- { "<leader>sy", "<cmd>Telescope yaml_schema<cr>", desc = "Yaml schema" },
     },
     opts = {
       defaults = {
         mappings = {
-          n = {
-            ["<C-c>"] = actions.close,
-            ["<C-f>"] = actions.preview_scrolling_down,
-            ["<C-b>"] = actions.preview_scrolling_up,
-          },
-          i = {
-            ["<c-t>"] = actions.select_tab,
-            ["<C-j>"] = actions.move_selection_next,
-            ["<C-k>"] = actions.move_selection_previous,
-          },
+          -- n = {
+          --   ["<C-c>"] = actions.close,
+          --   ["<C-f>"] = actions.preview_scrolling_down,
+          --   ["<C-b>"] = actions.preview_scrolling_up,
+          -- },
+          -- i = {
+          --   ["<c-t>"] = actions.select_tab,
+          --   ["<C-j>"] = actions.move_selection_next,
+          --   ["<C-k>"] = actions.move_selection_previous,
+          -- },
         },
       },
       files = {
