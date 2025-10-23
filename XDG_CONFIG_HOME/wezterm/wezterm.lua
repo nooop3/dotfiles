@@ -57,7 +57,7 @@ config.font = wezterm.font_with_fallback({
 	"FiraCode Nerd Font",
 	"SauceCodePro Nerd Font",
 	"JetBrains Mono",
-	"Sarasa Mono Slab SC",
+	-- "Sarasa Mono Slab SC",
 	"Heiti SC",
 })
 config.font_size = util_sys.is_darwin and 14.0 or 18.0
