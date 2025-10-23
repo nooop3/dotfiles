@@ -6,8 +6,9 @@ if true then
         servers = {
           yamlls = {
             settings = {
+              redhat = { telemetry = { enabled = false } },
               yaml = {
-                customTags = { "!Ref", "!ImportValue", "!reference sequence", "!del" },
+                customTags = { "!Ref", "!ImportValue", "!reference sequence" },
               },
             },
           },
