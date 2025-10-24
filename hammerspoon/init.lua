@@ -61,4 +61,7 @@ end)
 -- 	spoon.AClock:toggleShowPersistent()
 -- end)
 
+local tmux_continuum = require("modules.tmux_continuum")
+tmux_continuum.start()
+
 hs.alert.show("Config loaded")
