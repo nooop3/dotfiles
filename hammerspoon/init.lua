@@ -46,9 +46,9 @@ Install:andUse("AClock", {
 	config = {
 		format = "%H:%M",
 		-- textFont = "Menlo",
-		textSize = 120,
-		width = 320,
-		height = 230,
+		textSize = 240,
+		width = 640,
+		height = 460,
 		showDuration = 4,
 	},
 	start = false,
@@ -57,8 +57,8 @@ Install:andUse("AClock", {
 hk.bind({ "cmd", "alt", "ctrl" }, "T", function()
 	spoon.AClock:toggleShow()
 end)
-hk.bind({ "cmd", "alt", "ctrl" }, "A", function()
-	spoon.AClock:toggleShowPersistent()
-end)
+-- hk.bind({ "cmd", "alt", "ctrl" }, "A", function()
+-- 	spoon.AClock:toggleShowPersistent()
+-- end)
 
 hs.alert.show("Config loaded")
