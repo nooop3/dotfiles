@@ -1,6 +1,7 @@
 require("hs.ipc")
 
 local configDir = hs.configdir
+local hk = require("hs.hotkey")
 
 -- SpoonInstall
 hs.loadSpoon("SpoonInstall")
@@ -19,7 +20,7 @@ local function uniq(list)
 	return result
 end
 
--- get the real path of the init.lua file
+-- get the real dir of the init.lua file
 local function getInitRealDir()
 	local initFile = configDir .. "/init.lua"
 
@@ -39,17 +40,25 @@ Install:andUse("ReloadConfiguration", {
 		watch_paths = watchDirs,
 	},
 })
-hs.alert.show(initRealDir)
-hs.alert.show("Config loaded")
 
--- Caffeine
-Install:andUse("Caffeine", {
-	hotkeys = {
-		toggle = { { "cmd", "alt", "ctrl" }, "C" },
+-- AClock
+Install:andUse("AClock", {
+	config = {
+		format = "%H:%M",
+		-- textFont = "Menlo",
+		textSize = 120,
+		width = 320,
+		height = 230,
+		showDuration = 4,
 	},
+	start = false,
 })
+-- Hotkeys: transient (auto-hides after showDuration) & persistent toggle
+hk.bind({ "cmd", "alt", "ctrl" }, "T", function()
+	spoon.AClock:toggleShow()
+end)
+hk.bind({ "cmd", "alt", "ctrl" }, "A", function()
+	spoon.AClock:toggleShowPersistent()
+end)
 
--- hs.loadSpoon("AClock")
--- hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "C", function()
--- 	spoon.AClock:toggleShow()
--- end)
+hs.alert.show("Config loaded")
