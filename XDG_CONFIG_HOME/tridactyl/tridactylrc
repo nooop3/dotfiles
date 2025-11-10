@@ -209,3 +209,5 @@ setnull
 
 " For syntax highlighting see https://github.com/tridactyl/vim-tridactyl
 " vim: set filetype=tridactyl
+
+" set superignore false
