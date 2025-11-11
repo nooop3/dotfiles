@@ -2,8 +2,6 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     opts = function(_, opts)
-      local parsers = require("nvim-treesitter.parsers")
-
       vim.list_extend(opts.ensure_installed, {
         "proto",
         "java",
