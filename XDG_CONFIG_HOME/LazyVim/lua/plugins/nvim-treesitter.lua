@@ -15,14 +15,6 @@ return {
         "just",
       })
 
-      local parser_configs = parsers.get_parser_configs()
-
-      local github_mirror = "https://github.com/"
-      for _, config in pairs(parser_configs) do
-        ---@diagnostic disable-next-line: undefined-field
-        config.install_info.url = config.install_info.url:gsub("https://github.com/", github_mirror)
-      end
-
       -- jinjia
 
       ---@diagnostic disable-next-line: inject-field
