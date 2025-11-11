@@ -1,7 +1,6 @@
 return {
   {
     "akinsho/bufferline.nvim",
-    event = "VeryLazy",
     keys = {
       { "<leader>b1", "<CMD>BufferLineGoToBuffer 1<CR>", desc = "Switch to buffer 1" },
       { "<leader>b2", "<CMD>BufferLineGoToBuffer 2<CR>", desc = "Switch to buffer 2" },
@@ -37,5 +36,24 @@ return {
         opts.sections.lualine_z,
       }
     end,
+  },
+
+  {
+    "folke/snacks.nvim",
+    opts = {
+      gitbrowse = {
+        config = function(opts, _)
+          table.insert(opts.remote_patterns, 1, { "^git@ssh%.(.+):(.+)%.git$", "https://git.%1/%2" })
+          opts.url_patterns = {
+            -- default to gitlab url patterns
+            ["git%..+"] = {
+              branch = "/-/tree/{branch}",
+              file = "/-/blob/{branch}/{file}#L{line_start}-L{line_end}",
+              commit = "/-/commit/{commit}",
+            },
+          }
+        end,
+      },
+    },
   },
 }
