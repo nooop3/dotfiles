@@ -44,12 +44,5 @@ return {
       exclude_dirs = { "~/.cargo/*", "*/node_modules/*" },
       scope_chdir = "tab",
     },
-    event = "VeryLazy",
-    config = function(_, opts)
-      require("project_nvim").setup(opts)
-      LazyVim.on_load("telescope.nvim", function()
-        require("telescope").load_extension("projects")
-      end)
-    end,
   },
 }
