@@ -20,6 +20,7 @@ require("lazy").setup({
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
 
     -- import any extras modules here
+    { import = "lazyvim.plugins.extras.ai.avante" },
     { import = "lazyvim.plugins.extras.ai.codeium" },
     { import = "lazyvim.plugins.extras.ai.copilot" },
     { import = "lazyvim.plugins.extras.coding.luasnip" },
