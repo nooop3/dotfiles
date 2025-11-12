@@ -36,8 +36,5 @@ return {
         desc = "Generate file docstring",
       },
     },
-    opts = {
-      snippet_engine = "luasnip",
-    },
   },
 }

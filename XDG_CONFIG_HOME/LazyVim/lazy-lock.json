@@ -61,5 +61,6 @@
   "venv-selector.nvim": { "branch": "main", "commit": "1ef6564d0bd0d9c4194711cfb696357a6119abd7" },
   "vim-surround": { "branch": "master", "commit": "3d188ed2113431cf8dac77be61b842acb64433d9" },
   "vim-tridactyl": { "branch": "master", "commit": "fdd069bde3a34c786abed4601b6d59a065590ad9" },
-  "which-key.nvim": { "branch": "main", "commit": "3aab2147e74890957785941f0c1ad87d0a44c15a" }
+  "which-key.nvim": { "branch": "main", "commit": "3aab2147e74890957785941f0c1ad87d0a44c15a" },
+  "yanky.nvim": { "branch": "main", "commit": "04775cc6e10ef038c397c407bc17f00a2f52b378" }
 }
