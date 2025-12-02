@@ -76,20 +76,6 @@ autocmd({ "BufNewFile", "BufRead" }, {
     opt_local.filetype = "ruby"
   end,
 })
-autocmd({ "BufNewFile", "BufRead" }, {
-  group = custom_file_type_changes,
-  pattern = { "*" },
-  callback = function()
-    if
-      not vim.fn.expand("%:p"):match("ansible")
-      and vim.fn.expand("%:e"):match("ya?ml")
-      and vim.fn.search("{{.\\+}}", "nw") ~= 0
-    then
-      opt_local.filetype = "helm"
-      opt_local.commentstring = "{{/* %s */}}"
-    end
-  end,
-})
 
 vim.g.input_toggle = 0
 local fcitx2en = function()
