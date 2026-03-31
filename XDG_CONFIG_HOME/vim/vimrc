@@ -5,6 +5,11 @@ vim9script
 unlet! g:skip_defaults_vim
 source $VIMRUNTIME/defaults.vim
 
+packadd! editorconfig
+packadd! comment
+packadd! nohlsearch
+packadd! hlyank
+
 if !has('gui_running') && &term =~ '^\%(screen\|tmux\)'
     # Better mouse support, see  :help 'ttymouse'
     set ttymouse=sgr
@@ -38,6 +43,8 @@ set number
 set relativenumber
 set termguicolors
 set hlsearch
+packadd osc52
+set clipmethod+=osc52
 
 # colorscheme
 colorscheme habamax
