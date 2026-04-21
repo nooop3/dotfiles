@@ -8,6 +8,9 @@ return {
             redhat = { telemetry = { enabled = false } },
             yaml = {
               customTags = { "!Ref", "!ImportValue", "!reference sequence" },
+              format = {
+                printWidth = 100000,
+              },
             },
           },
         },
